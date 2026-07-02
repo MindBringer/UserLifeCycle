@@ -1,0 +1,105 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cra97_BL_SharePoint"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "Wenn_ein_Element_erstellt_wird": {
+          "recurrence": {
+            "interval": 1,
+            "frequency": "Minute"
+          },
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "metadata": {
+            "operationMetadataId": "d36408fd-9212-4c51-a2e5-e91683388cc5"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
+              "table": "075c1eea-3024-47cf-adb9-7a4e694b716e"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetOnNewItems",
+              "connectionName": "shared_sharepointonline_1"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Compose_RequestPrefix": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "5686960c-05c7-496c-83a9-e35528836fd3"
+          },
+          "type": "Compose",
+          "inputs": "@if(\n  equals(triggerBody()?['RequestType']?['Value'], 'Onboarding'),\n  'ONB',\n  if(\n    equals(triggerBody()?['RequestType']?['Value'], 'Mover'),\n    'MOV',\n    if(\n      equals(triggerBody()?['RequestType']?['Value'], 'Offboarding'),\n      'OFB',\n      if(\n        equals(triggerBody()?['RequestType']?['Value'], 'AccessRequest'),\n        'ACC',\n        'REQ'\n      )\n    )\n  )\n)"
+        },
+        "Compose_LifecycleID": {
+          "runAfter": {
+            "Compose_RequestPrefix": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2c32895b-7fbf-4d14-a44f-617efc897322"
+          },
+          "type": "Compose",
+          "inputs": "@\nconcat(\n  'BLC-',\n  outputs('Compose_RequestPrefix'),\n  '-',\n  formatDateTime(utcNow(), 'yyyy'),\n  '-',\n  substring(\n    concat('000000', string(triggerBody()?['ID'])),\n    sub(length(concat('000000', string(triggerBody()?['ID']))), 6),\n    6\n  )\n)\n"
+        },
+        "Element_aktualisieren": {
+          "runAfter": {
+            "Compose_LifecycleID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "3e09314d-d638-46a9-b34b-d1800986fe8b"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
+              "table": "075c1eea-3024-47cf-adb9-7a4e694b716e",
+              "id": "@triggerOutputs()?['body/ID']",
+              "item/Title": "@triggerOutputs()?['body/Title']",
+              "item/TargetDisplayName": "@triggerOutputs()?['body/TargetDisplayName']",
+              "item/LifecycleID": "@outputs('Compose_LifecycleID')",
+              "item/EmployeeCreated": false,
+              "item/TasksCreated": false
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "PatchItem",
+              "connectionName": "shared_sharepointonline_1"
+            }
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

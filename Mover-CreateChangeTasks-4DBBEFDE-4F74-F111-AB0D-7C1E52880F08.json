@@ -82,7 +82,7 @@
         },
         "holeEmployee": {
           "runAfter": {
-            "Bedingung": [
+            "Compose_RelatedEmployeeID": [
               "Succeeded"
             ]
           },
@@ -94,7 +94,7 @@
             "parameters": {
               "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
               "table": "3cd001bd-a32e-4050-8974-8817a4453e97",
-              "id": "@triggerOutputs()?['body/RelatedEmployee/Id']"
+              "id": "@outputs('Compose_RelatedEmployeeID')"
             },
             "host": {
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
@@ -114,7 +114,7 @@
             "parameters": {
               "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
               "table": "7f0c6aa9-ac6e-4af2-ace8-690324c22586",
-              "$filter": "EmployeeId eq @{triggerBody()?['RelatedEmployee/Id']} and Active eq 1 and IsPrimaryRole eq 1",
+              "$filter": "EmployeeId eq @{outputs('Compose_RelatedEmployeeID')} and Active eq 1 and IsPrimaryRole eq 1",
               "$top": 1
             },
             "host": {
@@ -301,9 +301,18 @@
                       "type": "Compose",
                       "inputs": "@\ncoalesce(\n  items('Apply_to_each_NewRoleEntitlement')?['TaskDescriptionOverride_Mover'],\n  outputs('Get_item_AddEntitlement')?['body/TaskDescription_Mover'],\n  concat(\n    'Recht zuweisen wegen Rollenwechsel.',\n    decodeUriComponent('%0A'),\n    'Mitarbeiter: ', outputs('holeEmployee')?['body/DisplayName'],\n    decodeUriComponent('%0A'),\n    'LifecycleID: ', triggerBody()?['LifecycleID']\n  )\n)\n"
                     },
-                    "Create_item_AddTask": {
+                    "Compose_AddTaskID": {
                       "runAfter": {
                         "Compose_AddTaskDescription": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Compose",
+                      "inputs": "@\nconcat(\n  triggerBody()?['LifecycleID'],\n  '-ADD-',\n  outputs('Get_item_AddEntitlement')?['body/EntitlementID']\n)\n"
+                    },
+                    "GetExistingAddTask": {
+                      "runAfter": {
+                        "Compose_AddTaskID": [
                           "Succeeded"
                         ]
                       },
@@ -312,26 +321,65 @@
                         "parameters": {
                           "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
                           "table": "7e2e0b98-00c4-436b-abbb-6495d56d79a3",
-                          "item/Title": "@concat(triggerBody()?['LifecycleID'], ' - ADD - ', outputs('Get_item_AddEntitlement')?['body/Title'])",
-                          "item/TaskTitle": "@\nconcat(\n  triggerBody()?['LifecycleID'],\n  ' - ',\n  outputs('holeEmployee')?['body/DisplayName'],\n  ' - ADD - ',\n  outputs('Get_item_AddEntitlement')?['body/Title']\n)\n",
-                          "item/TaskID": "@\nconcat(\n  triggerBody()?['LifecycleID'],\n  '-ADD-',\n  outputs('Get_item_AddEntitlement')?['body/EntitlementID']\n)\n",
-                          "item/TaskOwnerGroup/Value": "@outputs('Get_item_AddEntitlement')?['body/TaskOwnerGroup_Mover/Value']",
-                          "item/TaskStatus/Value": "Open",
-                          "item/RelatedLifecycleRequest/Id": "@triggerBody()?['ID']",
-                          "item/TaskDescription": "@outputs('Compose_AddTaskDescription')",
-                          "item/Priority/Value": "Normal",
-                          "item/RequiresEvidence": "@coalesce(outputs('Get_item_AddEntitlement')?['body/RequiresEvidence_Mover'], false)",
-                          "item/EvidenceDescription": "@coalesce(outputs('Get_item_AddEntitlement')?['body/EvidenceDescription_Mover'], '')",
-                          "item/RelatedEmployee/Id": "@triggerBody()?['RelatedEmployee/Id']",
-                          "item/RelatedEntitlement/Id": "@outputs('_Compose_CurrentEntitlementId')",
-                          "item/LifecycleID": "@triggerBody()?['LifecycleID']"
+                          "$filter": "TaskID eq '@{outputs('Compose_AddTaskID')}'",
+                          "$top": 1
                         },
                         "host": {
                           "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                          "operationId": "PostItem",
+                          "operationId": "GetItems",
                           "connectionName": "shared_sharepointonline_1"
                         }
                       }
+                    },
+                    "TaskIsNew": {
+                      "actions": {
+                        "Create_item_AddTask": {
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
+                              "table": "7e2e0b98-00c4-436b-abbb-6495d56d79a3",
+                              "item/Title": "@concat(triggerBody()?['LifecycleID'], ' - ADD - ', outputs('Get_item_AddEntitlement')?['body/Title'])",
+                              "item/TaskTitle": "@\nconcat(\n  triggerBody()?['LifecycleID'],\n  ' - ',\n  outputs('holeEmployee')?['body/DisplayName'],\n  ' - ADD - ',\n  outputs('Get_item_AddEntitlement')?['body/Title']\n)\n",
+                              "item/TaskID": "@outputs('Compose_AddTaskID')",
+                              "item/TaskOwnerGroup/Value": "@outputs('Get_item_AddEntitlement')?['body/TaskOwnerGroup_Mover/Value']",
+                              "item/TaskStatus/Value": "Open",
+                              "item/RelatedLifecycleRequest/Id": "@triggerBody()?['ID']",
+                              "item/TaskDescription": "@outputs('Compose_AddTaskDescription')",
+                              "item/Priority/Value": "Normal",
+                              "item/RequiresEvidence": "@coalesce(outputs('Get_item_AddEntitlement')?['body/RequiresEvidence_Mover'], false)",
+                              "item/EvidenceDescription": "@coalesce(outputs('Get_item_AddEntitlement')?['body/EvidenceDescription_Mover'], '')",
+                              "item/RelatedEmployee/Id": "@outputs('Compose_RelatedEmployeeID')",
+                              "item/RelatedEntitlement/Id": "@outputs('_Compose_CurrentEntitlementId')",
+                              "item/LifecycleID": "@triggerBody()?['LifecycleID']"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                              "operationId": "PostItem",
+                              "connectionName": "shared_sharepointonline_1"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "GetExistingAddTask": [
+                          "Succeeded"
+                        ]
+                      },
+                      "else": {
+                        "actions": {}
+                      },
+                      "expression": {
+                        "and": [
+                          {
+                            "equals": [
+                              "@length(body('GetExistingAddTask')?['value'])",
+                              0
+                            ]
+                          }
+                        ]
+                      },
+                      "type": "If"
                     }
                   },
                   "runAfter": {
@@ -416,38 +464,6 @@
                       "type": "Compose",
                       "inputs": "@\nconcat(\n  'Recht entfernen: ',\n  outputs('Get_item_RemoveEntitlement')?['body/Title']\n)\n"
                     },
-                    "Create_item_RemoveTask": {
-                      "runAfter": {
-                        "Compose_RemoveTaskDescription": [
-                          "Succeeded"
-                        ]
-                      },
-                      "type": "OpenApiConnection",
-                      "inputs": {
-                        "parameters": {
-                          "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
-                          "table": "7e2e0b98-00c4-436b-abbb-6495d56d79a3",
-                          "item/Title": "@concat(triggerBody()?['LifecycleID'], ' - REMOVE - ', outputs('Get_item_RemoveEntitlement')?['body/Title'])",
-                          "item/TaskTitle": "@\nconcat(\n  triggerBody()?['LifecycleID'],\n  ' - ',\n  outputs('holeEmployee')?['body/DisplayName'],\n  ' - REMOVE - ',\n  outputs('Get_item_RemoveEntitlement')?['body/Title']\n)\n",
-                          "item/TaskID": "@\nconcat(\n  triggerBody()?['LifecycleID'],\n  '-REMOVE-',\n  outputs('Get_item_RemoveEntitlement')?['body/EntitlementID']\n)\n",
-                          "item/TaskCategory/Value": "@outputs('Get_item_RemoveEntitlement')?['body/TaskOwnerGroup_Mover/Value']",
-                          "item/TaskOwnerGroup/Value": "@outputs('Get_item_RemoveEntitlement')?['body/TaskOwnerGroup_Mover/Value']",
-                          "item/TaskStatus/Value": "Open",
-                          "item/RelatedLifecycleRequest/Id": "@triggerBody()?['ID']",
-                          "item/TaskDescription": "@outputs('Compose_RemoveTaskDescription')",
-                          "item/RequiresEvidence": "@coalesce(outputs('Get_item_RemoveEntitlement')?['body/RequiresEvidence_Mover'], false)",
-                          "item/EvidenceDescription": "@coalesce(outputs('Get_item_RemoveEntitlement')?['body/EvidenceDescription_Mover'], '')",
-                          "item/RelatedEmployee/Id": "@triggerBody()?['RelatedEmployee/Id']",
-                          "item/RelatedEntitlement/Id": "@outputs('Compose_CurrentOldEntitlementId')",
-                          "item/{ContentType}/Id": "@triggerBody()?['LifecycleID']"
-                        },
-                        "host": {
-                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                          "operationId": "PostItem",
-                          "connectionName": "shared_sharepointonline_1"
-                        }
-                      }
-                    },
                     "Compose_RemoveTaskDescription": {
                       "runAfter": {
                         "Compose_RemoveTaskTitle": [
@@ -456,6 +472,86 @@
                       },
                       "type": "Compose",
                       "inputs": "@\ncoalesce(\n  items('Apply_to_each_OldRoleEntitlement')?['TaskDescriptionOverride_Mover'],\n  outputs('Get_item_RemoveEntitlement')?['body/TaskDescription_Mover'],\n  concat(\n    'Entferne Recht wegen Rollenwechsel.',\n    decodeUriComponent('%0A'),\n    'Mitarbeiter: ', outputs('holeEmployee')?['body/DisplayName'],\n    decodeUriComponent('%0A'),\n    'LifecycleID: ', triggerBody()?['LifecycleID']\n  )\n)\n"
+                    },
+                    "Compose_RemoveTaskID": {
+                      "runAfter": {
+                        "Compose_RemoveTaskDescription": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Compose",
+                      "inputs": "@\nconcat(\n  triggerBody()?['LifecycleID'],\n  '-REMOVE-',\n  outputs('Get_item_RemoveEntitlement')?['body/EntitlementID']\n)\n"
+                    },
+                    "GetExistingRemoveTask": {
+                      "runAfter": {
+                        "Compose_RemoveTaskID": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
+                          "table": "7e2e0b98-00c4-436b-abbb-6495d56d79a3",
+                          "$filter": "TaskID eq '@{outputs('Compose_RemoveTaskID')}'",
+                          "$top": 1
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                          "operationId": "GetItems",
+                          "connectionName": "shared_sharepointonline_1"
+                        }
+                      }
+                    },
+                    "RemoveTaskIsNew": {
+                      "actions": {
+                        "Create_item_RemoveTask": {
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
+                              "table": "7e2e0b98-00c4-436b-abbb-6495d56d79a3",
+                              "item/Title": "@concat(triggerBody()?['LifecycleID'], ' - REMOVE - ', outputs('Get_item_RemoveEntitlement')?['body/Title'])",
+                              "item/TaskTitle": "@\nconcat(\n  triggerBody()?['LifecycleID'],\n  ' - ',\n  outputs('holeEmployee')?['body/DisplayName'],\n  ' - REMOVE - ',\n  outputs('Get_item_RemoveEntitlement')?['body/Title']\n)\n",
+                              "item/TaskID": "@outputs('Compose_RemoveTaskID')",
+                              "item/TaskCategory/Value": "@outputs('Get_item_RemoveEntitlement')?['body/TaskOwnerGroup_Mover/Value']",
+                              "item/TaskOwnerGroup/Value": "@outputs('Get_item_RemoveEntitlement')?['body/TaskOwnerGroup_Mover/Value']",
+                              "item/TaskStatus/Value": "Open",
+                              "item/RelatedLifecycleRequest/Id": "@triggerBody()?['ID']",
+                              "item/TaskDescription": "@outputs('Compose_RemoveTaskDescription')",
+                              "item/RequiresEvidence": "@coalesce(outputs('Get_item_RemoveEntitlement')?['body/RequiresEvidence_Mover'], false)",
+                              "item/EvidenceDescription": "@coalesce(outputs('Get_item_RemoveEntitlement')?['body/EvidenceDescription_Mover'], '')",
+                              "item/RelatedEmployee/Id": "@outputs('Compose_RelatedEmployeeID')",
+                              "item/RelatedEntitlement/Id": "@outputs('Compose_CurrentOldEntitlementId')",
+                              "item/LifecycleID": "@triggerBody()?['LifecycleID']"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                              "operationId": "PostItem",
+                              "connectionName": "shared_sharepointonline_1"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "GetExistingRemoveTask": [
+                          "Succeeded"
+                        ]
+                      },
+                      "else": {
+                        "actions": {}
+                      },
+                      "expression": {
+                        "and": [
+                          {
+                            "equals": [
+                              "@length(body('GetExistingRemoveTask')?['value'])",
+                              0
+                            ]
+                          }
+                        ]
+                      },
+                      "type": "If"
                     }
                   },
                   "runAfter": {
@@ -559,7 +655,7 @@
                           "item/TaskDescription": "@\nconcat(\n  'aktualisieren: Identitäts-Attribute.',\n  decodeUriComponent('%0A'),\n  'Alte UPN: ', outputs('holeEmployee')?['body/UPN'],\n  decodeUriComponent('%0A'),\n  'Neue UPN: ', outputs('Compose_NewUPN'),\n  decodeUriComponent('%0A'),\n  'Alte Email: ', outputs('holeEmployee')?['body/Email'],\n  decodeUriComponent('%0A'),\n  'Neue Email: ', outputs('Compose_NewEmail')\n)\n",
                           "item/Priority/Value": "Normal",
                           "item/RequiresEvidence": false,
-                          "item/RelatedEmployee/Id": "@triggerBody()?['RelatedEmployee/Id']",
+                          "item/RelatedEmployee/Id": "@outputs('Compose_RelatedEmployeeID')",
                           "item/LifecycleID": "@triggerBody()?['LifecycleID']"
                         },
                         "host": {
@@ -582,8 +678,8 @@
                     "and": [
                       {
                         "equals": [
-                          "@\nor(\n  not(equals(\n    toLower(coalesce(outputs('holeEmployee')?['body/UPN'], '')),\n    toLower(coalesce(outputs('Compose_NewUPN'), ''))\n  )),\n  not(equals(\n    toLower(coalesce(outputs('holeEmployee')?['body/Email'], '')),\n    toLower(coalesce(outputs('Compose_NewEmail'), ''))\n  ))\n)\n",
-                          ""
+                          "@\n\nor(\n  not(\n    equals(\n      toLower(coalesce(outputs('holeEmployee')?['body/UPN'], '')),\n      toLower(coalesce(outputs('Compose_NewUPN'), ''))\n    )\n  ),\n  not(\n    equals(\n      toLower(coalesce(outputs('holeEmployee')?['body/Email'], '')),\n      toLower(coalesce(outputs('Compose_NewEmail'), ''))\n    )\n  )\n)\n",
+                          "@true"
                         ]
                       }
                     ]
@@ -611,7 +707,7 @@
                       "item/TaskDescription": "@\nconcat(\n  'Prüfen und Aktualiseren nicht-technische Referenzen des Mitarbeiters.',\n  decodeUriComponent('%0A'),\n  'Neuer ANzeigename: ', outputs('Compose_NewDisplayName'),\n  decodeUriComponent('%0A'),\n  'Neue E-Mail: ', outputs('Compose_NewEmail'),\n  decodeUriComponent('%0A'),\n  'Neue Telefonnummer: ', outputs('Compose_NewPhoneNumber')\n)\n",
                       "item/Priority/Value": "Normal",
                       "item/RequiresEvidence": false,
-                      "item/RelatedEmployee/Id": "@triggerBody()?['RelatedEmployee/Id']",
+                      "item/RelatedEmployee/Id": "@outputs('Compose_RelatedEmployeeID')",
                       "item/LifecycleID": "@triggerBody()?['ID']"
                     },
                     "host": {
@@ -629,8 +725,8 @@
                 "and": [
                   {
                     "equals": [
-                      "@\nnot(equals(\n  toLower(coalesce(outputs('holeEmployee')?['body/DisplayName'], '')),\n  toLower(coalesce(outputs('Compose_NewDisplayName'), ''))\n))\n",
-                      ""
+                      "@\nnot(\n  equals(\n    toLower(coalesce(outputs('holeEmployee')?['body/DisplayName'], '')),\n    toLower(coalesce(outputs('Compose_NewDisplayName'), ''))\n  )\n)\n",
+                      "@true"
                     ]
                   }
                 ]
@@ -683,6 +779,15 @@
               "connectionName": "shared_sharepointonline_1"
             }
           }
+        },
+        "Compose_RelatedEmployeeID": {
+          "runAfter": {
+            "Bedingung": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": "@\ncoalesce(\n  triggerBody()?['RelatedEmployee']?['Id'],\n  triggerBody()?['RelatedEmployee#Id'],\n  triggerBody()?['RelatedEmployeeId'],\n  triggerOutputs()?['body/RelatedEmployee/Id'],\n  triggerOutputs()?['body/RelatedEmployee#Id'],\n  triggerOutputs()?['body/RelatedEmployeeId']\n)\n"
         }
       }
     },

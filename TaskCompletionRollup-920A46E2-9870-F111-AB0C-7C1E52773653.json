@@ -46,11 +46,13 @@
               "connectionName": "shared_sharepointonline_1"
             }
           },
-          "conditions": [
-            {
-              "expression": "@equals(triggerBody()?['TaskStatus']?['Value'], 'Completed')"
+          "conditions": [],
+          "runtimeConfiguration": {
+            "concurrency": {
+              "runs": 1,
+              "maximumWaitingRuns": 20
             }
-          ]
+          }
         }
       },
       "actions": {
@@ -91,7 +93,7 @@
             "parameters": {
               "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
               "table": "7e2e0b98-00c4-436b-abbb-6495d56d79a3",
-              "$filter": "RelatedLifecycleRequestId eq @{outputs('Compose_RelatedLifecycleRequestId')} and TaskStatus ne 'Completed' and TaskStatus ne 'Skipped' and TaskStatus ne 'Cancelled'"
+              "$filter": "RelatedLifecycleRequestId eq @{outputs('Compose_RelatedLifecycleRequestId')} and TaskStatus ne 'Completed' and TaskStatus ne 'Skipped' and TaskStatus ne 'Cancelled' and TaskStatus ne 'Failed'"
             },
             "host": {
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
@@ -104,11 +106,11 @@
           "actions": {
             "Compose_RelatedEmployeeId": {
               "type": "Compose",
-              "inputs": "\ncoalesce(\n  outputs('holeRequest')?['body/RelatedEmployee']?['Id'],\n  outputs('holeRequest')?['body/RelatedEmployee#Id'],\n  outputs('holeRequest')?['body/RelatedEmployeeId'],\n  triggerBody()?['RelatedEmployee']?['Id'],\n  triggerBody()?['RelatedEmployee#Id'],\n  triggerBody()?['RelatedEmployeeId']\n)\n"
+              "inputs": "@\ncoalesce(\n  outputs('holeRequest')?['body/RelatedEmployee']?['Id'],\n  outputs('holeRequest')?['body/RelatedEmployee#Id'],\n  outputs('holeRequest')?['body/RelatedEmployeeId'],\n  triggerBody()?['RelatedEmployee']?['Id'],\n  triggerBody()?['RelatedEmployee#Id'],\n  triggerBody()?['RelatedEmployeeId']\n)\n"
             },
             "holeEmployee": {
               "runAfter": {
-                "Compose_RelatedEmployeeId": [
+                "HasRelatedEmployee": [
                   "Succeeded"
                 ]
               },
@@ -341,7 +343,7 @@
                         },
                         "UpdateEmployee_MoverCompleted": {
                           "runAfter": {
-                            "Create_EmployeeIdentityChange": [
+                            "ReloadEmployeeBeforeMoverUpdate": [
                               "Succeeded"
                             ]
                           },
@@ -351,18 +353,38 @@
                               "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
                               "table": "3cd001bd-a32e-4050-8974-8817a4453e97",
                               "id": "@outputs('Compose_RelatedEmployeeId')",
-                              "item/Title": "@coalesce(outputs('holeRequest')?['body/RequestedDisplayName'], outputs('holeEmployee')?['body/Title'])",
-                              "item/DisplayName": "@coalesce(outputs('holeRequest')?['body/RequestedDisplayName'], outputs('holeEmployee')?['body/DisplayName'])",
-                              "item/UPN": "@coalesce(outputs('holeRequest')?['body/RequestedUPN'], outputs('holeEmployee')?['body/UPN'])",
-                              "item/Email": "@coalesce(outputs('holeRequest')?['body/RequestedEmail'], outputs('holeEmployee')?['body/Email'])",
-                              "item/PhoneNumber": "@coalesce(outputs('holeRequest')?['body/RequestedPhoneNumber'], outputs('holeEmployee')?['body/PhoneNumber'])",
-                              "item/RoleProfile/Id": "@\ncoalesce(\n  outputs('Compose_NewRoleProfileId'),\n  outputs('holeEmployee')?['body/RoleProfile']?['Id'],\n  outputs('holeEmployee')?['body/RoleProfile#Id']\n)\n",
-                              "item/LastIdentityChange": "@if(equals(coalesce(outputs('holeRequest')?['body/IdentityChangeRequired'], false), true), utcNow(), outputs('holeEmployee')?['body/LastIdentityChange'])",
-                              "item/LastRoleChange": "@if(equals(coalesce(outputs('holeRequest')?['body/RoleChangeRequired'], false), true), utcNow(), outputs('holeEmployee')?['body/LastRoleChange'])"
+                              "item/Title": "@coalesce(outputs('holeRequest')?['body/RequestedDisplayName'], outputs('ReloadEmployeeBeforeMoverUpdate')?['body/Title'])",
+                              "item/DisplayName": "@coalesce(outputs('holeRequest')?['body/RequestedDisplayName'], outputs('ReloadEmployeeBeforeMoverUpdate')?['body/DisplayName'])",
+                              "item/UPN": "@coalesce(outputs('holeRequest')?['body/RequestedUPN'], outputs('ReloadEmployeeBeforeMoverUpdate')?['body/UPN'])",
+                              "item/Email": "@coalesce(outputs('holeRequest')?['body/RequestedEmail'], outputs('ReloadEmployeeBeforeMoverUpdate')?['body/Email'])",
+                              "item/PhoneNumber": "@coalesce(outputs('holeRequest')?['body/RequestedPhoneNumber'], outputs('ReloadEmployeeBeforeMoverUpdate')?['body/PhoneNumber'])",
+                              "item/RoleProfile/Id": "@\ncoalesce(\n  outputs('Compose_NewRoleProfileId'),\n  outputs('ReloadEmployeeBeforeMoverUpdate')?['body/RoleProfile']?['Id'],\n  outputs('ReloadEmployeeBeforeMoverUpdate')?['body/RoleProfile#Id']\n)\n",
+                              "item/LastIdentityChange": "@if(equals(coalesce(outputs('holeRequest')?['body/IdentityChangeRequired'], false), true), utcNow(), outputs('ReloadEmployeeBeforeMoverUpdate')?['body/LastIdentityChange'])",
+                              "item/LastRoleChange": "@if(equals(coalesce(outputs('holeRequest')?['body/RoleChangeRequired'], false), true), utcNow(), outputs('ReloadEmployeeBeforeMoverUpdate')?['body/LastRoleChange'])"
                             },
                             "host": {
                               "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
                               "operationId": "PatchItem",
+                              "connectionName": "shared_sharepointonline_1"
+                            }
+                          }
+                        },
+                        "ReloadEmployeeBeforeMoverUpdate": {
+                          "runAfter": {
+                            "Create_EmployeeIdentityChange": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
+                              "table": "3cd001bd-a32e-4050-8974-8817a4453e97",
+                              "id": "@outputs('Compose_RelatedEmployeeId')"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                              "operationId": "GetItem",
                               "connectionName": "shared_sharepointonline_1"
                             }
                           }
@@ -435,7 +457,7 @@
                         }
                       }
                     },
-                    "Bedingung_3": {
+                    "HasRole": {
                       "actions": {
                         "Update_CurrentEmployeeRole_LeaverEnd": {
                           "type": "OpenApiConnection",
@@ -443,11 +465,12 @@
                             "parameters": {
                               "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
                               "table": "7f0c6aa9-ac6e-4af2-ace8-690324c22586",
-                              "id": "@item()?['ID']",
-                              "item/Title": "@item()?['Title']",
+                              "id": "@first(body('holeCurrentEmployeeRole_Leaver')?['value'])?['ID']",
+                              "item/Title": "@first(body('holeCurrentEmployeeRole_Leaver')?['value'])?['Title']",
+                              "item/ValidTo": "@coalesce(outputs('holeRequest')?['body/EndDate'], utcNow())",
                               "item/Active": false,
                               "item/IsPrimaryRole": false,
-                              "item/CreatedByFlow": false
+                              "item/CreatedByFlow": true
                             },
                             "host": {
                               "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
@@ -458,7 +481,7 @@
                         },
                         "UpdateEmployee_LeaverCompleted": {
                           "runAfter": {
-                            "Update_CurrentEmployeeRole_LeaverEnd": [
+                            "ReloadEmployeeBeforeUpdate": [
                               "Succeeded"
                             ]
                           },
@@ -468,8 +491,8 @@
                               "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
                               "table": "3cd001bd-a32e-4050-8974-8817a4453e97",
                               "id": "@outputs('Compose_RelatedEmployeeId')",
-                              "item/Title": "@outputs('holeEmployee')?['body/Title']",
-                              "item/DisplayName": "@outputs('holeEmployee')?['body/DisplayName']",
+                              "item/Title": "@outputs('ReloadEmployeeBeforeUpdate')?['body/Title']",
+                              "item/DisplayName": "@outputs('ReloadEmployeeBeforeUpdate')?['body/DisplayName']",
                               "item/AccountStatus/Value": "Left",
                               "item/Active": false,
                               "item/EndDate": "@coalesce(outputs('holeRequest')?['body/EndDate'], utcNow())"
@@ -506,6 +529,26 @@
                               "connectionName": "shared_sharepointonline_1"
                             }
                           }
+                        },
+                        "ReloadEmployeeBeforeUpdate": {
+                          "runAfter": {
+                            "Update_CurrentEmployeeRole_LeaverEnd": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
+                              "table": "3cd001bd-a32e-4050-8974-8817a4453e97",
+                              "id": "@outputs('Compose_RelatedEmployeeId')"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                              "operationId": "GetItem",
+                              "connectionName": "shared_sharepointonline_1"
+                            }
+                          }
                         }
                       },
                       "runAfter": {
@@ -518,6 +561,12 @@
                       },
                       "expression": {
                         "and": [
+                          {
+                            "equals": [
+                              "@\ngreater(\n  length(body('holeCurrentEmployeeRole_Leaver')?['value']),\n  0\n)\n",
+                              "@true"
+                            ]
+                          },
                           {
                             "equals": [
                               "",
@@ -536,6 +585,59 @@
               },
               "expression": "@outputs('Compose_RequestType')",
               "type": "Switch"
+            },
+            "HasRelatedEmployee": {
+              "actions": {},
+              "runAfter": {
+                "Compose_RelatedEmployeeId": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "Element_aktualisieren": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "parameters": {
+                        "dataset": "https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle",
+                        "table": "075c1eea-3024-47cf-adb9-7a4e694b716e",
+                        "id": "@outputs('Compose_RelatedLifecycleRequestId')",
+                        "item/Title": "@outputs('holeRequest')?['body/Title']",
+                        "item/TargetDisplayName": "@outputs('holeRequest')?['body/TargetDisplayName']",
+                        "item/LifecycleStatus/Value": "WaitingForInput",
+                        "item/Comments": "AutomationError = Missing RelatedEmployeeId during TaskCompletionRollup."
+                      },
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                        "operationId": "PatchItem",
+                        "connectionName": "shared_sharepointonline_1"
+                      }
+                    }
+                  },
+                  "Beenden_2": {
+                    "runAfter": {
+                      "Element_aktualisieren": [
+                        "Succeeded"
+                      ]
+                    },
+                    "type": "Terminate",
+                    "inputs": {
+                      "runStatus": "Succeeded"
+                    }
+                  }
+                }
+              },
+              "expression": {
+                "and": [
+                  {
+                    "equals": [
+                      "@\nnot(\n  empty(\n    string(\n      outputs('Compose_RelatedEmployeeId')\n    )\n  )\n)\n",
+                      "@true"
+                    ]
+                  }
+                ]
+              },
+              "type": "If"
             }
           },
           "runAfter": {
@@ -569,7 +671,11 @@
           "type": "If"
         },
         "Compose_RelatedLifecycleRequestId": {
-          "runAfter": {},
+          "runAfter": {
+            "StatusCheck": [
+              "Succeeded"
+            ]
+          },
           "type": "Compose",
           "inputs": "@\ncoalesce(\n  triggerBody()?['RelatedLifecycleRequest']?['Id'],\n  triggerBody()?['RelatedLifecycleRequest#Id'],\n  triggerBody()?['RelatedLifecycleRequestId'],\n  triggerOutputs()?['body/RelatedLifecycleRequest/Id'],\n  triggerOutputs()?['body/RelatedLifecycleRequest#Id'],\n  triggerOutputs()?['body/RelatedLifecycleRequestId']\n)\n"
         },
@@ -604,12 +710,104 @@
         },
         "Compose_RequestType": {
           "runAfter": {
-            "holeRequest": [
+            "HasRequest": [
               "Succeeded"
             ]
           },
           "type": "Compose",
           "inputs": "@\ncoalesce(\n  outputs('holeRequest')?['body/RequestType']?['Value'],\n  outputs('holeRequest')?['body/RequestType/Value'],\n  outputs('holeRequest')?['body/RequestType'],\n  ''\n)\n"
+        },
+        "HasRequest": {
+          "actions": {},
+          "runAfter": {
+            "RequestAlreadyCompleted": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Beenden_3": {
+                "type": "Terminate",
+                "inputs": {
+                  "runStatus": "Failed"
+                }
+              }
+            }
+          },
+          "expression": {
+            "and": [
+              {
+                "equals": [
+                  "@\nnot(\n  empty(\n    string(\n      outputs('holeRequest')?['body/ID']\n    )\n  )\n)\n",
+                  "@true"
+                ]
+              }
+            ]
+          },
+          "type": "If"
+        },
+        "Compose_RequestStatus": {
+          "runAfter": {
+            "holeRequest": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": "@\ncoalesce(\n outputs('holeRequest')?['body/LifecycleStatus']?['Value'],\n outputs('holeRequest')?['body/LifecycleStatus/Value']\n)\n"
+        },
+        "RequestAlreadyCompleted": {
+          "actions": {
+            "Beenden_4": {
+              "type": "Terminate",
+              "inputs": {
+                "runStatus": "Succeeded"
+              }
+            }
+          },
+          "runAfter": {
+            "Compose_RequestStatus": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {}
+          },
+          "expression": {
+            "and": [
+              {
+                "equals": [
+                  "@\nequals(\n outputs('Compose_RequestStatus'),\n 'Completed'\n)\n",
+                  "@true"
+                ]
+              }
+            ]
+          },
+          "type": "If"
+        },
+        "StatusCheck": {
+          "actions": {},
+          "runAfter": {},
+          "else": {
+            "actions": {
+              "notMatchingStatus": {
+                "type": "Terminate",
+                "inputs": {
+                  "runStatus": "Succeeded"
+                }
+              }
+            }
+          },
+          "expression": {
+            "or": [
+              {
+                "equals": [
+                  "@or(equals(triggerBody()?['TaskStatus']?['Value'], 'Completed'),equals(triggerBody()?['TaskStatus']?['Value'], 'Skipped'),equals(triggerBody()?['TaskStatus']?['Value'], 'Cancelled'))",
+                  "@true"
+                ]
+              }
+            ]
+          },
+          "type": "If"
         }
       }
     },

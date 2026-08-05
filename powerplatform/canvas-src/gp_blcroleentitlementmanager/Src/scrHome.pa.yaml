@@ -1,0 +1,195 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrHome:
+    Properties:
+      Fill: =RGBA(245,245,245,1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - cntMain:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Height: =Parent.Height - 120
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =20
+            PaddingBottom: =20
+            PaddingLeft: =20
+            PaddingRight: =20
+            PaddingTop: =20
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =90
+          Children:
+            - cntRow1:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Height: =120
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =(Parent.Width-(btnLifecycle.Width+btnRoles.Width))/3
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                Children:
+                  - btnLifecycle:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =Color.White
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(0, 120, 212, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =100
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: |
+                          =
+                          Navigate(
+                              scrLifecycleRequestOverview,
+                              ScreenTransition.Fade
+                          )
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Size: =18
+                        Text: ="Vorgänge"
+                        Width: =300
+                  - btnRoles:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =Color.White
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(255, 140, 0, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =100
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: |+
+                          =
+                          Navigate(
+                              scrRoleEntitlementManager,
+                              ScreenTransition.Fade
+                          )
+
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Size: =18
+                        Text: ="Rollen und Rechte"
+                        Width: =300
+            - cntRow2:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Height: =120
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =(Parent.Width-(btnEmployees.Width+btnAdmin.Width))/3
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                Children:
+                  - btnEmployees:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =Color.White
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(16, 124, 16, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =100
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: |
+                          =
+                          Notify(
+                              "Folgt in Phase 2.3",
+                              NotificationType.Information
+                          )
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Size: =18
+                        Text: ="Mitarbeiter"
+                        Width: =300
+                  - btnAdmin:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =Color.White
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(96, 94, 92, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =100
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: |
+                          =
+                          Notify(
+                              "Folgt in Phase 2.3",
+                              NotificationType.Information
+                          )
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Size: =18
+                        Text: ="Administration"
+                        Width: =300
+      - cntHeader:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(0,120,212,1)
+            Height: =80
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            PaddingBottom: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =8
+            Width: =Parent.Width
+          Children:
+            - lblTitle:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Semibold
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  Size: =24
+                  Text: ="Benutzer Lifecycle Center"
+                  Width: =500
+                  X: =30
+                  Y: =20

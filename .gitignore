@@ -1,0 +1,10 @@
+
+# Power Platform temporary exports and generated comparison trees
+powerplatform/generated/
+export/
+*.zip
+
+# Local Refact/Buddy runtime data
+.refact/buddy/chats/
+.refact/buddy/logs/
+.refact/buddy/state/

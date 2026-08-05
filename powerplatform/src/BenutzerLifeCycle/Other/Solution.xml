@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.26071.167" SolutionPackageVersion="9.2" languagecode="1031" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26071.167" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26071.00167">
+  <SolutionManifest>
+    <UniqueName>BenutzerLifeCycle</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="BenutzerLifeCycle" languagecode="1031" />
+    </LocalizedNames>
+    <Descriptions />
+    <Version>1.0.0.8</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>Steinicke_IT</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Steinicke_IT" languagecode="1031" />
+      </LocalizedNames>
+      <Descriptions />
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>gp</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>12281</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="29" id="{4dbbefde-4f74-f111-ab0d-7c1e52880f08}" behavior="0" />
+      <RootComponent type="29" id="{78fb6d42-0b76-f111-ab0d-7c1e52880f08}" behavior="0" />
+      <RootComponent type="29" id="{920a46e2-9870-f111-ab0c-7c1e52773653}" behavior="0" />
+      <RootComponent type="29" id="{b8cd5916-7970-f111-ab0c-7c1e52880f08}" behavior="0" />
+      <RootComponent type="29" id="{f781cc68-9170-f111-ab0c-70a8a52e9eb2}" behavior="0" />
+      <RootComponent type="300" schemaName="gp_blcroleentitlementmanager_8c1d9" behavior="0" />
+    </RootComponents>
+    <MissingDependencies />
+  </SolutionManifest>
+</ImportExportXml>

@@ -16,6 +16,7 @@ ACTIONS = {
     "audit": ["python3", "./tools/companion/audit_repo.py"],
     "validate": ["pwsh", "./powerplatform/scripts/Validate-Solution.ps1"],
     "build": ["pwsh", "./powerplatform/scripts/Build.ps1"],
+    "schema-analyze": ["pwsh", "./Provisioning/Invoke-SchemaAnalyzer.ps1"],
 }
 
 def run(command, timeout=3600):

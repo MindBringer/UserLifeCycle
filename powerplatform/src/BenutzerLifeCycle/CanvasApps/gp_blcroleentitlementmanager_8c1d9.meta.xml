@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CanvasApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>gp_blcroleentitlementmanager_8c1d9</Name>
+  <AppVersion>2026-08-03T07:29:16Z</AppVersion>
+  <Status>Ready</Status>
+  <CreatedByClientVersion>3.26073.9.0</CreatedByClientVersion>
+  <MinClientVersion>3.26073.9.0</MinClientVersion>
+  <Tags>{"primaryDeviceWidth":"1711","primaryDeviceHeight":"1189","supportsPortrait":"true","supportsLandscape":"true","primaryFormFactor":"Tablet","showStatusBar":"false","publisherVersion":"3.26073.9","minimumRequiredApiVersion":"2.2.0","hasComponent":"false","hasUnlockedComponent":"false","isUnifiedRootApp":"false","m365CopilotSettingValue":"0","sienaVersion":"20260717T072655Z-3.26071.9.0"}</Tags>
+  <IsCdsUpgraded>0</IsCdsUpgraded>
+  <GalleryItemId xsi:nil="true"></GalleryItemId>
+  <BackgroundColor>RGBA(0,176,240,1)</BackgroundColor>
+  <DisplayName>Rechte-und-Rollen-Manager</DisplayName>
+  <Description>Mit dem Manager können Benutzervorgänge zu Eintritten, Wechseln oder Austritten bei Steinicke erzeugt werden. Mit Rollen können Rechte, Schlüssel etc. verwaltet werden.</Description>
+  <CommitMessage xsi:nil="true"></CommitMessage>
+  <Publisher xsi:nil="true"></Publisher>
+  <AuthorizationReferences>[]</AuthorizationReferences>
+  <ConnectionReferences>{"8ff4d870-3d0f-4a2f-9eee-1938e1a85ad5":{"id":"/providers/microsoft.powerapps/apis/shared_sharepointonline","displayName":"SharePoint","iconUri":"https://static.powerapps.com/resource/ppcr/releases/v1.0.1813/1.0.1813.4769/sharepointonline/icon.png","dataSources":["BLC_Entitlements","BLC_LifecycleRequests","BLC_RoleEntitlements","BLC_RoleProfiles","BLC_LifecycleTasks","BLC_Employees","BLC_RoleProfiles_1"],"dependencies":[],"dependents":[],"parameterHints":{},"parameterHintsV2":{},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{"https://groupsteinicke.sharepoint.com/sites/BenutzerLifecycle":{"dataSources":{"BLC_Entitlements":{"tableName":"f78463dd-8915-4d19-a44d-ef125cfa0200"},"BLC_LifecycleRequests":{"tableName":"075c1eea-3024-47cf-adb9-7a4e694b716e"},"BLC_RoleEntitlements":{"tableName":"39f57149-d82c-415b-85c8-d06399265ba1"},"BLC_RoleProfiles":{"tableName":"fb2e5c78-b500-440a-b6c3-5d460bab18ab"},"BLC_LifecycleTasks":{"tableName":"7e2e0b98-00c4-436b-abbb-6495d56d79a3"},"BLC_Employees":{"tableName":"3cd001bd-a32e-4050-8974-8817a4453e97"},"BLC_RoleProfiles_1":{"tableName":"fb2e5c78-b500-440a-b6c3-5d460bab18ab"}}}},"apiTier":"Standard","actions":["providers/PowerPlatform.Governance/Operations/Read","providers/PowerPlatform.Governance/Operations/Write"]},"da54e57a-3a11-41a3-9c6b-e7b154e8b5ed":{"id":"/providers/microsoft.powerapps/apis/shared_office365users","displayName":"Office 365-Benutzer","iconUri":"https://static.powerapps.com/resource/ppcr/releases/v1.0.1818/1.0.1818.4788/office365users/icon.png","dataSources":["Office365-Benutzer"],"dependencies":[],"dependents":[],"parameterHints":{},"parameterHintsV2":{},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{},"apiTier":"Standard","actions":["SearchUser"]}}</ConnectionReferences>
+  <DatabaseReferences>{}</DatabaseReferences>
+  <AppComponents>[]</AppComponents>
+  <AppComponentDependencies>[]</AppComponentDependencies>
+  <CanConsumeAppPass>1</CanConsumeAppPass>
+  <CanvasAppType>0</CanvasAppType>
+  <BypassConsent>0</BypassConsent>
+  <AdminControlBypassConsent>0</AdminControlBypassConsent>
+  <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <CdsDependencies>{"cdsdependencies":[]}</CdsDependencies>
+  <IsCustomizable>1</IsCustomizable>
+  <BackgroundImageUri>/CanvasApps/gp_blcroleentitlementmanager_8c1d9_BackgroundImageUri</BackgroundImageUri>
+  <DocumentUri>/CanvasApps/gp_blcroleentitlementmanager_8c1d9_DocumentUri.msapp</DocumentUri>
+  <AdditionalUris>
+    <AdditionalUri>/CanvasApps/gp_blcroleentitlementmanager_8c1d9_AdditionalUris0_identity.json</AdditionalUri>
+  </AdditionalUris>
+</CanvasApp>

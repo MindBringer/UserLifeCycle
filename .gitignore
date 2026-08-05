@@ -1,0 +1,13 @@
+# Power Platform temporary exports and generated comparison trees
+powerplatform/generated/
+export/
+*.zip
+
+# Local Refact/Buddy runtime data
+.refact/
+
+# Local tooling
+.DS_Store
+__pycache__/
+*.pyc
+.venv/

@@ -1,0 +1,30 @@
+name: Validate
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  repository:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repository audit
+        run: python3 tools/companion/audit_repo.py
+      - name: Validate Power Platform source
+        shell: pwsh
+        run: ./powerplatform/scripts/Validate-Solution.ps1
+      - name: Parse workflow JSON
+        shell: pwsh
+        run: |
+          Get-ChildItem powerplatform/src/BenutzerLifeCycle/Workflows -Filter *.json | ForEach-Object {
+            Get-Content $_.FullName -Raw | ConvertFrom-Json | Out-Null
+          }
+      - name: Parse solution XML
+        shell: pwsh
+        run: |
+          [xml](Get-Content powerplatform/src/BenutzerLifeCycle/Other/Solution.xml -Raw) | Out-Null
+          [xml](Get-Content powerplatform/src/BenutzerLifeCycle/Other/Customizations.xml -Raw) | Out-Null

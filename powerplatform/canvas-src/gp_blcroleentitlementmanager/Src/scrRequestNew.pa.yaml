@@ -1,0 +1,1206 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrRequestNew:
+    Properties:
+      Fill: =RGBA(245,245,245,1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - cntRequestForm:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =Color.White
+            Height: =Parent.Height - 120
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =15
+            PaddingBottom: =20
+            PaddingLeft: =20
+            PaddingRight: =20
+            PaddingTop: =20
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =90
+          Children:
+            - cntRequestTypeNew:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Height: =80
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutMaxHeight: =60
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                Children:
+                  - lblNewRequestCaption:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Font: =Font.'Open Sans'
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Text: ="Vorgangsart"
+                  - drpRequestTypeNew:
+                      Control: Classic/DropDown@2.3.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        ChevronBackground: =RGBA(56, 96, 178, 1)
+                        ChevronFill: =RGBA(255, 255, 255, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                        Font: =Font.'Open Sans'
+                        HoverFill: =RGBA(186, 202, 226, 1)
+                        Items: |
+                          =
+                          Table(
+                              {Label: "Eintritt", Value: "Onboarding"},
+                              {Label: "Wechsel", Value: "Mover"},
+                              {Label: "Austritt", Value: "Offboarding"}
+                          )
+                        Items.Value: =Label
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(0, 18, 107, 1)
+                        SelectionColor: =RGBA(255, 255, 255, 1)
+                        SelectionFill: =RGBA(56, 96, 178, 1)
+                  - rowComment:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        X: =40
+                        Y: =40
+                      Children:
+                        - lblCommentJoin:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Bemerkung:"
+                              Width: =180
+                        - txtComments:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: =
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HintText: ="Hinweise oder Besonderheiten"
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Mode: =TextMode.MultiLine
+            - cntJoiner:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =10
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Visible: =drpRequestTypeNew.Selected.Value = "Onboarding"
+                Children:
+                  - rowFirstLastName:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblFirstNameCaption:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Vorname:"
+                              Width: =180
+                        - txtFirstName:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: =
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HintText: ="Max - mit Umlauten etc."
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              OnChange: |-
+                                =Set(
+                                    varSuggestedDisplayName,
+                                    Trim(txtFirstName.Text) & " " & Trim(txtLastName.Text)
+                                );
+
+                                Set(
+                                    varFirstNameNormalized,
+                                    Lower(
+                                        Substitute(
+                                            Substitute(
+                                                Substitute(
+                                                    Substitute(
+                                                        Substitute(
+                                                            Substitute(
+                                                                Substitute(
+                                                                    Substitute(
+                                                                        Trim(txtFirstName.Text),
+                                                                        "ä", "ae"
+                                                                    ),
+                                                                    "ö", "oe"
+                                                                ),
+                                                                "ü", "ue"
+                                                            ),
+                                                            "Ä", "ae"
+                                                        ),
+                                                        "Ö", "oe"
+                                                    ),
+                                                    "Ü", "ue"
+                                                ),
+                                                "ß", "ss"
+                                            ),
+                                            " ", ""
+                                        )
+                                    )
+                                );
+
+                                Set(
+                                    varLastNameNormalized,
+                                    Lower(
+                                        Substitute(
+                                            Substitute(
+                                                Substitute(
+                                                    Substitute(
+                                                        Substitute(
+                                                            Substitute(
+                                                                Substitute(
+                                                                    Substitute(
+                                                                        Trim(txtLastName.Text),
+                                                                        "ä", "ae"
+                                                                    ),
+                                                                    "ö", "oe"
+                                                                ),
+                                                                "ü", "ue"
+                                                            ),
+                                                            "Ä", "ae"
+                                                        ),
+                                                        "Ö", "oe"
+                                                    ),
+                                                    "Ü", "ue"
+                                                ),
+                                                "ß", "ss"
+                                            ),
+                                            " ", ""
+                                        )
+                                    )
+                                );
+
+                                Set(
+                                    varUPNLocalPart,
+                                    If(
+                                        IsBlank(varFirstNameNormalized) || IsBlank(varLastNameNormalized),
+                                        "",
+                                        Left(varFirstNameNormalized, 1) & "." & varLastNameNormalized
+                                    )
+                                );
+
+                                Set(
+                                    varSuggestedEmail,
+                                    If(
+                                        IsBlank(varUPNLocalPart),
+                                        "",
+                                        varUPNLocalPart & "@steinicke-gmbh.de"
+                                    )
+                                );
+
+                                Reset(txtDisplayName);
+                                Reset(txtUPN);
+                                Reset(txtEmail)
+                        - lblLastNameCaption:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Nachname:"
+                              Width: =180
+                        - txtLastName:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: =
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HintText: ="Müller - mit Umlauten etc."
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              OnChange: |-
+                                =Set(
+                                    varSuggestedDisplayName,
+                                    Trim(txtFirstName.Text) & " " & Trim(txtLastName.Text)
+                                );
+
+                                Set(
+                                    varFirstNameNormalized,
+                                    Lower(
+                                        Substitute(
+                                            Substitute(
+                                                Substitute(
+                                                    Substitute(
+                                                        Substitute(
+                                                            Substitute(
+                                                                Substitute(
+                                                                    Substitute(
+                                                                        Trim(txtFirstName.Text),
+                                                                        "ä", "ae"
+                                                                    ),
+                                                                    "ö", "oe"
+                                                                ),
+                                                                "ü", "ue"
+                                                            ),
+                                                            "Ä", "ae"
+                                                        ),
+                                                        "Ö", "oe"
+                                                    ),
+                                                    "Ü", "ue"
+                                                ),
+                                                "ß", "ss"
+                                            ),
+                                            " ", ""
+                                        )
+                                    )
+                                );
+
+                                Set(
+                                    varLastNameNormalized,
+                                    Lower(
+                                        Substitute(
+                                            Substitute(
+                                                Substitute(
+                                                    Substitute(
+                                                        Substitute(
+                                                            Substitute(
+                                                                Substitute(
+                                                                    Substitute(
+                                                                        Trim(txtLastName.Text),
+                                                                        "ä", "ae"
+                                                                    ),
+                                                                    "ö", "oe"
+                                                                ),
+                                                                "ü", "ue"
+                                                            ),
+                                                            "Ä", "ae"
+                                                        ),
+                                                        "Ö", "oe"
+                                                    ),
+                                                    "Ü", "ue"
+                                                ),
+                                                "ß", "ss"
+                                            ),
+                                            " ", ""
+                                        )
+                                    )
+                                );
+
+                                Set(
+                                    varUPNLocalPart,
+                                    If(
+                                        IsBlank(varFirstNameNormalized) || IsBlank(varLastNameNormalized),
+                                        "",
+                                        Left(varFirstNameNormalized, 1) & "." & varLastNameNormalized
+                                    )
+                                );
+
+                                Set(
+                                    varSuggestedEmail,
+                                    If(
+                                        IsBlank(varUPNLocalPart),
+                                        "",
+                                        varUPNLocalPart & "@steinicke-gmbh.de"
+                                    )
+                                );
+
+                                Reset(txtDisplayName);
+                                Reset(txtUPN);
+                                Reset(txtEmail)
+                  - rowDisplayNameJoin:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblDisplayNameCaption:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Anzeigename:"
+                              Width: =180
+                        - txtDisplayName:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: =varSuggestedDisplayName
+                              DisplayMode: =DisplayMode.View
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HintText: ="Max Müller - mit Umlauten, Titel, etc."
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              OnChange: =
+                  - rowUPNJoin:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblUPNCaption:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="UPN:"
+                              Width: =180
+                        - txtUPN:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: =varUPNLocalPart
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HintText: ="KEINE Umlaute, Leerzeichen, Sonderzeichen etc., alles klein"
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                  - rowEmailJoin:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblEmailCaption:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="E-Mail Adresse:"
+                              Width: =180
+                        - txtEmail:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: =varSuggestedEmail
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HintText: ="alles klein, UPN@steinicke-gmbh.de"
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                  - rowDepartmentJoin:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        X: =40
+                        Y: =40
+                      Children:
+                        - lblDepartmentCaption:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Abteilung:"
+                              Width: =180
+                        - txtDepartment:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: =
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HintText: ="Bismark Produktion, QS, Hayna Verwaltung, Vertrieb..."
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                  - rowManagerJoin:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        X: =40
+                        Y: =40
+                      Children:
+                        - lblManagerCaption:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Vorgesetzter:"
+                              Width: =180
+                        - cmbManager:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              ChevronBackground: =RGBA(56, 96, 178, 1)
+                              ChevronFill: =RGBA(255, 255, 255, 1)
+                              ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                              ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                              DisplayFields: =["DisplayName"]
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              Items: |+
+                                =
+                                'Office365-Benutzer'.SearchUser(
+                                    {
+                                        searchTerm: Self.SearchText,
+                                        top: 25
+                                    }
+                                )
+
+
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 18, 107, 1)
+                              SearchFields: =["DisplayName"]
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(56, 96, 178, 1)
+                  - rowRoleProfileJoin:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblRoleProfileNewCaption:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Rollenprofil:"
+                              Width: =180
+                        - cmbRoleProfile:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              ChevronBackground: =RGBA(56, 96, 178, 1)
+                              ChevronFill: =RGBA(255, 255, 255, 1)
+                              ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                              ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                              DisplayFields: =["Title"]
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              Items: =BLC_RoleProfiles
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 18, 107, 1)
+                              SearchFields: =["ComplianceAssetId"]
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(56, 96, 178, 1)
+                  - rowStartDateJoin:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblStartDateCaption:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Startdatum:"
+                              Width: =180
+                        - dpStartDate:
+                            Control: Classic/DatePicker@2.6.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              IconBackground: =RGBA(56, 96, 178, 1)
+                              IconFill: =RGBA(255, 255, 255, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+            - cntMover:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =10
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Visible: =drpRequestTypeNew.Selected.Value = "Mover"
+                  X: =40
+                  Y: =40
+                Children:
+                  - rowMoverEmployee:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblMoverEmployee:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Mitarbeiter:"
+                              Width: =180
+                        - cmbEmployee:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              ChevronBackground: =RGBA(56, 96, 178, 1)
+                              ChevronFill: =RGBA(255, 255, 255, 1)
+                              ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                              ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                              DisplayFields: =["Title"]
+                              Font: =Font.'Open Sans'
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              Items: |
+                                =
+                                SortByColumns(
+                                    Filter(
+                                        BLC_Employees,
+                                        Active = true
+                                    ),
+                                    "Title",
+                                    SortOrder.Ascending
+                                )
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 18, 107, 1)
+                              SearchFields: =["DisplayName"]
+                              SelectMultiple: =false
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(56, 96, 178, 1)
+                  - rowMoverNewRoleProfile:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblMoverNewRoleProfile:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Neues Rollenprofil:"
+                              Width: =180
+                        - cmbNewRoleProfile:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              ChevronBackground: =RGBA(56, 96, 178, 1)
+                              ChevronFill: =RGBA(255, 255, 255, 1)
+                              ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                              ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                              DisplayFields: =["Title"]
+                              Font: =Font.'Open Sans'
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              Items: |
+                                =
+                                SortByColumns(
+                                    BLC_RoleProfiles,
+                                    "Title",
+                                    SortOrder.Ascending
+                                )
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 18, 107, 1)
+                              SearchFields: =["Title"]
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(56, 96, 178, 1)
+                  - rowMoverEffectiveDate:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        X: =40
+                        Y: =40
+                      Children:
+                        - lblMoverEffectiveDate:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Wirksam ab:"
+                              Width: =180
+                        - dpEffectiveDate:
+                            Control: Classic/DatePicker@2.6.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              IconBackground: =RGBA(56, 96, 178, 1)
+                              IconFill: =RGBA(255, 255, 255, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                  - rowMoverDisplayName:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblMoverRequestedDisplayName:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Neuer Anzeigename:"
+                              Width: =180
+                        - txtRequestedDisplayName:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: =
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HintText: ="leer lassen, wenn unverändert"
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                  - rowMoverUPN:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        X: =40
+                        Y: =40
+                      Children:
+                        - lblMoverRequestedUPN:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Neue UPN:"
+                              Width: =180
+                        - txtRequestedUPN:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: =
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HintText: ="leer lassen, wenn unverändert"
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                  - rowMoverEmail:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        X: =40
+                        Y: =40
+                      Children:
+                        - lblMoverRequestsedEmail:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Neue E-Mail:"
+                              Width: =180
+                        - txtRequestedEmail:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: |
+                                =
+                                If(
+                                    IsBlank(cmbEmployee.Selected),
+                                    "",
+                                    cmbEmployee.Selected.Email
+                                )
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HintText: ="leer lassen, wenn unverändert"
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                  - rowMoverPhone:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        X: =40
+                        Y: =40
+                      Children:
+                        - lblMoverRequestsedPhoneNumber:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Neue Telefonnummer:"
+                              Width: =180
+                        - txtRequestedPhoneNumber:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: |
+                                =
+                                If(
+                                    IsBlank(cmbEmployee.Selected),
+                                    "",
+                                    cmbEmployee.Selected.'Phone Number'
+                                )
+                              FillPortions: =1
+                              Font: =Font.'Open Sans'
+                              HintText: ="optional"
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+            - cntLeaver:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =10
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Visible: =drpRequestTypeNew.Selected.Value = "Offboarding"
+                  X: =40
+                  Y: =40
+                Children:
+                  - rowLeaverEmployee:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblLeaverEmployee:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Mitarbeiter:"
+                              Width: =180
+                        - cmbLeaverEmployee:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              ChevronBackground: =RGBA(56, 96, 178, 1)
+                              ChevronFill: =RGBA(255, 255, 255, 1)
+                              ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                              ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                              DisplayFields: =["Title"]
+                              Font: =Font.'Open Sans'
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              Items: |
+                                =
+                                SortByColumns(
+                                    Filter(
+                                        BLC_Employees,
+                                        Active = true
+                                    ),
+                                    "Title",
+                                    SortOrder.Ascending
+                                )
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 18, 107, 1)
+                              SearchFields: =["DisplayName"]
+                              SelectMultiple: =false
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(56, 96, 178, 1)
+                  - rowEndDate:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =50
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblEndDate:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Austrittsdatum:"
+                              Width: =180
+                        - dpEndDate:
+                            Control: Classic/DatePicker@2.6.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              IconBackground: =RGBA(56, 96, 178, 1)
+                              IconFill: =RGBA(255, 255, 255, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+            - cntActions:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Height: =40
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =15
+                  LayoutMaxHeight: =50
+                  LayoutMinHeight: =40
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  X: =40
+                  Y: =40
+                Children:
+                  - btnCreateRequest:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =Color.White
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisplayMode: |-
+                          =Switch(
+                              drpRequestTypeNew.Selected.Value,
+
+                              "Onboarding",
+                                  If(
+                                      IsBlank(Trim(txtFirstName.Text)) ||
+                                      IsBlank(Trim(txtLastName.Text)) ||
+                                      IsBlank(Trim(txtDisplayName.Text)) ||
+                                      IsBlank(Trim(txtUPN.Text)) ||
+                                      IsBlank(Trim(txtEmail.Text)) ||
+                                      IsBlank(Trim(txtDepartment.Text)) ||
+                                      IsBlank(cmbManager.Selected) ||
+                                      IsBlank(cmbRoleProfile.Selected) ||
+                                      IsBlank(dpStartDate.SelectedDate),
+                                      DisplayMode.Disabled,
+                                      DisplayMode.Edit
+                                  ),
+
+                              "Mover",
+                                  If(
+                                      IsBlank(cmbEmployee.Selected) ||
+                                      IsBlank(dpEffectiveDate.SelectedDate) ||
+                                      IsBlank(cmbNewRoleProfile.Selected),
+                                      DisplayMode.Disabled,
+                                      DisplayMode.Edit
+                                  ),
+
+                              "Offboarding",
+                                  If(
+                                      IsBlank(cmbLeaverEmployee.Selected) ||
+                                      IsBlank(dpEndDate.SelectedDate),
+                                      DisplayMode.Disabled,
+                                      DisplayMode.Edit
+                                  ),
+
+                              DisplayMode.Disabled
+                          )
+                        Fill: =RGBA(0,120,212,1)
+                        Font: =Font.'Open Sans'
+                        Height: =44
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: "=Switch(\n    drpRequestTypeNew.Selected.Value,\n\n    \"Onboarding\",\n        Set(\n            varManagerMail,\n            Lower(\n                Coalesce(\n                    cmbManager.Selected.Mail,\n                    cmbManager.Selected.UserPrincipalName\n                )\n            )\n        );\n\n        Set(\n            varCreatedRequest,\n            Patch(\n                BLC_LifecycleRequests,\n                Defaults(BLC_LifecycleRequests),\n                {\n                    Titel: Trim(txtDisplayName.Text),\n                    'Request Type': {Value: \"Onboarding\"},\n                    FirstName:Trim(txtFirstName.Text),\n                    LastName:Trim(txtLastName.Text),\n                    'Target Display Name': Trim(txtDisplayName.Text),\n                    'Target UPN': Lower(Trim(txtUPN.Text)),\n                    'Requested Email': Lower(Trim(txtEmail.Text)),\n                    Department: Trim(txtDepartment.Text),\n\n                    Manager: {\n                        Claims: \"i:0#.f|membership|\" & varManagerMail,\n                        DisplayName: cmbManager.Selected.DisplayName,\n                        Email: varManagerMail,\n                        Department: \"\",\n                        JobTitle: \"\",\n                        Picture: \"\"\n                    },\n\n                    'Requested By': {\n                        Claims: \"i:0#.f|membership|\" & Lower(User().Email),\n                        DisplayName: User().FullName,\n                        Email: Lower(User().Email),\n                        Department: \"\",\n                        JobTitle: \"\",\n                        Picture: \"\"\n                    },\n\n                    'Start Date': dpStartDate.SelectedDate,\n                    'Lifecycle Status': {Value: \"Submitted\"},\n                    Priority: {Value: \"Normal\"},\n                    'Employee Created': false,\n                    'Tasks Created': false,\n\n                    'Role Profile': {\n                        Id: cmbRoleProfile.Selected.ID,\n                        Value: cmbRoleProfile.Selected.Title\n                    },\n\n                    Comments: If(\n                        IsBlank(Trim(txtComments.Text)),\n                        Blank(),\n                        Trim(txtComments.Text)\n                    )\n                }\n            )\n        ),\n\n    \"Mover\",\n        Set(\n            varCreatedRequest,\n            Patch(\n                BLC_LifecycleRequests,\n                Defaults(BLC_LifecycleRequests),\n                {\n                    Titel: cmbEmployee.Selected.'Display Name' & \" - Wechsel\",\n                    'Request Type': {Value: \"Mover\"},\n                    'Target Display Name': cmbEmployee.Selected.'Display Name',\n                    'Target UPN': cmbEmployee.Selected.UPN,\n                    'Requested Email': cmbEmployee.Selected.Email,\n\n                    'Lifecycle Status': {Value: \"Submitted\"},\n                    Priority: {Value: \"Normal\"},\n                    'Requested By': {\n                        Claims: \"i:0#.f|membership|\" & Lower(User().Email),\n                        DisplayName: User().FullName,\n                        Email: Lower(User().Email),\n                        Department: \"\",\n                        JobTitle: \"\",\n                        Picture: \"\"\n                    },\n\n                    'Effective Date': dpEffectiveDate.SelectedDate,\n                    'Employee Created': true,\n                    'Tasks Created': false,\n\n                    'Related Employee': {\n                        Id: cmbEmployee.Selected.ID,\n                        Value: cmbEmployee.Selected.'Display Name'\n                    },\n\n                    'Role Profile': {\n                        Id: cmbNewRoleProfile.Selected.ID,\n                        Value: cmbNewRoleProfile.Selected.Title\n                    },\n\n                    'Requested Display Name': If(\n                        IsBlank(Trim(txtRequestedDisplayName.Text)),\n                        Blank(),\n                        Trim(txtRequestedDisplayName.Text)\n                    ),\n\n                    'Requested UPN': If(\n                        IsBlank(Trim(txtRequestedUPN.Text)),\n                        Blank(),\n                        Lower(Trim(txtRequestedUPN.Text))\n                    ),\n\n                    'Requested Phone Number': If(\n                        IsBlank(Trim(txtRequestedPhoneNumber.Text)),\n                        Blank(),\n                        Trim(txtRequestedPhoneNumber.Text)\n                    ),\n\n                    Comments: If(\n                        IsBlank(Trim(txtComments.Text)),\n                        Blank(),\n                        Trim(txtComments.Text)\n                    )\n                }\n            )\n        ),\n    \n    \"Offboarding\",\n    Set(\n        varCreatedRequest,\n        Patch(\n            BLC_LifecycleRequests,\n            Defaults(BLC_LifecycleRequests),\n            {\n                Titel: cmbLeaverEmployee.Selected.'Display Name' & \" - Austritt\",\n\n                'Request Type': {Value: \"Offboarding\"},\n                'Target Display Name': cmbLeaverEmployee.Selected.'Display Name',\n                'Target UPN': cmbLeaverEmployee.Selected.UPN,\n                'Requested Email': cmbLeaverEmployee.Selected.Email,\n\n                'Lifecycle Status': {Value: \"Submitted\"},\n                Priority: {Value: \"Normal\"},\n\n                'Requested By': {\n                    Claims: \"i:0#.f|membership|\" & Lower(User().Email),\n                    DisplayName: User().FullName,\n                    Email: Lower(User().Email),\n                    Department: \"\",\n                    JobTitle: \"\",\n                    Picture: \"\"\n                },\n\n                'End Date': dpEndDate.SelectedDate,\n                'Employee Created': true,\n                'Tasks Created': false,\n\n                'Related Employee': {\n                    Id: cmbLeaverEmployee.Selected.ID,\n                    Value: cmbLeaverEmployee.Selected.'Display Name'\n                },\n\n                Comments: If(\n                    IsBlank(Trim(txtComments.Text)),\n                    Blank(),\n                    Trim(txtComments.Text)\n                )\n            }\n        )\n    )\n);\n\nNotify(\n    Switch(\n        drpRequestTypeNew.Selected.Value,\n        \"Onboarding\", \"Eintritt wurde erstellt. Lifecycle ID wird automatisch vergeben.\",\n        \"Mover\", \"Wechsel wurde erstellt. Lifecycle ID wird automatisch vergeben.\",\n        \"Offboarding\", \"Austritt wurde erstellt. Lifecycle ID wird automatisch vergeben.\",\n        \"Vorgang wurde erstellt.\"\n    ),\n    NotificationType.Success\n);\n\nRefresh(BLC_LifecycleRequests);\n\nNavigate(\n    scrLifecycleRequestOverview,\n    ScreenTransition.Fade\n)"
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Size: =14
+                        Text: |
+                          =
+                          Switch(
+                              drpRequestTypeNew.Selected.Value,
+                              "Onboarding", "Eintritt erstellen",
+                              "Mover", "Wechsel erstellen",
+                              "Offboarding", "Austritt erstellen",
+                              "Vorgang erstellen"
+                          )
+                        Width: =240
+      - cntHeader_2:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(0,120,212,1)
+            Height: =80
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            PaddingBottom: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =8
+            Width: =Parent.Width
+          Children:
+            - lblTitle_2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Semibold
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  Size: =24
+                  Text: ="Neuen Benutzer-Vorgang erfassen"
+                  Width: =600
+                  X: =30
+                  Y: =20
+            - Label1:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  Text: =drpRequestTypeNew.Selected.Value
+      - icoHome_2:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =Color.White
+            Height: =42
+            Icon: =Icon.Home
+            OnSelect: |
+              =
+              Navigate(
+                  scrHome,
+                  ScreenTransition.Fade
+              )
+            Width: =42
+            X: =Parent.Width-60
+            Y: =19

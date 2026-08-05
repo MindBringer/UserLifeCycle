@@ -1,0 +1,2005 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrMasterDataEdit:
+    Properties:
+      Fill: =RGBA(245,245,245,1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - cntMasterMain:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =Color.White
+            Height: =Parent.Height - 110
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =12
+            PaddingBottom: =16
+            PaddingLeft: =16
+            PaddingRight: =16
+            PaddingTop: =16
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =90
+          Children:
+            - cntModeSwitch:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =56
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  LayoutMaxHeight: =56
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Visible: =varEditMode <> "Edit"
+                  Width: =Parent.Width
+                Children:
+                  - btnModeRoleProfile:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(200,200,200,1)
+                        BorderThickness: =1
+                        Color: |
+                          =
+                          If(
+                              varMasterDataMode = "RoleProfile",
+                              Color.White,
+                              RGBA(40,40,40,1)
+                          )
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: |-
+                          =
+                          If(
+                              varMasterDataMode = "RoleProfile",
+                              RGBA(0,120,212,1),
+                              RGBA(240,240,240,1)
+                          )
+                        Font: =Font.'Open Sans'
+                        Height: =38
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: =Set(varMasterDataMode, "RoleProfile")
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Text: ="Rolle"
+                        Width: =140
+                  - btnModeEntitlement:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(200,200,200,1)
+                        BorderThickness: =1
+                        Color: |
+                          =
+                          If(
+                              varMasterDataMode = "Entitlement",
+                              Color.White,
+                              RGBA(40,40,40,1)
+                          )
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: |
+                          =
+                          If(
+                              varMasterDataMode = "Entitlement",
+                              RGBA(255,140,0,1),
+                              RGBA(240,240,240,1)
+                          )
+                        Font: =Font.'Open Sans'
+                        Height: =38
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: =Set(varMasterDataMode, "Entitlement")
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Text: ="Berechtigung"
+                        Width: =170
+            - cntMasterScroll:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Height: =Parent.Height - cntModeSwitch.Height - rowMasterActions.Height - 36
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =16
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =16
+                  PaddingRight: =8
+                  PaddingTop: =4
+                  Width: =Parent.Width
+                Children:
+                  - cntRoleProfileForm:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(250,250,250,1)
+                        Height: =360
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        Visible: =varMasterDataMode = "RoleProfile"
+                        Width: =Parent.Width
+                        X: =40
+                        Y: =40
+                      Children:
+                        - rowRoleTitle:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =90
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblRoleTitle:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Rollenname:"
+                                    Width: =180
+                              - txtRoleTitle:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedRole.Titel,
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    HintText: ="z. B. Verwaltung Standard"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Width: =Parent.Width-220
+                        - rowRoleDescription:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =120
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =120
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblRoleDescription:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Beschreibung:"
+                                    Width: =180
+                              - txtRoleDescription:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedRole.Description,
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Height: =80
+                                    HintText: ="Kurzbeschreibung der Rolle"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Mode: =TextMode.MultiLine
+                                    Width: =Parent.Width-220
+                        - rowRoleDepartment:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =90
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblRoleDepartment:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Abteilung:"
+                                    Width: =180
+                              - txtRoleDepartment:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedRole.Department,
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    HintText: ="optional, z. B. IT, Verwaltung, Produktion"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Width: =Parent.Width-220
+                        - rowRoleActive:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =90
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblRoleActive:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Aktiv:"
+                                    Width: =180
+                              - tglRoleActive:
+                                  Control: Classic/Toggle@2.1.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedRole.Active,
+                                          true
+                                      )
+                                    FalseText: ="Nein"
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    TrueFill: =RGBA(56, 96, 178, 1)
+                                    TrueText: ="Ja"
+                  - cntEntitlementBase:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(250,250,250,1)
+                        Height: =420
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        LayoutMinHeight: =420
+                        LayoutMinWidth: =16
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        Visible: =varMasterDataMode = "Entitlement"
+                        Width: =Parent.Width
+                        X: =40
+                        Y: =40
+                      Children:
+                        - rowEntitlementTitle:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewEntitlementTitle:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Titel:"
+                                    Width: =180
+                              - txtEntitlementTitle:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.Title,
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    HintText: ="z. B. M365 Standard Lizenz"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Width: =Parent.Width-220
+                        - rowTaskDescription:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =90
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMaxHeight: =100
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - txtTaskDescription:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="allgemeine Beschreibung:"
+                                    Width: =180
+                              - txtEntitlementDescription:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.Description,
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Height: =100
+                                    HintText: ="wenn keine speziellen Beschreibungen für Eintritt/Wechsel/Austritt vorhanden sind, übernehmen Aufgaben diesen Beschreibungstext"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Mode: =TextMode.MultiLine
+                                    Width: =Parent.Width-220
+                        - rowEntitlementCategory:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =0
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewEntitlementCategory:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Kategorie:"
+                                    Width: =180
+                              - drpEntitlementCategory:
+                                  Control: Classic/DropDown@2.3.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    ChevronBackground: =RGBA(56, 96, 178, 1)
+                                    ChevronFill: =RGBA(255, 255, 255, 1)
+                                    ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                    ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          LookUp(
+                                              Table(
+                                                  {Label: "Microsoft 365", Value: "M365"},
+                                                  {Label: "Identität", Value: "Identity"},
+                                                  {Label: "Sicherheit", Value: "Security"},
+                                                  {Label: "Netzwerk", Value: "Network"},
+                                                  {Label: "Hardware", Value: "Hardware"},
+                                                  {Label: "Arbeitsplatz", Value: "Workplace"},
+                                                  {Label: "Telefonie", Value: "Telephony"},
+                                                  {Label: "Personal", Value: "HR"},
+                                                  {Label: "Anwendung", Value: "Application"},
+                                                  {Label: "Compliance", Value: "Compliance"},
+                                                  {Label: "Sonstiges", Value: "Other"}
+                                              ),
+                                              Value = varSelectedEntitlement.EntitlementCategory.Value,
+                                              Label
+                                          ),
+                                          "Microsoft 365"
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    Items: |
+                                      =
+
+                                      Table(
+                                          {Label: "Microsoft 365", Value: "M365"},
+                                          {Label: "Identität", Value: "Identity"},
+                                          {Label: "Sicherheit", Value: "Security"},
+                                          {Label: "Netzwerk", Value: "Network"},
+                                          {Label: "Hardware", Value: "Hardware"},
+                                          {Label: "Arbeitsplatz", Value: "Workplace"},
+                                          {Label: "Telefonie", Value: "Telephony"},
+                                          {Label: "Personal", Value: "HR"},
+                                          {Label: "Anwendung", Value: "Application"},
+                                          {Label: "Compliance", Value: "Compliance"},
+                                          {Label: "Sonstiges", Value: "Other"}
+                                      )
+                                    Items.Value: =Label
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(0, 18, 107, 1)
+                                    SelectionColor: =RGBA(255, 255, 255, 1)
+                                    SelectionFill: =RGBA(56, 96, 178, 1)
+                        - rowEntitlementSystemReference:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - txtSystemReference:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="System Referenz:"
+                                    Width: =180
+                              - txtEntitlementSystem:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.SystemReference,
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    HintText: ="z. B. M365, ERP, AD, VPN"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Width: =Parent.Width-220
+                        - rowEntitlementActive:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewEntitlementActive:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Aktiv:"
+                                    Width: =180
+                              - tglEntitlementActive:
+                                  Control: Classic/Toggle@2.1.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.Active,
+                                          true
+                                      )
+                                    FalseText: ="Nein"
+                                    Font: =Font.'Open Sans'
+                                    LabelPaddingLeft: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    TrueFill: =RGBA(56, 96, 178, 1)
+                                    TrueText: ="Ja"
+                                    Width: =100
+                  - cntJoinerSection:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(250,250,250,1)
+                        Height: |
+                          =
+                          If(
+                              tglRequiresEvidenceJoiner.Value,
+                              430,
+                              330
+                          )
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        LayoutMinHeight: =If(tglRequiresEvidenceJoiner.Value, 480, 380)
+                        LayoutMinWidth: =16
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        Visible: =varMasterDataMode = "Entitlement"
+                        Width: =Parent.Width
+                        X: =40
+                        Y: =40
+                      Children:
+                        - lblEntitlementJoiner:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Eintritt:"
+                        - rowTaskTitleJoiner:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewEntitlementTitleJoiner:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Titel bei Eintritt:"
+                                    Width: =180
+                              - txtTaskTitleJoiner:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Task Title Joiner',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    HintText: ="Leer = allgemeiner Titel wird verwendet"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Width: =Parent.Width-220
+                        - rowTaskDescriptionJoiner:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =90
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMaxHeight: =100
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - txtTaskDescriptionJoiner:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Beschreibung Eintritt:"
+                                    Width: =180
+                              - txtEntitlementDescriptionJoiner:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Task Description Joiner',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Height: =100
+                                    HintText: ="Wird verwendet, wenn keine spezielle Beschreibung für Eintritt/Wechsel/Austritt definiert ist."
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Mode: =TextMode.MultiLine
+                                    Width: =Parent.Width-220
+                        - rowTaskOwnerJoiner:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewEntitlementOwnerJoiner:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Zuständig Eintritt:"
+                                    Width: =180
+                              - drpTaskOwnerGroupJoiner:
+                                  Control: Classic/DropDown@2.3.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    ChevronBackground: =RGBA(56, 96, 178, 1)
+                                    ChevronFill: =RGBA(255, 255, 255, 1)
+                                    ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                    ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          LookUp(
+                                              Table(
+                                                  {Label: "IT", Value: "IT"},
+                                                  {Label: "Personal", Value: "HR"},
+                                                  {Label: "Fachabteilung", Value: "Department"}
+                                              ),
+                                              Value = varSelectedEntitlement.'Task Owner Joiner'.Value,
+                                              Label
+                                          ),
+                                          "Microsoft 365"
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    Items: |-
+                                      =Table(
+                                          {Label:"IT", Value:"IT"},
+                                          {Label:"Personal", Value:"HR"},
+                                          {Label:"Fachabteilung", Value:"Department"},
+                                          {Label:"Einkauf", Value:"Procurement"}
+                                      )
+                                    Items.Value: =Label
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(0, 18, 107, 1)
+                                    SelectionColor: =RGBA(255, 255, 255, 1)
+                                    SelectionFill: =RGBA(56, 96, 178, 1)
+                        - rowDueOffsetDaysJoiner:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewDueJoiner:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Fälligkeit (Tage):"
+                                    Width: =180
+                              - txtDueOffsetDaysJoiner:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Due Offset Days Joiner',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Format: =TextFormat.Number
+                                    HintText: |-
+                                      ="Tage vor oder nach Eintritt, bis Aufgabe abgeschlossen: z.B. -5, 0, 2"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Width: =Parent.Width-220
+                        - rowRequiresEvidenceJoiner:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblRequiresEvidenceJoiner:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Nachweis erforderlich:"
+                                    Width: =180
+                              - tglRequiresEvidenceJoiner:
+                                  Control: Classic/Toggle@2.1.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Requires Evidence Joiner',
+                                          false
+                                      )
+                                    FalseText: ="Nein"
+                                    Font: =Font.'Open Sans'
+                                    LabelPaddingLeft: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    OnChange: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Requires Evidence Joiner',
+                                          false
+                                      )
+                                    TrueFill: =RGBA(56, 96, 178, 1)
+                                    TrueText: ="Ja"
+                                    Width: =100
+                        - rowNewEvidenceDescriptionJoiner:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =90
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMaxHeight: =100
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                              Visible: =tglRequiresEvidenceJoiner.Value = true
+                            Children:
+                              - lblEvidenceDescriptionJoiner:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Nachweis-Hinweis:"
+                                    Width: =180
+                              - txtEvidenceDescriptionJoiner:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Evidence Description Joiner',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Height: =100
+                                    HintText: ="z. B. Screenshot, Ticketnummer oder Link zum Systemnachweis erfassen"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Mode: =TextMode.MultiLine
+                                    Width: =Parent.Width-220
+                  - cntMoverSection:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(250,250,250,1)
+                        Height: |
+                          =
+                          If(
+                              tglRequiresEvidenceMover.Value,
+                              430,
+                              330
+                          )
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        LayoutMinHeight: =If(tglRequiresEvidenceMover.Value, 480, 380)
+                        LayoutMinWidth: =16
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        Visible: =varMasterDataMode = "Entitlement"
+                        Width: =Parent.Width
+                        X: =40
+                        Y: =40
+                      Children:
+                        - lblEntitlementMover:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Wechsel:"
+                        - rowTaskTitleMover:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewEntitlementTitleMover:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Titel bei Wechsel:"
+                                    Width: =180
+                              - txtTaskTitleMover:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Task Title Mover',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    HintText: ="Leer = allgemeiner Titel wird verwendet"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Width: =Parent.Width-220
+                        - rowTaskDescriptionMover:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =90
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMaxHeight: =100
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - txtTaskDescriptionMover:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Beschreibung Wechsel:"
+                                    Width: =180
+                              - txtEntitlementDescriptionMover:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Task Description Mover',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Height: =100
+                                    HintText: ="Leer = allgemeine Beschreibung verwenden"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Mode: =TextMode.MultiLine
+                                    Width: =Parent.Width-220
+                        - rowNewTaskOwnerMover:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewEntitlementOwnerMover:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Zuständig Wechsel:"
+                                    Width: =180
+                              - drpTaskOwnerGroupMover:
+                                  Control: Classic/DropDown@2.3.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    ChevronBackground: =RGBA(56, 96, 178, 1)
+                                    ChevronFill: =RGBA(255, 255, 255, 1)
+                                    ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                    ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          LookUp(
+                                              Table(
+                                                  {Label: "IT", Value: "IT"},
+                                                  {Label: "Personal", Value: "HR"},
+                                                  {Label: "Fachabteilung", Value: "Department"}
+                                              ),
+                                              Value = varSelectedEntitlement.'Task Owner Mover'.Value,
+                                              Label
+                                          ),
+                                          "IT"
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    Items: |
+                                      =
+                                      Table(
+                                          {Label:"IT", Value:"IT"},
+                                          {Label:"Personal", Value:"HR"},
+                                          {Label:"Fachabteilung", Value:"Department"}
+                                      )
+                                    Items.Value: =Label
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(0, 18, 107, 1)
+                                    SelectionColor: =RGBA(255, 255, 255, 1)
+                                    SelectionFill: =RGBA(56, 96, 178, 1)
+                        - rowDueOffsetDaysMover:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewDueMover:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Fälligkeit (Tage):"
+                                    Width: =180
+                              - txtDueOffsetDaysMover:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Due Offset Days Mover',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Format: =TextFormat.Number
+                                    HintText: |-
+                                      ="Tage vor oder nach Wechsel, bis Aufgabe abgeschlossen: z.B. -5, 0, 2"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Width: =Parent.Width-220
+                        - rowRequiresEvidenceMover:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblRequiresEvidenceMover:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Nachweis erforderlich:"
+                                    Width: =180
+                              - tglRequiresEvidenceMover:
+                                  Control: Classic/Toggle@2.1.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Requires Evidence Mover',
+                                          false
+                                      )
+                                    FalseText: ="Nein"
+                                    Font: =Font.'Open Sans'
+                                    LabelPaddingLeft: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    TrueFill: =RGBA(56, 96, 178, 1)
+                                    TrueText: ="Ja"
+                                    Width: =100
+                        - rowEvidenceDescriptionMover:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =90
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                              Visible: =tglRequiresEvidenceMover.Value
+                            Children:
+                              - lblNewEvidenceDescriptionMover:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Nachweis-Hinweis:"
+                                    Width: =180
+                              - txtEvidenceDescriptionMover:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Evidence Description Mover',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Height: =80
+                                    HintText: ="z. B. Screenshot, Ticketnummer oder Link zum Systemnachweis erfassen"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =80
+                                    LayoutMinWidth: =16
+                                    Mode: =TextMode.MultiLine
+                                    Width: =Parent.Width-220
+                  - cntLeaverSection:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(250,250,250,1)
+                        Height: |
+                          =
+                          If(
+                              tglRequiresEvidenceLeaver.Value,
+                              430,
+                              330
+                          )
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        LayoutMinHeight: =If(tglRequiresEvidenceLeaver.Value, 480, 380)
+                        LayoutMinWidth: =16
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        Visible: =varMasterDataMode = "Entitlement"
+                        Width: =Parent.Width
+                        X: =40
+                        Y: =40
+                      Children:
+                        - lblEntitlementLeaver:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="Austritt:"
+                        - rowTaskTitleLeaver:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewEntitlementTitleLeaver:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Titel bei Austritt:"
+                                    Width: =180
+                              - txtTaskTitleLeaver:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Task Title Leaver',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    HintText: ="Leer = allgemeiner Titel wird verwendet"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Width: =Parent.Width-220
+                        - rowTaskDescriptionLeaver:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =90
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMaxHeight: =100
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - txtTaskDescriptionLeaver:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Beschreibung Austritt:"
+                                    Width: =180
+                              - txtEntitlementDescriptionLeaver:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Task Description Leaver',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Height: =100
+                                    HintText: ="Leer = allgemeine Beschreibung verwenden"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Mode: =TextMode.MultiLine
+                                    Width: =Parent.Width-220
+                        - rowNewTaskOwnerLeaver:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewEntitlementOwnerLeaver:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Zuständig Austritt:"
+                                    Width: =180
+                              - drpTaskOwnerGroupLeaver:
+                                  Control: Classic/DropDown@2.3.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    ChevronBackground: =RGBA(56, 96, 178, 1)
+                                    ChevronFill: =RGBA(255, 255, 255, 1)
+                                    ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                    ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          LookUp(
+                                              Table(
+                                                  {Label: "IT", Value: "IT"},
+                                                  {Label: "Personal", Value: "HR"},
+                                                  {Label: "Fachabteilung", Value: "Department"}
+                                              ),
+                                              Value = varSelectedEntitlement.'Task Owner Leaver'.Value,
+                                              Label
+                                          ),
+                                          "IT"
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    Items: |
+                                      =
+                                      Table(
+                                          {Label:"IT", Value:"IT"},
+                                          {Label:"Personal", Value:"HR"},
+                                          {Label:"Fachabteilung", Value:"Department"}
+                                      )
+                                    Items.Value: =Label
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(0, 18, 107, 1)
+                                    SelectionColor: =RGBA(255, 255, 255, 1)
+                                    SelectionFill: =RGBA(56, 96, 178, 1)
+                        - rowDueOffsetDaysLeaver:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblNewDueLeaver:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Fälligkeit (Tage):"
+                                    Width: =180
+                              - txtDueOffsetDaysLeaver:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Due Offset Days Leaver',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Format: =TextFormat.Number
+                                    HintText: |-
+                                      ="Tage vor oder nach Austritt, bis Aufgabe abgeschlossen: z.B. -5, 0, 2"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Width: =Parent.Width-220
+                        - rowRequiresEvidenceLeaver:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =42
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinHeight: =42
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                            Children:
+                              - lblEntitlementOwnerLeaver:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Nachweis erforderlich:"
+                                    Width: =180
+                              - tglRequiresEvidenceLeaver:
+                                  Control: Classic/Toggle@2.1.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Requires Evidence Leaver',
+                                          false
+                                      )
+                                    FalseText: ="Nein"
+                                    Font: =Font.'Open Sans'
+                                    LabelPaddingLeft: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    TrueFill: =RGBA(56, 96, 178, 1)
+                                    TrueText: ="Ja"
+                                    Width: =100
+                        - rowEvidenceDescriptionLeaver:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =90
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                              Visible: =tglRequiresEvidenceLeaver.Value
+                            Children:
+                              - lblNewEvidenceDescriptionLeaver:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Color: =RGBA(90,90,90,1)
+                                    Font: =Font.'Open Sans'
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =12
+                                    Text: ="Nachweis-Hinweis:"
+                                    Width: =180
+                              - txtEvidenceDescriptionLeaver:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |-
+                                      =If(
+                                          varEditMode = "Edit",
+                                          varSelectedEntitlement.'Evidence Description Leaver',
+                                          ""
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Height: =80
+                                    HintText: ="z. B. Screenshot, Ticketnummer oder Link zum Systemnachweis erfassen"
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    LayoutMinHeight: =80
+                                    LayoutMinWidth: =16
+                                    Mode: =TextMode.MultiLine
+                                    Width: =Parent.Width-220
+            - rowMasterActions:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =60
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =12
+                  LayoutMaxHeight: =60
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Width: =Parent.Width
+                Children:
+                  - btnSaveMasterData:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        BorderThickness: =0
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisplayMode: |-
+                          =Switch(
+                              varMasterDataMode,
+
+                              "RoleProfile",
+                                  If(
+                                      IsBlank(Trim(txtRoleTitle.Text)),
+                                      DisplayMode.Disabled,
+                                      DisplayMode.Edit
+                                  ),
+
+                              "Entitlement",
+                                  If(
+                                      IsBlank(Trim(txtEntitlementTitle.Text)) ||
+                                      IsBlank(Trim(txtEntitlementSystem.Text)) ||
+                                      IsBlank(drpEntitlementCategory.Selected),
+                                      DisplayMode.Disabled,
+                                      DisplayMode.Edit
+                                  ),
+
+                              DisplayMode.Disabled
+                          )
+                        Fill: |
+                          =
+                          If(
+                              varMasterDataMode = "RoleProfile",
+                              RGBA(0,120,212,1),
+                              RGBA(255,140,0,1)
+                          )
+                        Font: =Font.'Open Sans'
+                        Height: =42
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: |-
+                          =Switch(
+                              varMasterDataMode,
+
+                              "RoleProfile",
+                                  Set(
+                                      varSavedRoleProfile,
+                                      Patch(
+                                          BLC_RoleProfiles,
+                                          If(
+                                              varEditMode = "Edit",
+                                              varSelectedRole,
+                                              Defaults(BLC_RoleProfiles)
+                                          ),
+                                          {
+                                              Title: Trim(txtRoleTitle.Text),
+
+                                              'Role Name': Trim(txtRoleTitle.Text),
+
+                                              Description: If(
+                                                  IsBlank(Trim(txtRoleDescription.Text)),
+                                                  Blank(),
+                                                  Trim(txtRoleDescription.Text)
+                                              ),
+
+                                              Department: If(
+                                                  IsBlank(Trim(txtRoleDepartment.Text)),
+                                                  Blank(),
+                                                  Trim(txtRoleDepartment.Text)
+                                              ),
+
+                                              Active: tglRoleActive.Value
+                                          }
+                                      )
+                                  );
+
+                                  If(
+                                      varEditMode = "New" ||
+                                      IsBlank(varSavedRoleProfile.'Role Profile ID'),
+
+                                      Set(
+                                          varSavedRoleProfile,
+                                          Patch(
+                                              BLC_RoleProfiles,
+                                              varSavedRoleProfile,
+                                              {
+                                                  'Role Profile ID':
+                                                      "BLC-RP-" &
+                                                      Text(Today(), "yyyy") &
+                                                      "-" &
+                                                      Right(
+                                                          "000000" & Text(varSavedRoleProfile.ID),
+                                                          6
+                                                      )
+                                              }
+                                          )
+                                      )
+                                  ),
+
+                              "Entitlement",
+                                  Set(
+                                      varSavedEntitlement,
+                                      Patch(
+                                          BLC_Entitlements,
+                                          If(
+                                              varEditMode = "Edit",
+                                              varSelectedEntitlement,
+                                              Defaults(BLC_Entitlements)
+                                          ),
+                                          {
+                                              Title: Trim(txtEntitlementTitle.Text),
+
+                                              Description: If(
+                                                  IsBlank(Trim(txtEntitlementDescription.Text)),
+                                                  Blank(),
+                                                  Trim(txtEntitlementDescription.Text)
+                                              ),
+
+                                              'Entitlement Category': {
+                                                  Value: drpEntitlementCategory.Selected.Value
+                                              },
+
+                                              SystemReference: If(
+                                                  IsBlank(Trim(txtEntitlementSystem.Text)),
+                                                  Blank(),
+                                                  Trim(txtEntitlementSystem.Text)
+                                              ),
+
+                                              Active: tglEntitlementActive.Value,
+
+                                              'Task Title Joiner': If(
+                                                  IsBlank(Trim(txtTaskTitleJoiner.Text)),
+                                                  Blank(),
+                                                  Trim(txtTaskTitleJoiner.Text)
+                                              ),
+
+                                              'Task Description Joiner': If(
+                                                  IsBlank(Trim(txtEntitlementDescriptionJoiner.Text)),
+                                                  Blank(),
+                                                  Trim(txtEntitlementDescriptionJoiner.Text)
+                                              ),
+
+                                              'Task Owner Joiner': {
+                                                  Value: drpTaskOwnerGroupJoiner.Selected.Value
+                                              },
+
+                                              'Due Offset Days Joiner': If(
+                                                  IsBlank(Trim(txtDueOffsetDaysJoiner.Text)),
+                                                  Blank(),
+                                                  Value(txtDueOffsetDaysJoiner.Text)
+                                              ),
+
+                                              'Requires Evidence Joiner': tglRequiresEvidenceJoiner.Value,
+
+                                              'Evidence Description Joiner': If(
+                                                  IsBlank(Trim(txtEvidenceDescriptionJoiner.Text)),
+                                                  Blank(),
+                                                  Trim(txtEvidenceDescriptionJoiner.Text)
+                                              ),
+
+                                              'Task Title Mover': If(
+                                                  IsBlank(Trim(txtTaskTitleMover.Text)),
+                                                  Blank(),
+                                                  Trim(txtTaskTitleMover.Text)
+                                              ),
+
+                                              'Task Description Mover': If(
+                                                  IsBlank(Trim(txtEntitlementDescriptionMover.Text)),
+                                                  Blank(),
+                                                  Trim(txtEntitlementDescriptionMover.Text)
+                                              ),
+
+                                              'Task Owner Mover': {
+                                                  Value: drpTaskOwnerGroupMover.Selected.Value
+                                              },
+
+                                              'Due Offset Days Mover': If(
+                                                  IsBlank(Trim(txtDueOffsetDaysMover.Text)),
+                                                  Blank(),
+                                                  Value(txtDueOffsetDaysMover.Text)
+                                              ),
+
+                                              'Requires Evidence Mover': tglRequiresEvidenceMover.Value,
+
+                                              'Evidence Description Mover': If(
+                                                  IsBlank(Trim(txtEvidenceDescriptionMover.Text)),
+                                                  Blank(),
+                                                  Trim(txtEvidenceDescriptionMover.Text)
+                                              ),
+
+                                              'Task Title Leaver': If(
+                                                  IsBlank(Trim(txtTaskTitleLeaver.Text)),
+                                                  Blank(),
+                                                  Trim(txtTaskTitleLeaver.Text)
+                                              ),
+
+                                              'Task Description Leaver': If(
+                                                  IsBlank(Trim(txtEntitlementDescriptionLeaver.Text)),
+                                                  Blank(),
+                                                  Trim(txtEntitlementDescriptionLeaver.Text)
+                                              ),
+
+                                              'Task Owner Leaver': {
+                                                  Value: drpTaskOwnerGroupLeaver.Selected.Value
+                                              },
+
+                                              'Due Offset Days Leaver': If(
+                                                  IsBlank(Trim(txtDueOffsetDaysLeaver.Text)),
+                                                  Blank(),
+                                                  Value(txtDueOffsetDaysLeaver.Text)
+                                              ),
+
+                                              'Requires Evidence Leaver': tglRequiresEvidenceLeaver.Value,
+
+                                              'Evidence Description Leaver': If(
+                                                  IsBlank(Trim(txtEvidenceDescriptionLeaver.Text)),
+                                                  Blank(),
+                                                  Trim(txtEvidenceDescriptionLeaver.Text)
+                                              )
+                                          }
+                                      )
+                                  );
+
+                                  If(
+                                      varEditMode = "New" ||
+                                      IsBlank(varSavedEntitlement.'Entitlement ID'),
+
+                                      Set(
+                                          varSavedEntitlement,
+                                          Patch(
+                                              BLC_Entitlements,
+                                              varSavedEntitlement,
+                                              {
+                                                  'Entitlement ID':
+                                                      "BLC-ENT-" &
+                                                      Text(Today(), "yyyy") &
+                                                      "-" &
+                                                      Right(
+                                                          "000000" & Text(varSavedEntitlement.ID),
+                                                          6
+                                                      )
+                                              }
+                                          )
+                                      )
+                                  )
+                          );
+
+                          Notify(
+                              Switch(
+                                  varMasterDataMode,
+                                  "RoleProfile", If(varEditMode = "Edit", "Rolle wurde aktualisiert.", "Rolle wurde gespeichert."),
+                                  "Entitlement", If(varEditMode = "Edit", "Berechtigung wurde aktualisiert.", "Berechtigung wurde gespeichert."),
+                                  "Eintrag wurde gespeichert."
+                              ),
+                              NotificationType.Success
+                          );
+
+                          Refresh(BLC_RoleProfiles);
+                          Refresh(BLC_Entitlements);
+
+                          If(
+                              varMasterDataMode = "RoleProfile",
+                              Set(
+                                  varSelectedRole,
+                                  LookUp(
+                                      BLC_RoleProfiles,
+                                      ID = varSavedRoleProfile.ID
+                                  )
+                              )
+                          );
+
+                          If(
+                              varMasterDataMode = "Entitlement",
+                              Set(
+                                  varSelectedEntitlement,
+                                  LookUp(
+                                      BLC_Entitlements,
+                                      ID = varSavedEntitlement.ID
+                                  )
+                              )
+                          );
+
+                          Navigate(
+                              scrRoleEntitlementManager,
+                              ScreenTransition.Fade
+                          )
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Size: =13
+                        Text: |
+                          =
+                          Switch(
+                              varMasterDataMode,
+                              "RoleProfile", "Rolle speichern",
+                              "Entitlement", "Berechtigung speichern",
+                              "Speichern"
+                          )
+                        Width: =210
+                  - btnBackMasterData:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(200,200,200,1)
+                        BorderThickness: =1
+                        Color: =RGBA(40,40,40,1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisplayMode: |-
+                          =Switch(
+                              varMasterDataMode,
+
+                              "RoleProfile",
+                                  If(
+                                      IsBlank(Trim(txtRoleTitle.Text)),
+                                      DisplayMode.Disabled,
+                                      DisplayMode.Edit
+                                  ),
+
+                              "Entitlement",
+                                  If(
+                                      IsBlank(Trim(txtEntitlementTitle.Text)) ||
+                                      IsBlank(Trim(txtEntitlementSystem.Text)) ||
+                                      IsBlank(drpEntitlementCategory.Selected),
+                                      DisplayMode.Disabled,
+                                      DisplayMode.Edit
+                                  ),
+
+                              DisplayMode.Disabled
+                          )
+                        Fill: =RGBA(240,240,240,1)
+                        Font: =Font.'Open Sans'
+                        Height: =42
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: |-
+                          =Navigate(
+                              scrRoleEntitlementManager,
+                              ScreenTransition.Fade
+                          )
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Size: =13
+                        Text: ="Zurück"
+                        Width: =120
+      - cntMasterHeader:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(0,120,212,1)
+            Height: =70
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            PaddingBottom: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =8
+            Width: =Parent.Width
+          Children:
+            - lblMasterHeaderTitle:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Semibold
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  Size: =24
+                  Text: |-
+                    =
+                    If(
+                        varEditMode = "Edit",
+
+                        Switch(
+                            varMasterDataMode,
+                            "RoleProfile", "Rolle bearbeiten",
+                            "Entitlement", "Berechtigung bearbeiten",
+                            "Stammdaten"
+                        ),
+
+                        Switch(
+                            varMasterDataMode,
+                            "RoleProfile", "Neue Rolle erfassen",
+                            "Entitlement", "Neue Berechtigung erfassen",
+                            "Stammdaten"
+                        )
+                    )
+                  Width: =500
+                  X: =30
+                  Y: =20
+      - icoBackMasterData:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =Color.White
+            Height: =42
+            Icon: =Icon.Leave
+            OnSelect: |
+              =
+              Navigate(
+                  scrRoleEntitlementManager,
+                  ScreenTransition.Fade
+              )
+            Width: =42
+            X: =Parent.Width-60
+            Y: =14

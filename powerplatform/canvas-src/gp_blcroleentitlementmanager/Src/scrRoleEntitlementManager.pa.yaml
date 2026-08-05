@@ -1,0 +1,1394 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrRoleEntitlementManager:
+    Properties:
+      Fill: =RGBA(245, 247, 250, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - cntLayoutRolesEntitlements:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Height: =Parent.Height-80
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            PaddingBottom: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =8
+            Width: =Parent.Width
+            Y: =80
+          Children:
+            - cntRoleEntitlement:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =4
+                  Height: =Parent.Height-200
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Width: =Parent.Width
+                  X: =40
+                  Y: =40
+                Children:
+                  - cntRoleProfile:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =Color.White
+                        Height: =658
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        PaddingBottom: =10
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =10
+                        Width: =360
+                        X: =40
+                        Y: =40
+                      Children:
+                        - cntHeaderRoles:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =60
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutMaxHeight: =60
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                              Width: =Parent.Width
+                            Children:
+                              - lblRolesTitle:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =30
+                                    Size: =16
+                                    Text: ="Rollenprofile"
+                                    Width: =160
+                                    X: =40
+                                    Y: =40
+                              - btnNewRoleProfile:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =ColorFade(Self.Fill, -15%)
+                                    BorderThickness: =0
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    Fill: =RGBA(0,120,212,1)
+                                    Font: =Font.'Open Sans'
+                                    Height: =38
+                                    HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(0,100,180,1)
+                                    OnSelect: |-
+                                      =Set(varMasterDataMode, "RoleProfile");
+                                      Set(varEditMode, "New");
+
+                                      Reset(txtRoleTitle);
+                                      Reset(txtRoleDescription);
+                                      Reset(txtRoleDepartment);
+                                      Reset(tglRoleActive);
+
+                                      Navigate(
+                                          scrMasterDataEdit,
+                                          ScreenTransition.Fade
+                                      )
+                                    PressedBorderColor: =Self.Fill
+                                    PressedColor: =Self.Fill
+                                    PressedFill: =RGBA(0,90,160,1)
+                                    Text: ="+ Rolle"
+                                    Width: =120
+                        - galRoles:
+                            Control: Gallery@2.15.0
+                            Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              FillPortions: =2
+                              Height: =Parent.Height - 120
+                              Items: |+
+                                =
+                                SortByColumns(
+                                    Filter(
+                                        BLC_RoleProfiles,
+                                        Active = true
+                                    ),
+                                    "Title",
+                                    SortOrder.Ascending
+                                )
+
+                              OnSelect: |
+                                =
+                                Set(varSelectedRole, ThisItem);
+
+                                ClearCollect(
+                                    colRoleEntitlements,
+                                    Filter(
+                                        BLC_RoleEntitlements,
+                                        RoleProfile.Id = ThisItem.ID
+                                    )
+                                )
+                              TemplateSize: =80
+                              Width: =Parent.Width
+                            Children:
+                              - recRoleBackround:
+                                  Control: Rectangle@2.3.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Fill: |
+                                      =
+                                      If(
+                                          !IsBlank(varSelectedRole) && ThisItem.ID = varSelectedRole.ID,
+                                          RGBA(222, 235, 247, 1),
+                                          Color.White
+                                      )
+                                    Height: =Parent.TemplateHeight
+                                    OnSelect: =Select(Parent)
+                                    Width: =Parent.TemplateWidth
+                              - lblRoleTitlte:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                                    Height: =28
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =ThisItem.Title
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Parent.TemplateWidth - 32
+                                    X: =1
+                                    Y: =10
+                              - lblRoleMeta:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(100, 100, 100, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                                    Height: =24
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =10
+                                    Text: =Coalesce(ThisItem.Department, "") & " | " & Coalesce(ThisItem.RoleProfileID, "")
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Parent.TemplateWidth - 32
+                                    X: =1
+                                    Y: =42
+                              - btnEditRole:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =ColorFade(Self.Fill, -15%)
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    Fill: =RGBA(0,120,212,1)
+                                    Font: =Font.'Open Sans'
+                                    Height: =43
+                                    HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                    OnSelect: |-
+                                      =Set(varSelectedRole, ThisItem);
+                                      Set(varMasterDataMode, "RoleProfile");
+                                      Set(varEditMode, "Edit");
+
+                                      Navigate(
+                                          scrMasterDataEdit,
+                                          ScreenTransition.Fade
+                                      )
+                                    PressedBorderColor: =Self.Fill
+                                    PressedColor: =Self.Fill
+                                    PressedFill: =Self.Color
+                                    Size: =12
+                                    Text: ="Rolle bearbeiten"
+                                    Visible: |-
+                                      =!IsBlank(varSelectedRole) &&
+                                      ThisItem.ID = varSelectedRole.ID
+                                    Width: =99
+                                    X: =Parent.TemplateWidth - Self.Width - 16
+                                    Y: =18
+                  - cntEntitlementsPanel:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =Color.White
+                        FillPortions: =2
+                        Height: =658
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        Width: =Parent.Width - cntRoleProfile.Width -50
+                        X: =40
+                        Y: =40
+                      Children:
+                        - cntHeaderEntitlements:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =60
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutMaxHeight: =60
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                              Width: =Parent.Width
+                            Children:
+                              - lblEntitlementsTitle:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =30
+                                    Size: =16
+                                    Text: ="Rechte"
+                                    Width: =160
+                                    X: =40
+                                    Y: =40
+                              - btnNewEntitlement:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =ColorFade(Self.Fill, -15%)
+                                    BorderThickness: =0
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    Fill: =RGBA(0,120,212,1)
+                                    Font: =Font.'Open Sans'
+                                    Height: =38
+                                    HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(0,100,180,1)
+                                    OnSelect: |-
+                                      =Set(varMasterDataMode, "Entitlement");
+                                      Set(varEditMode, "New");
+
+                                      Reset(txtEntitlementTitle);
+                                      Reset(txtEntitlementSystem);
+                                      Reset(drpEntitlementCategory);
+                                      Reset(drpTaskOwnerGroupJoiner);
+                                      Reset(drpTaskOwnerGroupMover);
+                                      Reset(drpTaskOwnerGroupLeaver);
+                                      Reset(tglRequiresEvidenceJoiner);
+                                      Reset(txtEvidenceDescriptionJoiner);
+                                      Reset(tglRequiresEvidenceMover);
+                                      Reset(txtEvidenceDescriptionMover);
+                                      Reset(tglRequiresEvidenceLeaver);
+                                      Reset(txtEvidenceDescriptionLeaver);
+                                      Reset(tglEntitlementActive);
+
+                                      Navigate(
+                                          scrMasterDataEdit,
+                                          ScreenTransition.Fade
+                                      )
+                                    PressedBorderColor: =Self.Fill
+                                    PressedColor: =Self.Fill
+                                    PressedFill: =RGBA(0,90,160,1)
+                                    Text: ="+ Berechtigung"
+                                    Width: =170
+                                    X: =40
+                                    Y: =40
+                        - cntFilterEntitlements:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =60
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =20
+                              LayoutMaxHeight: =60
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                              Width: =Parent.Width
+                            Children:
+                              - txtSearchEntitlement:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: =""
+                                    Font: =Font.'Open Sans'
+                                    HintText: ="Suche Rechte..."
+                                    HoverBorderColor: =RGBA(0, 18, 107, 1)
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    Width: =350
+                                    X: =40
+                                    Y: =40
+                              - ddCategory:
+                                  Control: Classic/DropDown@2.3.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    ChevronBackground: =RGBA(56, 96, 178, 1)
+                                    ChevronFill: =RGBA(255, 255, 255, 1)
+                                    ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                                    ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                    Default: ="All"
+                                    Font: =Font.'Open Sans'
+                                    HoverFill: =RGBA(186, 202, 226, 1)
+                                    Items: =colCategories
+                                    Items.Value: =Label
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(0, 18, 107, 1)
+                                    SelectionColor: =RGBA(255, 255, 255, 1)
+                                    SelectionFill: =RGBA(56, 96, 178, 1)
+                                    Width: =220
+                                    X: =40
+                                    Y: =40
+                        - lblNoRoleSelected:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(180, 80, 0, 1)
+                              Font: =Font.'Open Sans'
+                              Height: =60
+                              Size: =16
+                              Text: ="Bitte ein Profil auf der linken Seite wählen"
+                              Visible: =IsBlank(varSelectedRole)
+                              Width: =Parent.Width - 460
+                              X: =40
+                              Y: =40
+                        - galEntitlements:
+                            Control: Gallery@2.15.0
+                            Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Height: =Parent.Height - 240
+                              Items: |
+                                =SortByColumns(
+                                    Filter(
+                                        BLC_Entitlements,
+                                        Active &&
+                                        (
+                                            IsBlank(Trim(txtSearchEntitlement.Text)) ||
+                                            StartsWith(Title, Trim(txtSearchEntitlement.Text)) ||
+                                            StartsWith(Coalesce(EntitlementID, ""), Trim(txtSearchEntitlement.Text))
+                                        ) &&
+                                        (
+                                            ddCategory.Selected.Value = "All" ||
+                                            EntitlementCategory.Value = ddCategory.Selected.Value
+                                        )
+                                    ),
+                                    "Title",
+                                    SortOrder.Ascending
+                                )
+                              TemplateSize: =95
+                              Visible: =!IsBlank(varSelectedRole)
+                              Width: =Parent.Width - 460
+                              X: =40
+                              Y: =40
+                            Children:
+                              - recEntitlementBackground:
+                                  Control: Rectangle@2.3.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Fill: |
+                                      =
+                                      If(
+                                          !IsBlank(
+                                              LookUp(
+                                                  colRoleEntitlements,
+                                                  Entitlement.Id = ThisItem.ID && Active
+                                              )
+                                          ),
+                                          RGBA(232, 245, 233, 1),
+                                          Color.White
+                                      )
+                                    Height: =95
+                                    Width: =Parent.Width
+                              - chkJoiner:
+                                  Control: Classic/CheckBox@2.1.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    CheckboxBorderColor: =RGBA(0, 18, 107, 1)
+                                    CheckmarkFill: =RGBA(0, 0, 0, 1)
+                                    Default: |
+                                      =
+                                      Coalesce(
+                                          LookUp(
+                                              colRoleEntitlements,
+                                              Entitlement.Id = ThisItem.ID
+                                          ).RequiredForJoiner,
+                                          false
+                                      )
+                                    DisplayMode: |
+                                      =
+                                      If(
+                                          IsBlank(
+                                              LookUp(
+                                                  colRoleEntitlements,
+                                                  Entitlement.Id = ThisItem.ID && Active
+                                              )
+                                          ),
+                                          DisplayMode.Disabled,
+                                          DisplayMode.Edit
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Height: =40
+                                    HoverColor: =RGBA(0, 18, 107, 1)
+                                    OnCheck: |-
+                                      =If(
+                                          IsBlank(varSelectedRole),
+                                          Notify("Please select a role first.", NotificationType.Warning),
+
+                                          With(
+                                              {
+                                                  existingAssignment: LookUp(
+                                                      BLC_RoleEntitlements,
+                                                      RoleProfile.Id = varSelectedRole.ID &&
+                                                      Entitlement.Id = ThisItem.ID
+                                                  )
+                                              },
+                                              If(
+                                                  IsBlank(existingAssignment),
+
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      Defaults(BLC_RoleEntitlements),
+                                                      {
+                                                          Title: varSelectedRole.Title & " - " & ThisItem.Title,
+
+                                                          RoleProfile: {
+                                                              '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                                              Id: varSelectedRole.ID,
+                                                              Value: varSelectedRole.Title
+                                                          },
+
+                                                          Entitlement: {
+                                                              '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                                              Id: ThisItem.ID,
+                                                              Value: ThisItem.Title
+                                                          },
+
+                                                          Active: true,
+                                                          RequiredForJoiner: true,
+                                                          RequiredForMover: false,
+                                                          RequiredForLeaver: false,
+                                                          IsMandatory: true,
+                                                          CanBeDeselected: true
+                                                      }
+                                                  ),
+
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      existingAssignment,
+                                                      {
+                                                          Active: true,
+                                                          RequiredForJoiner: true
+                                                      }
+                                                  )
+                                              )
+                                          );
+
+                                          Refresh(BLC_RoleEntitlements);
+
+                                          ClearCollect(
+                                              colRoleEntitlements,
+                                              Filter(
+                                                  BLC_RoleEntitlements,
+                                                  RoleProfile.Id = varSelectedRole.ID
+                                              )
+                                          );
+
+                                      )
+                                    OnSelect: =Select(Parent)
+                                    OnUncheck: |-
+                                      =If(
+                                          IsBlank(varSelectedRole),
+                                          Notify("Please select a role first.", NotificationType.Warning),
+
+                                          With(
+                                              {
+                                                  existingAssignment: LookUp(
+                                                      BLC_RoleEntitlements,
+                                                      RoleProfile.Id = varSelectedRole.ID &&
+                                                      Entitlement.Id = ThisItem.ID
+                                                  )
+                                              },
+                                              If(
+                                                  !IsBlank(existingAssignment),
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      existingAssignment,
+                                                      {
+                                                          RequiredForJoiner: false
+                                                      }
+                                                  )
+                                              )
+                                          );
+
+                                          Refresh(BLC_RoleEntitlements);
+
+                                          ClearCollect(
+                                              colRoleEntitlements,
+                                              Filter(
+                                                  BLC_RoleEntitlements,
+                                                  RoleProfile.Id = varSelectedRole.ID
+                                              )
+                                          );
+
+                                      )
+                                    Text: ="Eintritt"
+                                    Width: =110
+                                    X: =523
+                                    Y: =2
+                              - chkMover:
+                                  Control: Classic/CheckBox@2.1.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    CheckboxBorderColor: =RGBA(0, 18, 107, 1)
+                                    CheckmarkFill: =RGBA(0, 0, 0, 1)
+                                    Default: |-
+                                      =Coalesce(
+                                          LookUp(
+                                              colRoleEntitlements,
+                                              Entitlement.Id = ThisItem.ID
+                                          ).RequiredForMover,
+                                          false
+                                      )
+                                    DisplayMode: |
+                                      =
+                                      If(
+                                          IsBlank(
+                                              LookUp(
+                                                  colRoleEntitlements,
+                                                  Entitlement.Id = ThisItem.ID && Active
+                                              )
+                                          ),
+                                          DisplayMode.Disabled,
+                                          DisplayMode.Edit
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Height: =40
+                                    HoverColor: =RGBA(0, 18, 107, 1)
+                                    OnCheck: |-
+                                      =If(
+                                          IsBlank(varSelectedRole),
+                                          Notify("Please select a role first.", NotificationType.Warning),
+
+                                          With(
+                                              {
+                                                  existingAssignment: LookUp(
+                                                      BLC_RoleEntitlements,
+                                                      RoleProfile.Id = varSelectedRole.ID &&
+                                                      Entitlement.Id = ThisItem.ID
+                                                  )
+                                              },
+                                              If(
+                                                  IsBlank(existingAssignment),
+
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      Defaults(BLC_RoleEntitlements),
+                                                      {
+                                                          Title: varSelectedRole.Title & " - " & ThisItem.Title,
+
+                                                          RoleProfile: {
+                                                              '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                                              Id: varSelectedRole.ID,
+                                                              Value: varSelectedRole.Title
+                                                          },
+
+                                                          Entitlement: {
+                                                              '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                                              Id: ThisItem.ID,
+                                                              Value: ThisItem.Title
+                                                          },
+
+                                                          Active: true,
+                                                          RequiredForJoiner: false,
+                                                          RequiredForMover: true,
+                                                          RequiredForLeaver: false,
+                                                          IsMandatory: true,
+                                                          CanBeDeselected: true
+                                                      }
+                                                  ),
+
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      existingAssignment,
+                                                      {
+                                                          Active: true,
+                                                          RequiredForMover: true
+                                                      }
+                                                  )
+                                              )
+                                          );
+
+                                          Refresh(BLC_RoleEntitlements);
+
+                                          ClearCollect(
+                                              colRoleEntitlements,
+                                              Filter(
+                                                  BLC_RoleEntitlements,
+                                                  RoleProfile.Id = varSelectedRole.ID
+                                              )
+                                          );
+
+                                      )
+                                    OnSelect: =Select(Parent)
+                                    OnUncheck: |-
+                                      =If(
+                                          IsBlank(varSelectedRole),
+                                          Notify("Please select a role first.", NotificationType.Warning),
+
+                                          With(
+                                              {
+                                                  existingAssignment: LookUp(
+                                                      BLC_RoleEntitlements,
+                                                      RoleProfile.Id = varSelectedRole.ID &&
+                                                      Entitlement.Id = ThisItem.ID
+                                                  )
+                                              },
+                                              If(
+                                                  !IsBlank(existingAssignment),
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      existingAssignment,
+                                                      {
+                                                          RequiredForMover: false
+                                                      }
+                                                  )
+                                              )
+                                          );
+
+                                          Refresh(BLC_RoleEntitlements);
+
+                                          ClearCollect(
+                                              colRoleEntitlements,
+                                              Filter(
+                                                  BLC_RoleEntitlements,
+                                                  RoleProfile.Id = varSelectedRole.ID
+                                              )
+                                          );
+
+                                      )
+                                    Text: ="Änderung"
+                                    Width: =130
+                                    X: =633
+                                    Y: =2
+                              - chkLeaver:
+                                  Control: Classic/CheckBox@2.1.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    CheckboxBorderColor: =RGBA(0, 18, 107, 1)
+                                    CheckmarkFill: =RGBA(0, 0, 0, 1)
+                                    Default: |
+                                      =
+                                      Coalesce(
+                                          LookUp(
+                                              colRoleEntitlements,
+                                              Entitlement.Id = ThisItem.ID
+                                          ).RequiredForLeaver,
+                                          false
+                                      )
+                                    DisplayMode: |-
+                                      =If(
+                                          IsBlank(
+                                              LookUp(
+                                                  colRoleEntitlements,
+                                                  Entitlement.Id = ThisItem.ID && Active
+                                              )
+                                          ),
+                                          DisplayMode.Disabled,
+                                          DisplayMode.Edit
+                                      )
+                                    Font: =Font.'Open Sans'
+                                    Height: =40
+                                    HoverColor: =RGBA(0, 18, 107, 1)
+                                    OnCheck: |-
+                                      =If(
+                                          IsBlank(varSelectedRole),
+                                          Notify("Please select a role first.", NotificationType.Warning),
+
+                                          With(
+                                              {
+                                                  existingAssignment: LookUp(
+                                                      BLC_RoleEntitlements,
+                                                      RoleProfile.Id = varSelectedRole.ID &&
+                                                      Entitlement.Id = ThisItem.ID
+                                                  )
+                                              },
+                                              If(
+                                                  IsBlank(existingAssignment),
+
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      Defaults(BLC_RoleEntitlements),
+                                                      {
+                                                          Title: varSelectedRole.Title & " - " & ThisItem.Title,
+
+                                                          RoleProfile: {
+                                                              '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                                              Id: varSelectedRole.ID,
+                                                              Value: varSelectedRole.Title
+                                                          },
+
+                                                          Entitlement: {
+                                                              '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                                              Id: ThisItem.ID,
+                                                              Value: ThisItem.Title
+                                                          },
+
+                                                          Active: true,
+                                                          RequiredForJoiner: false,
+                                                          RequiredForMover: false,
+                                                          RequiredForLeaver: true,
+                                                          IsMandatory: true,
+                                                          CanBeDeselected: true
+                                                      }
+                                                  ),
+
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      existingAssignment,
+                                                      {
+                                                          Active: true,
+                                                          RequiredForLeaver: true
+                                                      }
+                                                  )
+                                              )
+                                          );
+
+                                          Refresh(BLC_RoleEntitlements);
+
+                                          ClearCollect(
+                                              colRoleEntitlements,
+                                              Filter(
+                                                  BLC_RoleEntitlements,
+                                                  RoleProfile.Id = varSelectedRole.ID
+                                              )
+                                          );
+
+                                      )
+                                    OnSelect: =Select(Parent)
+                                    OnUncheck: |-
+                                      =If(
+                                          IsBlank(varSelectedRole),
+                                          Notify("Please select a role first.", NotificationType.Warning),
+
+                                          With(
+                                              {
+                                                  existingAssignment: LookUp(
+                                                      BLC_RoleEntitlements,
+                                                      RoleProfile.Id = varSelectedRole.ID &&
+                                                      Entitlement.Id = ThisItem.ID
+                                                  )
+                                              },
+                                              If(
+                                                  !IsBlank(existingAssignment),
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      existingAssignment,
+                                                      {
+                                                          RequiredForLeaver: false
+                                                      }
+                                                  )
+                                              )
+                                          );
+
+                                          Refresh(BLC_RoleEntitlements);
+
+                                          ClearCollect(
+                                              colRoleEntitlements,
+                                              Filter(
+                                                  BLC_RoleEntitlements,
+                                                  RoleProfile.Id = varSelectedRole.ID
+                                              )
+                                          );
+
+                                      )
+                                    Text: ="Austritt"
+                                    Width: =110
+                                    X: =763
+                                    Y: =2
+                              - lblEntitlementMeta:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                                    Height: =Self.Size * 1.8
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =ThisItem.Description
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =lblEntitlementTitle.Width
+                                    X: =45
+                                    Y: =55
+                              - lblEntitlementTitle:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =Color.Black
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =30
+                                    OnSelect: |-
+                                      =Set(
+                                          varSelectedEntitlement,
+                                          ThisItem
+                                      )
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =ThisItem.Title
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Parent.TemplateWidth - 110
+                                    X: =45
+                                    Y: =20
+                              - tglEntitlementAssigned:
+                                  Control: Classic/Toggle@2.1.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Default: |
+                                      =
+                                      !IsBlank(
+                                          LookUp(
+                                              colRoleEntitlements,
+                                              Entitlement.Id = ThisItem.ID && Active
+                                          )
+                                      )
+                                    DisplayMode: |
+                                      =
+                                      If(
+                                          IsBlank(varSelectedRole),
+                                          DisplayMode.Disabled,
+                                          DisplayMode.Edit
+                                      )
+                                    FalseText: ="No"
+                                    Font: =Font.'Open Sans'
+                                    Height: =40
+                                    OnCheck: |-
+                                      =If(
+                                          IsBlank(varSelectedRole),
+                                          Notify("Please select a role first.", NotificationType.Warning),
+
+                                          With(
+                                              {
+                                                  existingAssignment: LookUp(
+                                                      BLC_RoleEntitlements,
+                                                      RoleProfile.Id = varSelectedRole.ID &&
+                                                      Entitlement.Id = ThisItem.ID
+                                                  )
+                                              },
+                                              If(
+                                                  IsBlank(existingAssignment),
+
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      Defaults(BLC_RoleEntitlements),
+                                                      {
+                                                          Title: varSelectedRole.Title & " - " & ThisItem.Title,
+
+                                                          RoleProfile: {
+                                                              '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                                              Id: varSelectedRole.ID,
+                                                              Value: varSelectedRole.Title
+                                                          },
+
+                                                          Entitlement: {
+                                                              '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                                              Id: ThisItem.ID,
+                                                              Value: ThisItem.Title
+                                                          },
+
+                                                          Active: true,
+                                                          RequiredForJoiner: true,
+                                                          RequiredForMover: false,
+                                                          RequiredForLeaver: false,
+                                                          IsMandatory: true,
+                                                          CanBeDeselected: true
+                                                      }
+                                                  ),
+
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      existingAssignment,
+                                                      {
+                                                          Active: true,
+                                                          RequiredForJoiner: true
+                                                      }
+                                                  )
+                                              )
+                                          );
+
+                                          ClearCollect(
+                                              colRoleEntitlements,
+                                              Filter(
+                                                  BLC_RoleEntitlements,
+                                                  RoleProfile.Id = varSelectedRole.ID
+                                              )
+                                          );
+
+                                      )
+                                    OnUncheck: |-
+                                      =If(
+                                          IsBlank(varSelectedRole),
+                                          Notify("Please select a role first.", NotificationType.Warning),
+
+                                          With(
+                                              {
+                                                  existingAssignment: LookUp(
+                                                      BLC_RoleEntitlements,
+                                                      RoleProfile.Id = varSelectedRole.ID &&
+                                                      Entitlement.Id = ThisItem.ID
+                                                  )
+                                              },
+                                              If(
+                                                  !IsBlank(existingAssignment),
+                                                  Patch(
+                                                      BLC_RoleEntitlements,
+                                                      existingAssignment,
+                                                      {
+                                                          Active: false
+                                                      }
+                                                  )
+                                              )
+                                          );
+
+                                          ClearCollect(
+                                              colRoleEntitlements,
+                                              Filter(
+                                                  BLC_RoleEntitlements,
+                                                  RoleProfile.Id = varSelectedRole.ID
+                                              )
+                                          );
+
+                                      )
+                                    TrueFill: =RGBA(56, 96, 178, 1)
+                                    TrueText: ="Yes"
+                                    Width: =40
+                                    Y: =25
+            - cntEntitlementDetail:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Height: =Parent.Height-(cntRoleEntitlement.Height+80)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Visible: =!IsBlank(varSelectedEntitlement)
+                  Width: =Parent.Width
+                  X: =40
+                  Y: =40
+                Children:
+                  - btnEditEntitlement:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(0,120,212,1)
+                        Font: =Font.'Open Sans'
+                        Height: =Parent.Height
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        OnSelect: |-
+                          =Set(
+                              varMasterDataMode,
+                              "Entitlement"
+                          );
+
+                          Set(
+                              varEditMode,
+                              "Edit"
+                          );
+
+                          Navigate(
+                              scrMasterDataEdit,
+                              ScreenTransition.Fade
+                          )
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Size: =11
+                        Text: ="Recht bearbeiten"
+                        Visible: =!IsBlank(varSelectedEntitlement)
+                        Width: =90
+                        X: =40
+                        Y: =40
+                  - cntDetailBase:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblDetailBase:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              FillPortions: =2
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Overflow: =Overflow.Scroll
+                              Size: =11
+                              Text: |-
+                                ="Kategorie: " &
+                                LookUp(
+                                    colCategories,
+                                    Value = varSelectedEntitlement.EntitlementCategory.Value,
+                                    Label
+                                )
+                                &
+                                Char(10) & Char(10) &
+
+                                "System: " &
+                                Coalesce(
+                                    varSelectedEntitlement.SystemReference,
+                                    "-"
+                                )
+                                &
+                                Char(10) & Char(10) &
+
+                                "Beschreibung:" &
+                                Char(10) &
+                                Coalesce(
+                                    varSelectedEntitlement.Description,
+                                    "-"
+                                )
+                              Width: =Parent.Width
+                              X: =40
+                              Y: =40
+                  - cntDetailsJoin:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =Color.LightGreen
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        X: =40
+                        Y: =40
+                      Children:
+                        - lblDetailJoin:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              FillPortions: =2
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Overflow: =Overflow.Scroll
+                              Size: =11
+                              Text: |-
+                                ="Eintritt: " &
+                                Coalesce(
+                                    varSelectedEntitlement.'Task Title Joiner',
+                                    "-"
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Beschreibung: " &
+                                Coalesce(
+                                    varSelectedEntitlement.'Task Description Joiner',
+                                    "-"
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Zuständig: " &
+                                Coalesce(
+                                    varSelectedEntitlement.'Task Owner Joiner'.Value,
+                                    "-"
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Fälligkeit: " &
+                                Text(
+                                    Coalesce(
+                                        varSelectedEntitlement.'Due Offset Days Joiner',
+                                        0
+                                    )
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Nachweis: " &
+                                If(
+                                    varSelectedEntitlement.'Requires Evidence Joiner',
+                                    "Ja",
+                                    "Nein"
+                                )
+                              Width: =Parent.Width
+                              X: =40
+                              Y: =40
+                  - cntDetailsMove:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =Color.LightGray
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblDetailMover:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              FillPortions: =2
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Overflow: =Overflow.Scroll
+                              Size: =11
+                              Text: |-
+                                ="Wechsel: " &
+                                Coalesce(
+                                    varSelectedEntitlement.'Task Title Mover',
+                                    "-"
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Beschreibung: " &
+                                Coalesce(
+                                    varSelectedEntitlement.'Task Description Mover',
+                                    "-"
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Zuständig: " &
+                                Coalesce(
+                                    varSelectedEntitlement.'Task Owner Mover'.Value,
+                                    "-"
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Fälligkeit: " &
+                                Text(
+                                    Coalesce(
+                                        varSelectedEntitlement.'Due Offset Days Mover',
+                                        0
+                                    )
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Nachweis: " &
+                                If(
+                                    varSelectedEntitlement.'Requires Evidence Mover',
+                                    "Ja",
+                                    "Nein"
+                                )
+                              Width: =Parent.Width
+                              X: =40
+                              Y: =40
+                  - cntDetailsLeave:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =Color.LightSalmon
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - lblDetailLeaver:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              FillPortions: =2
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Overflow: =Overflow.Scroll
+                              Size: =11
+                              Text: |-
+                                ="Austritt: " &
+                                Coalesce(
+                                    varSelectedEntitlement.'Task Title Leaver',
+                                    "-"
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Beschreibung: " &
+                                Coalesce(
+                                    varSelectedEntitlement.'Task Description Leaver',
+                                    "-"
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Zuständig: " &
+                                Coalesce(
+                                    varSelectedEntitlement.'Task Owner Leaver'.Value,
+                                    "-"
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Fälligkeit: " &
+                                Text(
+                                    Coalesce(
+                                        varSelectedEntitlement.'Due Offset Days Leaver',
+                                        0
+                                    )
+                                )
+                                &
+                                Char(10)
+                                &
+                                "Nachweis: " &
+                                If(
+                                    varSelectedEntitlement.'Requires Evidence Leaver',
+                                    "Ja",
+                                    "Nein"
+                                )
+                              Width: =Parent.Width
+                              X: =40
+                              Y: =40
+      - cntHeaderRoleManager:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(0,120,212,1)
+            Height: =80
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutGap: =10
+            PaddingBottom: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =8
+            Width: =Parent.Width
+          Children:
+            - lblAppTitle:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =Color.White
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =56
+                  Size: =20
+                  Text: ="Rollen-Rechte-Manager"
+                  Width: =339
+                  X: =40
+                  Y: =40
+            - lblSelectedRole:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =Color.White
+                  FillPortions: =1
+                  Font: =Font.'Open Sans'
+                  Height: =30
+                  Text: |+
+                    =
+                    If(
+                        IsBlank(varSelectedRole),
+                        "Keine Rolle gewählt",
+                        "gewählte Rolle: " & varSelectedRole.Title
+                    )
+
+                  Width: =Parent.Width-lblAppTitle.Width-500
+                  X: =40
+                  Y: =40
+            - lblAssignedCount:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(214, 223, 238, 1)
+                  FillPortions: =2
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Size: =12
+                  Text: |
+                    ="zugeordnetete Rechte: "
+                     &
+                    CountRows(
+                        Filter(
+                            colRoleEntitlements,
+                            Active
+                        )
+                    )
+                  Width: =Parent.Width - 1000
+                  X: =40
+                  Y: =40
+      - icoHome:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =Color.White
+            Height: =42
+            Icon: =Icon.Home
+            OnSelect: |
+              =
+              Navigate(
+                  scrHome,
+                  ScreenTransition.Fade
+              )
+            Width: =42
+            X: =Parent.Width-60
+            Y: =19

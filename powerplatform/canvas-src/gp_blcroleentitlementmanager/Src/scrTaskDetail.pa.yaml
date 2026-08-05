@@ -1,0 +1,940 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrTaskDetail:
+    Properties:
+      Fill: =RGBA(245,245,245,1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - cntTaskDetailMain:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =Color.White
+            Height: =Parent.Height - 120
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =16
+            PaddingBottom: =20
+            PaddingLeft: =20
+            PaddingRight: =20
+            PaddingTop: =20
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =90
+          Children:
+            - cntTaskInfo:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Height: =320
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =8
+                  LayoutMinHeight: =8
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Width: =Parent.Width
+                Children:
+                  - lblTaskInfoTitle:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(40,40,40,1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Size: =18
+                        Text: ="Aufgabendetails"
+                        Width: =Parent.Width - 20
+                  - rowTaskTitle:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - Label6:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(90,90,90,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: ="Aufgabe:"
+                              Width: =180
+                        - Label7:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(40,40,40,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: =varSelectedTask.'Task Title'
+                              Width: =Parent.Width -220
+                  - rowTaskID:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - Label6_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(90,90,90,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: ="Aufgaben-ID:"
+                              Width: =180
+                        - Label7_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(40,40,40,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: =varSelectedTask.'Task ID'
+                              Width: =Parent.Width -220
+                  - rowTaskStatus:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - Label6_3:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(90,90,90,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: ="Status:"
+                              Width: =180
+                        - Label7_3:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: |
+                                =
+                                Switch(
+                                    varSelectedTask.'Task Status'.Value,
+                                    "Open", RGBA(255,140,0,1),
+                                    "InProgress", RGBA(0,120,212,1),
+                                    "Waiting", RGBA(128,90,213,1),
+                                    "WaitingForInput", RGBA(196,43,28,1),
+                                    "Completed", RGBA(16,124,16,1),
+                                    "Cancelled", RGBA(120,120,120,1),
+                                    "Skipped", RGBA(120,120,120,1),
+                                    RGBA(60,60,60,1)
+                                )
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: |
+                                =
+                                Switch(
+                                    varSelectedTask.'Task Status'.Value,
+                                    "Open", "offen",
+                                    "InProgress", "in Arbeit",
+                                    "Waiting", "wartet",
+                                    "WaitingForInput", "Rückfrage",
+                                    "Completed", "abgeschlossen",
+                                    "Cancelled", "abgebrochen",
+                                    "Skipped", "übersprungen",
+                                    varSelectedTask.'Task Status'.Value
+                                )
+                              Width: =Parent.Width -220
+                  - rowTaskOwner:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - Label6_4:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(90,90,90,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: ="Zuständig:"
+                              Width: =180
+                        - Label7_4:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(40,40,40,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: |
+                                =
+                                Coalesce(
+                                    varSelectedTask.'Task Owner Group'.Value,
+                                    "nicht gesetzt"
+                                )
+                              Width: =Parent.Width -220
+                  - rowTaskDueDate:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - Label6_5:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(90,90,90,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: ="Fällig am:"
+                              Width: =180
+                        - Label7_5:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(40,40,40,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: |
+                                =
+                                If(
+                                    IsBlank(varSelectedTask.'Due Date'),
+                                    "-",
+                                    Text(
+                                        varSelectedTask.'Due Date',
+                                        "dd.mm.yyyy"
+                                    )
+                                )
+                              Width: =Parent.Width -220
+                  - rowTaskPriority:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - Label6_6:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(90,90,90,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: ="Priorität:"
+                              Width: =180
+                        - Label7_6:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(40,40,40,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: |
+                                =
+                                Coalesce(
+                                    varSelectedTask.Priority.Value,
+                                    "Normal"
+                                )
+                              Width: =Parent.Width -220
+                  - lblTaskDescriptionCaption:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(90,90,90,1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =24
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Size: =12
+                        Text: ="Beschreibung:"
+                  - lblTaskDescriptionValue:
+                      Control: Label@2.5.1
+                      Properties:
+                        AutoHeight: =true
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(40,40,40,1)
+                        Font: =Font.'Open Sans'
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Size: =12
+                        Text: |
+                          =
+                          Coalesce(
+                              varSelectedTask.'Task Description',
+                              "Keine Beschreibung vorhanden."
+                          )
+                        Width: =Parent.Width - 40
+            - cntEvidence:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Height: =260
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =10
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  Width: =Parent.Width
+                Children:
+                  - lblEvidenceTitle:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(40,40,40,1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =32
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Size: =18
+                        Text: ="Nachweis / Kommentar"
+                        Width: =300
+                  - rowRequiresEvidence:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMaxHeight: =40
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - Label6_7:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(90,90,90,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: ="Nachweis erforderlich:"
+                              Width: =180
+                        - Label7_7:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(40,40,40,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: |
+                                =
+                                If(
+                                    varSelectedTask.'Requires Evidence',
+                                    "ja",
+                                    "nein"
+                                )
+                              Width: =Parent.Width -220
+                  - rowEvidenceDescription:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =32
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMaxHeight: =40
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - Label6_8:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(90,90,90,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: ="Nachweis-Hinweis:"
+                              Width: =180
+                        - Label7_8:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(40,40,40,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: |
+                                =
+                                Coalesce(
+                                    varSelectedTask.'Evidence Description',
+                                    "Kein spezieller Nachweis-Hinweis hinterlegt."
+                                )
+                              Width: =Parent.Width -220
+                  - rowEvidenceLink:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =44
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMaxHeight: =40
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        Visible: =varSelectedTask.'Requires Evidence'
+                      Children:
+                        - Label6_9:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(90,90,90,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: ="Nachweis-Link:"
+                              Width: =180
+                        - txtEvidenceLink:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: =""
+                              Font: =Font.'Open Sans'
+                              Height: =38
+                              HintText: ="Link zu Ticket, Dokument, Screenshot oder Ablageort"
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Width: =Parent.Width - 220
+                  - rowTaskComment:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =100
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMaxHeight: =90
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                      Children:
+                        - Label6_10:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(90,90,90,1)
+                              Font: =Font.'Open Sans'
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Size: =12
+                              Text: ="Kommentar:"
+                              Width: =180
+                        - txtTaskComment:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Default: |
+                                =
+                                Coalesce(
+                                    varSelectedTask.Comment,
+                                    ""
+                                )
+                              Font: =Font.'Open Sans'
+                              HoverBorderColor: =RGBA(0, 18, 107, 1)
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Mode: =TextMode.MultiLine
+                              Width: =Parent.Width - 220
+                  - lblSkipHint:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(196,43,28,1)
+                        Font: =Font.'Open Sans'
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Size: =11
+                        Text: |
+                          =
+                          If(
+                              IsBlank(Trim(txtTaskComment.Text)),
+                              "Zum Überspringen bitte einen Kommentar erfassen.",
+                              ""
+                          )
+                        Visible: =btnSkipTask.Visible && IsBlank(Trim(txtTaskComment.Text))
+                        Width: =Parent.Width
+                        X: =40
+                        Y: =40
+                  - lblEvidenceRequiredHint:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(196,43,28,1)
+                        Font: =Font.'Open Sans'
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Text: |
+                          =
+                          If(
+                              varSelectedTask.'Requires Evidence',
+                              "Für diesen Task ist ein Nachweis erforderlich. Bitte Kommentar oder Nachweis-Link erfassen.",
+                              ""
+                          )
+                        Visible: |
+                          =
+                          varSelectedTask.'Requires Evidence' = true &&
+                          IsBlank(Trim(txtEvidenceLink.Text)) &&
+                          IsBlank(Trim(txtTaskComment.Text))
+                        Width: =Parent.Width
+            - rowTaskActions:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Height: =60
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =12
+                  LayoutMaxHeight: =60
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                Children:
+                  - btnStartTask:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(0,120,212,1)
+                        Font: =Font.'Open Sans'
+                        Height: =54
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: |-
+                          =Set(
+                              varSelectedTask,
+                              Patch(
+                                  BLC_LifecycleTasks,
+                                  varSelectedTask,
+                                  {
+                                      'Task Status': {Value: "InProgress"}
+                                  }
+                              )
+                          );
+
+                          Notify(
+                              "Task wurde auf 'in Arbeit' gesetzt.",
+                              NotificationType.Success
+                          );
+
+                          Refresh(BLC_LifecycleTasks)
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Text: ="In Arbeit setzen"
+                        Visible: |
+                          =
+                          varSelectedTask.'Task Status'.Value = "Open" ||
+                          varSelectedTask.'Task Status'.Value = "WaitingForInput"
+                  - btnSetWaitingForInput:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisplayMode: |
+                          =
+                          If(
+                              IsBlank(Trim(txtTaskComment.Text)),
+                              DisplayMode.Disabled,
+                              DisplayMode.Edit
+                          )
+                        Fill: =RGBA(0,120,212,1)
+                        Font: =Font.'Open Sans'
+                        Height: =54
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: |-
+                          =Set(
+                              varSelectedTask,
+                              Patch(
+                                  BLC_LifecycleTasks,
+                                  varSelectedTask,
+                                  {
+                                      'Task Status': {Value: "WaitingForInput"},
+
+                                      Comment: If(
+                                          IsBlank(Trim(txtTaskComment.Text)),
+                                          Blank(),
+                                          Trim(txtTaskComment.Text)
+                                      )
+                                  }
+                              )
+                          );
+
+                          Notify(
+                              "Task wurde auf 'Rückfrage' gesetzt.",
+                              NotificationType.Success
+                          );
+
+                          Refresh(BLC_LifecycleTasks)
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Text: ="Warte auf Klärung"
+                        Visible: |
+                          =
+                          varSelectedTask.'Task Status'.Value = "Open" ||
+                          varSelectedTask.'Task Status'.Value = "InProgress"
+                  - btnCompleteTask:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisplayMode: |-
+                          =If(
+                              varSelectedTask.'Task Status'.Value = "Completed" ||
+                              varSelectedTask.'Task Status'.Value = "Skipped" ||
+                              varSelectedTask.'Task Status'.Value = "Cancelled",
+
+                              DisplayMode.Disabled,
+
+                              If(
+                                  varSelectedTask.'Requires Evidence' = true &&
+                                  IsBlank(Trim(txtEvidenceLink.Text)) &&
+                                  IsBlank(Trim(txtTaskComment.Text)),
+
+                                  DisplayMode.Disabled,
+
+                                  DisplayMode.Edit
+                              )
+                          )
+                        Fill: =RGBA(96,94,92,1)
+                        Font: =Font.'Open Sans'
+                        Height: =54
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: |-
+                          =Set(
+                              varSelectedTask,
+                              Patch(
+                                  BLC_LifecycleTasks,
+                                  varSelectedTask,
+                                  {
+                                      'Task Status': {Value: "Completed"},
+
+                                      Comment: If(
+                                          IsBlank(Trim(txtTaskComment.Text)),
+                                          Blank(),
+                                          Trim(txtTaskComment.Text)
+                                      ),
+
+                                      'Evidence Link': Trim(txtEvidenceLink.Text),
+
+                                      'Completed Date': Now(),
+
+                                      'Completed By': {
+                                          Claims: "i:0#.f|membership|" & Lower(User().Email),
+                                          DisplayName: User().FullName,
+                                          Email: Lower(User().Email),
+                                          Department: "",
+                                          JobTitle: "",
+                                          Picture: ""
+                                      }
+                                  }
+                              )
+                          );
+
+                          Notify(
+                              "Task wurde abgeschlossen.",
+                              NotificationType.Success
+                          );
+
+                          Refresh(BLC_LifecycleTasks);
+                          Refresh(BLC_LifecycleRequests);
+
+                          Navigate(
+                              scrLifecycleRequestOverview,
+                              ScreenTransition.Fade
+                          )
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Text: ="Aufgabe abschließen"
+                        Visible: |
+                          =
+                          varSelectedTask.'Task Status'.Value = "Open" &&
+                          varSelectedTask.'Task Status'.Value <> "InProgress" &&
+                          varSelectedTask.'Task Status'.Value <> "WaitingForInput"
+                  - btnSkipTask:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisplayMode: |
+                          =
+                          If(
+                              IsBlank(Trim(txtTaskComment.Text)),
+                              DisplayMode.Disabled,
+                              DisplayMode.Edit
+                          )
+                        Fill: =RGBA(96,94,92,1)
+                        Font: =Font.'Open Sans'
+                        Height: =54
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: |-
+                          =Set(
+                              varSelectedTask,
+                              Patch(
+                                  BLC_LifecycleTasks,
+                                  varSelectedTask,
+                                  {
+                                      'Task Status': {Value: "Skipped"},
+
+                                      Comment: If(
+                                          IsBlank(Trim(txtTaskComment.Text)),
+                                          Blank(),
+                                          Trim(txtTaskComment.Text)
+                                      ),
+
+                                      'Completed Date': Now(),
+
+                                      'Completed By': {
+                                          Claims: "i:0#.f|membership|" & Lower(User().Email),
+                                          DisplayName: User().FullName,
+                                          Email: Lower(User().Email),
+                                          Department: "",
+                                          JobTitle: "",
+                                          Picture: ""
+                                      }
+                                  }
+                              )
+                          );
+
+                          Notify(
+                              "Task wurde übersprungen.",
+                              NotificationType.Success
+                          );
+
+                          Refresh(BLC_LifecycleTasks);
+                          Refresh(BLC_LifecycleRequests);
+
+                          Navigate(
+                              scrLifecycleRequestOverview,
+                              ScreenTransition.Fade
+                          )
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Text: ="Aufgabe Überspringen"
+                        Visible: |
+                          =
+                          varSelectedTask.'Task Status'.Value = "Open" ||
+                          varSelectedTask.'Task Status'.Value = "InProgress" ||
+                          varSelectedTask.'Task Status'.Value = "WaitingForInput"
+                  - btnBackTask:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(40,40,40,1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisplayMode: |
+                          =
+                          If(
+                              varSelectedTask.'Requires Evidence' = true &&
+                              IsBlank(Trim(txtEvidenceLink.Text)) &&
+                              IsBlank(Trim(txtTaskComment.Text)),
+                              DisplayMode.Disabled,
+                              DisplayMode.Edit
+                          )
+                        Fill: =RGBA(200,200,200,1)
+                        Font: =Font.'Open Sans'
+                        Height: =54
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        OnSelect: |
+                          =
+                          Navigate(
+                              scrLifecycleRequestOverview,
+                              ScreenTransition.Fade
+                          )
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Text: ="Zurück"
+      - cntTaskHeader:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(0,120,212,1)
+            Height: =80
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            PaddingBottom: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =8
+            Width: =Parent.Width
+          Children:
+            - lblTaskHeaderTitle:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Semibold
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  Size: =24
+                  Text: ="Aufgaben Details"
+                  Width: =500
+                  X: =30
+                  Y: =20
+      - icoBack:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =Color.White
+            Height: =42
+            Icon: =Icon.Leave
+            OnSelect: |
+              =
+              Navigate(
+                  scrLifecycleRequestOverview,
+                  ScreenTransition.Fade
+              )
+            Width: =42
+            X: =Parent.Width-60
+            Y: =19

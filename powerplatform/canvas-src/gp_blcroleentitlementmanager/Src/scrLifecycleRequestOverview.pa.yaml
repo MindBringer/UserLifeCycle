@@ -1,0 +1,856 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrLifecycleRequestOverview:
+    Properties:
+      Fill: =RGBA(245,245,245,1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - cntHeader_1:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(0,120,212,1)
+            Height: =80
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            PaddingBottom: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =8
+            Width: =Parent.Width
+          Children:
+            - lblTitle_1:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Semibold
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  Size: =24
+                  Text: ="Vorgänge"
+                  Width: =200
+                  X: =30
+                  Y: =20
+      - cntOverview:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            Height: =Parent.Height - 100
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutGap: =20
+            PaddingBottom: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+            PaddingTop: =8
+            Width: =Parent.Width - 40
+            X: =20
+            Y: =90
+          Children:
+            - cntRequests:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =Color.White
+                  FillPortions: =6
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =8
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  Width: =(Parent.Width - 20) * 0.42
+                Children:
+                  - cntRequestFilter:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =60
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =30
+                        LayoutMaxHeight: =80
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        PaddingTop: =8
+                        Width: =Parent.Width
+                      Children:
+                        - drpRequestType:
+                            Control: Classic/DropDown@2.3.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              ChevronBackground: =RGBA(56, 96, 178, 1)
+                              ChevronFill: =RGBA(255, 255, 255, 1)
+                              ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                              ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                              Font: =Font.'Open Sans'
+                              HoverFill: =RGBA(186, 202, 226, 1)
+                              Items: |
+                                =
+                                Table(
+                                    {Label: "Alle", Value: "Alle"},
+                                    {Label: "Eintritt", Value: "Onboarding"},
+                                    {Label: "Wechsel", Value: "Mover"},
+                                    {Label: "Austritt", Value: "Offboarding"}
+                                )
+                              Items.Value: =Label
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 18, 107, 1)
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(56, 96, 178, 1)
+                              Width: =180
+                        - icoRefresh:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(0, 18, 107, 1)
+                              Icon: =Icon.Reload
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              OnSelect: |
+                                =
+                                Refresh(BLC_LifecycleRequests);
+                                Refresh(BLC_LifecycleTasks)
+                              Width: =32
+                        - btnNewRequest:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              BorderColor: =ColorFade(Self.Fill, -15%)
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                              Fill: =RGBA(0,120,212,1)
+                              Font: =Font.'Open Sans'
+                              HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                              HoverColor: =RGBA(255, 255, 255, 1)
+                              HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              OnSelect: |
+                                =
+                                Navigate(
+                                    scrRequestNew,
+                                    ScreenTransition.Fade
+                                )
+                              PressedBorderColor: =Self.Fill
+                              PressedColor: =Self.Fill
+                              PressedFill: =Self.Color
+                              Text: ="+ Neuer Vorgang"
+                              Width: =180
+                        - chkShowCompleted:
+                            Control: Classic/CheckBox@2.1.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              CheckboxBorderColor: =RGBA(0, 18, 107, 1)
+                              CheckmarkFill: =RGBA(0, 0, 0, 1)
+                              Font: =Font.'Open Sans'
+                              HoverColor: =RGBA(0, 18, 107, 1)
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              Text: ="alle Vorgänge"
+                  - galRequests:
+                      Control: Gallery@2.15.0
+                      Variant: BrowseLayout_Vertical_ThreeTextVariant_ver5.0
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Height: =Parent.Height - 60
+                        Items: |-
+                          =SortByColumns(
+                              Filter(
+                                  BLC_LifecycleRequests,
+
+                                  (
+                                      chkShowCompleted.Value
+                                      ||
+                                      (
+                                          'Lifecycle Status'.Value <> "Completed" &&
+                                          'Lifecycle Status'.Value <> "Cancelled" &&
+                                          'Lifecycle Status'.Value <> "Archived"
+                                      )
+                                  )
+                                  &&
+
+                                  (
+                                      drpRequestType.Selected.Value = "Alle"
+                                      ||
+                                      'Request Type'.Value = drpRequestType.Selected.Value
+                                  )
+                              ),
+                              "Created",
+                              SortOrder.Descending
+                          )
+                        TemplateFill: |
+                          =
+                          If(
+                              ThisItem.ID = galRequests.Selected.ID,
+                              RGBA(100,190,250,1),
+                              Switch(
+                                  ThisItem.'Lifecycle Status'.Value,
+                                  "Completed", RGBA(232,245,233,1),
+                                  "InProgress", RGBA(225,239,255,1),
+                                  "Submitted", RGBA(255,244,224,1),
+                                  "Approved", RGBA(225,239,255,1),
+                                  "WaitingForInput", RGBA(255,235,235,1),
+                                  "Cancelled", RGBA(242,242,242,1),
+                                  RGBA(250,250,250,1)
+                              )
+                          )
+                        Width: =Parent.Width
+                      Children:
+                        - rectSeparatorRequests:
+                            Control: Rectangle@2.3.0
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Fill: =RGBA(255, 255, 255, 1)
+                              Height: =8
+                              OnSelect: =Select(Parent)
+                              Width: =Parent.TemplateWidth
+                              Y: =Parent.TemplateHeight - Self.Height
+                        - lblRequestTitle:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 1)
+                              Color: =RGBA(35,35,35,1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                              Height: =Self.Size * 1.8
+                              OnSelect: =Select(Parent)
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =14
+                              Text: =ThisItem.'Lifecycle ID'
+                              VerticalAlign: =VerticalAlign.Top
+                              Width: =Parent.TemplateWidth - 86
+                              X: =16
+                              Y: =(Parent.TemplateHeight - (Self.Size*1.8 + lblRequestSubtitle.Size*1.8 + 2 + lblRequestMeta.Size*1.8)) / 2
+                        - lblRequestSubtitle:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 1)
+                              Color: =RGBA(45,45,45,1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                              Height: =Self.Size * 1.8
+                              OnSelect: =Select(Parent)
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =12
+                              Text: =ThisItem.'Target Display Name'
+                              VerticalAlign: =VerticalAlign.Top
+                              Width: =lblRequestTitle.Width
+                              X: =lblRequestTitle.X
+                              Y: =lblRequestTitle.Y + lblRequestTitle.Height
+                        - lblRequestMeta:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 1)
+                              Color: =RGBA(80,80,80,1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                              Height: =Self.Size * 1.8
+                              OnSelect: =Select(Parent)
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =12
+                              Text: |-
+                                =Switch(
+                                    ThisItem.'Request Type'.Value,
+                                    "Onboarding", "Eintritt",
+                                    "Mover", "Wechsel",
+                                    "Offboarding", "Austritt",
+                                    "AccessRequest", "Berechtigungsanfrage",
+                                    ThisItem.'Request Type'.Value
+                                )
+                                &
+                                " | "
+                                &
+                                Switch(
+                                    ThisItem.'Lifecycle Status'.Value,
+                                    "Submitted", "eingereicht",
+                                    "Approved", "freigegeben",
+                                    "InProgress", "in Bearbeitung",
+                                    "Completed", "abgeschlossen",
+                                    "WaitingForInput", "Rückfrage",
+                                    "Maintenance", "Wartung",
+                                    "Cancelled", "abgebrochen",
+                                    ThisItem.'Lifecycle Status'.Value
+                                )
+                              VerticalAlign: =VerticalAlign.Top
+                              Width: =lblRequestTitle.Width
+                              X: =lblRequestTitle.X
+                              Y: =lblRequestSubtitle.Y + lblRequestSubtitle.Height
+            - cntDetails:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =Color.White
+                  FillPortions: =6
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  PaddingBottom: =20
+                  PaddingLeft: =20
+                  PaddingRight: =20
+                  PaddingTop: =20
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  Width: =Parent.Width - cntRequests.Width - 20
+                Children:
+                  - cntRequestDetails:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Height: =250
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =8
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PaddingBottom: =15
+                        PaddingLeft: =15
+                        PaddingRight: =15
+                        PaddingTop: =15
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Width: =Parent.Width
+                      Children:
+                        - lblDetails:
+                            Control: Label@2.5.1
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Start
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Color: =RGBA(50,50,50,1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingLeft: =20
+                              Size: =15
+                              Text: ="Details zu Vorgang"
+                              Width: =500
+                              X: =
+                        - Container11:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutMaxHeight: =200
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =8
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              PaddingTop: =8
+                              Width: =Parent.Width
+                            Children:
+                              - rowLifecycleID:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                  Children:
+                                    - lblLifecycleIDCaption:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =Color.DarkGray
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: ="Lifecycle ID:"
+                                          Width: =140
+                                    - lblLifecycleIDValue:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(30,30,30,1)
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: =galRequests.Selected.'Lifecycle ID'
+                                          Width: =300
+                              - rowEmployee:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                  Children:
+                                    - lblEmployeeCaption:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =Color.DarkGray
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: ="Mitarbeiter:"
+                                          Width: =140
+                                    - lblEmployeeIDValue:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(30,30,30,1)
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: =galRequests.Selected.'Target Display Name'
+                                          Width: =300
+                              - rowRequestType:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                  Children:
+                                    - lblRequestTypeCaption:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =Color.DarkGray
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: ="Vorgangsart:"
+                                          Width: =140
+                                    - lblRequestTypeValue:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(30,30,30,1)
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: |
+                                            =
+                                            Switch(
+                                                galRequests.Selected.'Request Type'.Value,
+                                                "Onboarding", "Eintritt",
+                                                "Mover", "Wechsel",
+                                                "Offboarding", "Austritt",
+                                                "AccessRequest", "Berechtigungsanfrage",
+                                                galRequests.Selected.'Request Type'.Value
+                                            )
+                                          Width: =300
+                              - rowStatus:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                  Children:
+                                    - lblStatusCaption:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =Color.DarkGray
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: ="Status:"
+                                          Width: =140
+                                    - lblStatusValue:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: |
+                                            =
+                                            Switch(
+                                                galRequests.Selected.'Lifecycle Status'.Value,
+                                                "Completed", RGBA(16,124,16,1),
+                                                "InProgress", RGBA(0,120,212,1),
+                                                "Submitted", RGBA(255,140,0,1),
+                                                "WaitingForInput", RGBA(196,43,28,1),
+                                                RGBA(60,60,60,1)
+                                            )
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: |
+                                            =
+                                            Switch(
+                                                galRequests.Selected.'Lifecycle Status'.Value,
+                                                "Submitted", "eingereicht",
+                                                "Approved", "freigegeben",
+                                                "InProgress", "in Bearbeitung",
+                                                "Completed", "abgeschlossen",
+                                                "WaitingForInput", "Rückfrage",
+                                                "Maintenance", "Wartung",
+                                                "Cancelled", "abgebrochen",
+                                                galRequests.Selected.'Lifecycle Status'.Value
+                                            )
+                                          Width: =140
+                              - rowRoleProfile:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                  Children:
+                                    - lblRoleProfileCaption:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =Color.DarkGray
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: ="Rollenprofil:"
+                                          Width: =140
+                                    - lblRoleProfileValue:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(30,30,30,1)
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: =galRequests.Selected.'Role Profile'.Value
+                                          Width: =300
+                              - rowCreated:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                  Children:
+                                    - lblCreatedCaption:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =Color.DarkGray
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: ="erstellt:"
+                                          Width: =140
+                                    - lblStatusValue_2:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(30,30,30,1)
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: |
+                                            =
+                                            Text(
+                                                galRequests.Selected.Erstellt,
+                                                "dd.MM.yyyy HH:mm"
+                                            )
+                                          Width: =300
+                              - rowCreated_1:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                  Children:
+                                    - lblCommentCaption:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =Color.DarkGray
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: ="Kommentar:"
+                                          Width: =140
+                                    - lblComments:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: =RGBA(30,30,30,1)
+                                          Font: =Font.'Open Sans'
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =16
+                                          Size: =12
+                                          Text: =If(IsBlank(galRequests.Selected.Comments),"-",galRequests.Selected.Comments)
+                                          Width: =300
+                        - cntTasks:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Height: =Parent.Height - cntRequestDetails.Height - 20
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =8
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =15
+                              PaddingLeft: =15
+                              PaddingRight: =15
+                              PaddingTop: =15
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              Width: =Parent.Width
+                            Children:
+                              - lblTasksTitle:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Start
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Font: =Font.'Open Sans'
+                                    FontWeight: =FontWeight.Semibold
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =15
+                                    Text: ="Offene Aufgaben"
+                                    Width: =300
+                              - galTasks:
+                                  Control: Gallery@2.15.0
+                                  Variant: BrowseLayout_Vertical_ThreeTextVariant_ver5.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 18, 107, 1)
+                                    Height: =220
+                                    Items: |
+                                      =
+                                      SortByColumns(
+                                          Filter(
+                                              BLC_LifecycleTasks,
+                                              RelatedLifecycleRequest.Id = galRequests.Selected.ID &&
+                                              TaskStatus.Value <> "Completed" &&
+                                              TaskStatus.Value <> "Cancelled" &&
+                                              TaskStatus.Value <> "Skipped"
+                                          ),
+                                          "Created",
+                                          SortOrder.Ascending
+                                      )
+                                    LayoutMinHeight: =250
+                                    OnSelect: |
+                                      =
+                                      Set(
+                                          varSelectedTask,
+                                          galTasks.Selected
+                                      );
+
+                                      Navigate(
+                                          scrTaskDetail,
+                                          ScreenTransition.Fade
+                                      )
+                                    TemplatePadding: =4
+                                    TemplateSize: =58
+                                    Width: =Parent.Width
+                                  Children:
+                                    - rectSeparatorTasks:
+                                        Control: Rectangle@2.3.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Fill: =RGBA(255, 255, 255, 1)
+                                          Height: =8
+                                          OnSelect: =Select(Parent)
+                                          Width: =Parent.TemplateWidth
+                                          Y: =Parent.TemplateHeight - Self.Height
+                                    - icoOpenTask:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Color: |
+                                            =
+                                            If(
+                                                ThisItem.ID = galTasks.Selected.ID,
+                                                RGBA(0,120,212,1),
+                                                RGBA(120,120,120,1)
+                                            )
+                                          Height: =24
+                                          Icon: =Icon.ChevronRight
+                                          OnSelect: =
+                                          Width: =24
+                                          X: =Parent.TemplateWidth - Self.Width - 10
+                                          Y: =(Parent.TemplateHeight - Self.Height) / 2
+                                    - lblTaskTitle:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Color: =RGBA(40,40,40,1)
+                                          Font: =Font.'Open Sans'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =24
+                                          OnSelect: =Select(Parent)
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: =ThisItem.TaskTitle
+                                          VerticalAlign: =VerticalAlign.Top
+                                          Width: =Parent.TemplateWidth - 32
+                                          Wrap: =false
+                                          X: =16
+                                          Y: =6
+                                    - lblTaskMeta:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 1)
+                                          Font: =Font.'Open Sans'
+                                          FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                                          Height: =Self.Size * 1.8
+                                          OnSelect: =Select(Parent)
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: |-
+                                            =Switch(
+                                                ThisItem.TaskStatus.Value,
+                                                "Open", "offen",
+                                                "InProgress", "in Arbeit",
+                                                "Waiting", "wartet",
+                                                "WaitingForInput", "wartet auf Eingabe",
+                                                "Completed", "abgeschlossen",
+                                                "Cancelled", "abgebrochen",
+                                                "Skipped", "übersprungen",
+                                                ThisItem.TaskStatus.Value
+                                            )
+                                            &
+                                            " | "
+                                            &
+                                            Coalesce(
+                                                ThisItem.TaskOwnerGroup.Value,
+                                                "ohne Zuständigkeit"
+                                            )
+                                          VerticalAlign: =VerticalAlign.Top
+                                          Width: =lblTaskTitle.Width
+                                          X: =lblTaskTitle.X
+                                          Y: =lblTaskTitle.Y + lblTaskTitle.Height
+                                    - rectTaskStatus:
+                                        Control: Rectangle@2.3.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 18, 107, 1)
+                                          Fill: |+
+                                            =
+                                            Switch(
+                                                ThisItem.TaskStatus.Value,
+                                                "Open", RGBA(255,140,0,1),
+                                                "InProgress", RGBA(0,120,212,1),
+                                                "Waiting", RGBA(128,90,213,1),
+                                                "WaitingForInput", RGBA(196,43,28,1),
+                                                "Completed", RGBA(16,124,16,1),
+                                                "Cancelled", RGBA(120,120,120,1),
+                                                "Skipped", RGBA(120,120,120,1),
+                                                RGBA(200,200,200,1)
+                                            )
+
+                                          Height: =Parent.TemplateHeight
+                                          OnSelect: =Select(Parent)
+                                          Width: =5
+      - icoHome_3:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =Color.White
+            Height: =42
+            Icon: =Icon.Home
+            OnSelect: |
+              =
+              Navigate(
+                  scrHome,
+                  ScreenTransition.Fade
+              )
+            Width: =42
+            X: =Parent.Width-60
+            Y: =19

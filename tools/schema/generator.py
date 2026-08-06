@@ -50,6 +50,9 @@ def compile_schema(schema_dir: Path) -> dict:
                 raise ValueError(f"Liste mehrfach definiert: {name}")
             seen_lists.add(name)
             enriched = dict(item)
+            enriched.setdefault("description", "")
+            enriched.setdefault("fields", [])
+            enriched.setdefault("mode", "create")
             enriched["module"] = module["module"]
             lists.append(enriched)
 

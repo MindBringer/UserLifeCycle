@@ -12,7 +12,13 @@ param(
     [ValidateSet('Interactive','DeviceLogin')]
     [string]$AuthenticationMode = 'Interactive',
 
-    [string]$OutputDirectory = './generated/provisioning'
+    [string]$OutputDirectory = './generated/provisioning',
+
+    [ValidateRange(1,10)]
+    [int]$RetryCount = 3,
+
+    [ValidateRange(1,60)]
+    [int]$RetryDelaySeconds = 5
 )
 
 $ErrorActionPreference = 'Stop'
@@ -31,6 +37,46 @@ function Connect-TargetSite {
     return Connect-PnPOnline -Url $SiteUrl -ClientId $ClientId -Interactive -ReturnConnection
 }
 
+function Invoke-PnPWithRetry {
+    param(
+        [Parameter(Mandatory = $true)]
+        [scriptblock]$Operation,
+        [Parameter(Mandatory = $true)]
+        [string]$Description
+    )
+
+    for ($attempt = 1; $attempt -le $RetryCount; $attempt++) {
+        try {
+            return & $Operation
+        }
+        catch {
+            if ($attempt -ge $RetryCount) { throw }
+            Write-Warning "$Description fehlgeschlagen (Versuch $attempt/$RetryCount): $($_.Exception.Message)"
+            Start-Sleep -Seconds ($RetryDelaySeconds * $attempt)
+        }
+    }
+}
+
+function Get-TargetList {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Identity,
+        [Parameter(Mandatory = $true)]
+        $Connection
+    )
+
+    try {
+        return Invoke-PnPWithRetry -Description "Liste $Identity laden" -Operation {
+            Get-PnPList -Identity $Identity -Connection $Connection -ErrorAction Stop
+        }
+    }
+    catch {
+        $message = $_.Exception.Message
+        if ($message -match 'does not exist|cannot be found|File Not Found|404') { return $null }
+        throw
+    }
+}
+
 function Get-BooleanXmlValue([bool]$Value) {
     if ($Value) { return 'TRUE' }
     return 'FALSE'
@@ -38,20 +84,20 @@ function Get-BooleanXmlValue([bool]$Value) {
 
 function Get-ExpectedFieldType([string]$Type) {
     switch ($Type) {
-        'Text'      { 'Text' }
-        'Note'      { 'Note' }
-        'Boolean'   { 'Boolean' }
-        'Number'    { 'Number' }
-        'Currency'  { 'Currency' }
-        'DateTime'  { 'DateTime' }
-        'Choice'    { 'Choice' }
+        'Text'        { 'Text' }
+        'Note'        { 'Note' }
+        'Boolean'     { 'Boolean' }
+        'Number'      { 'Number' }
+        'Currency'    { 'Currency' }
+        'DateTime'    { 'DateTime' }
+        'Choice'      { 'Choice' }
         'MultiChoice' { 'MultiChoice' }
-        'User'      { 'User' }
-        'UserMulti' { 'UserMulti' }
-        'URL'       { 'URL' }
-        'Lookup'    { 'Lookup' }
+        'User'        { 'User' }
+        'UserMulti'   { 'UserMulti' }
+        'URL'         { 'URL' }
+        'Lookup'      { 'Lookup' }
         'LookupMulti' { 'LookupMulti' }
-        default     { throw "Nicht unterstützter Feldtyp: $Type" }
+        default       { throw "Nicht unterstützter Feldtyp: $Type" }
     }
 }
 
@@ -139,23 +185,30 @@ if (-not (Test-Path $CompiledSchemaPath)) { throw "Kompiliertes Schema fehlt: $C
 $Schema = Get-Content $CompiledSchemaPath -Raw | ConvertFrom-Json -Depth 100
 $Connection = Connect-TargetSite
 $Results = [System.Collections.Generic.List[object]]::new()
+$aborted = $false
 
 try {
     $existingLists = @{}
-    Get-PnPList -Connection $Connection | ForEach-Object { $existingLists[$_.Title] = $_ }
 
-    # Phase 1: Listen sicherstellen.
+    # Phase 1: Nur die im Zielschema benötigten Listen gezielt laden.
     foreach ($listDefinition in $Schema.lists) {
         $internalName = [string]$listDefinition.internalName
         $displayName = [string]$listDefinition.displayName
         $description = [string]$listDefinition.description
-        $existing = $existingLists[$internalName]
+        $existing = Get-TargetList -Identity $internalName -Connection $Connection
+
+        if ($existing) { $existingLists[$internalName] = $existing }
 
         if (-not $existing) {
             if ($Mode -eq 'Apply') {
-                $existing = New-PnPList -Title $internalName -Url "Lists/$internalName" -Template GenericList -EnableVersioning -Connection $Connection
-                Set-PnPList -Identity $internalName -Title $internalName -Description $description -EnableVersioning $true -Connection $Connection | Out-Null
-                $existingLists[$internalName] = Get-PnPList -Identity $internalName -Connection $Connection
+                Invoke-PnPWithRetry -Description "Liste $internalName anlegen" -Operation {
+                    New-PnPList -Title $internalName -Url "Lists/$internalName" -Template GenericList -EnableVersioning -Connection $Connection | Out-Null
+                } | Out-Null
+                Invoke-PnPWithRetry -Description "Liste $internalName konfigurieren" -Operation {
+                    Set-PnPList -Identity $internalName -Title $internalName -Description $description -EnableVersioning $true -Connection $Connection | Out-Null
+                } | Out-Null
+                $existing = Get-TargetList -Identity $internalName -Connection $Connection
+                $existingLists[$internalName] = $existing
                 Add-Result $Results 'List' $internalName 'Create' 'OK' "Anzeigename: $displayName"
             } else {
                 Add-Result $Results 'List' $internalName 'Create' 'PLANNED' "Anzeigename: $displayName"
@@ -177,7 +230,10 @@ try {
 
         $existingFields = @{}
         if ($existingLists[$listName]) {
-            Get-PnPField -List $listName -Connection $Connection | ForEach-Object { $existingFields[$_.InternalName] = $_ }
+            $fields = Invoke-PnPWithRetry -Description "Felder von $listName laden" -Operation {
+                @(Get-PnPField -List $listName -Connection $Connection -ErrorAction Stop)
+            }
+            foreach ($existingFieldItem in @($fields)) { $existingFields[$existingFieldItem.InternalName] = $existingFieldItem }
         }
 
         foreach ($field in @($listDefinition.fields)) {
@@ -191,11 +247,15 @@ try {
                     $lookupListId = $null
                     if ($expectedType -in @('Lookup','LookupMulti')) {
                         $targetName = [string]$field.lookupList
-                        $targetList = Get-PnPList -Identity $targetName -Connection $Connection -ErrorAction Stop
+                        $targetList = $existingLists[$targetName]
+                        if (-not $targetList) { $targetList = Get-TargetList -Identity $targetName -Connection $Connection }
+                        if (-not $targetList) { throw "Lookup-Zielliste $targetName fehlt für $objectName." }
                         $lookupListId = $targetList.Id
                     }
                     $xml = New-FieldXml $field $lookupListId
-                    Add-PnPFieldFromXml -List $listName -FieldXml $xml -Connection $Connection | Out-Null
+                    Invoke-PnPWithRetry -Description "Feld $objectName anlegen" -Operation {
+                        Add-PnPFieldFromXml -List $listName -FieldXml $xml -Connection $Connection | Out-Null
+                    } | Out-Null
                     Add-Result $Results 'Field' $objectName 'Create' 'OK' "Typ $expectedType"
                 } else {
                     Add-Result $Results 'Field' $objectName 'Create' 'PLANNED' "Typ $expectedType"
@@ -223,8 +283,8 @@ try {
     }
 }
 catch {
+    $aborted = $true
     Add-Result $Results 'Provisioning' $Mode 'Abort' 'ERROR' $_.Exception.Message
-    throw
 }
 finally {
     Write-Reports $Results $Schema
@@ -233,5 +293,6 @@ finally {
 $differences = @($Results | Where-Object Status -eq 'DIFFERENCE').Count
 $errors = @($Results | Where-Object Status -eq 'ERROR').Count
 Write-Host "PROVISIONING $Mode`: $($Results.Count) Prüfungen · $differences Abweichungen · $errors Fehler"
-if ($Mode -eq 'Validate' -and ($differences -gt 0 -or $errors -gt 0)) { exit 2 }
-if ($errors -gt 0) { exit 1 }
+if ($aborted -or $errors -gt 0) { exit 1 }
+if ($Mode -eq 'Validate' -and $differences -gt 0) { exit 2 }
+exit 0

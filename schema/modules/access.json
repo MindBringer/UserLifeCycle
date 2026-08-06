@@ -1,0 +1,11 @@
+{
+  "module":"access","order":30,"lists":[
+    {"internalName":"BLC_RoleProfiles","displayName":"Rollenprofile","mode":"extend","fields":[{"internalName":"TechnicalKey","displayName":"Technischer Schlüssel","type":"Text","required":true,"indexed":true,"unique":true},{"internalName":"Version","displayName":"Version","type":"Number"},{"internalName":"ApprovalRequired","displayName":"Genehmigung erforderlich","type":"Boolean"}]},
+    {"internalName":"BLC_Entitlements","displayName":"Berechtigungen","mode":"change","fields":[{"internalName":"TechnicalKey","displayName":"Technischer Schlüssel","type":"Text","required":true,"indexed":true,"unique":true},{"internalName":"TargetSystemKey","displayName":"Zielsystem","type":"Text","indexed":true},{"internalName":"RiskLevel","displayName":"Risikostufe","type":"Choice","choices":["Low","Medium","High","Critical"]}]},
+    {"internalName":"BLC_RoleEntitlements","displayName":"Rollen-Berechtigungen","mode":"extend","fields":[{"internalName":"Mandatory","displayName":"Verpflichtend","type":"Boolean"},{"internalName":"ApprovalRequired","displayName":"Genehmigung erforderlich","type":"Boolean"},{"internalName":"SortOrder","displayName":"Sortierung","type":"Number"}]},
+    {"internalName":"BLC_UserRoleAssignments","displayName":"Benutzerrollen","fields":[]},
+    {"internalName":"BLC_UserEntitlementAssignments","displayName":"Benutzerberechtigungen Soll","fields":[]},
+    {"internalName":"BLC_ObservedEntitlements","displayName":"Beobachtete Berechtigungen","fields":[]},
+    {"internalName":"BLC_EntitlementExceptions","displayName":"Berechtigungsausnahmen","fields":[]}
+  ]
+}

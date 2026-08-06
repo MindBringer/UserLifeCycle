@@ -21,6 +21,9 @@ ACTIONS = {
     "schema-compile": ["pwsh", "./Provisioning/Compile-Schema.ps1"],
     "provision-dryrun": ["pwsh", "./Provisioning/Invoke-ProvisioningLocal.ps1", "-Mode", "DryRun"],
     "provision-validate": ["pwsh", "./Provisioning/Invoke-ProvisioningLocal.ps1", "-Mode", "Validate"],
+    "reset-dryrun": ["pwsh", "./Provisioning/Invoke-ResetLocal.ps1", "-Mode", "DryRun"],
+    "seed-dryrun": ["pwsh", "./Provisioning/Invoke-SeedLocal.ps1", "-Mode", "DryRun"],
+    "seed-validate": ["pwsh", "./Provisioning/Invoke-SeedLocal.ps1", "-Mode", "Validate"],
 }
 
 def run(command, timeout=3600):
@@ -92,6 +95,13 @@ class Handler(SimpleHTTPRequestHandler):
             if payload.get("confirmation") != APPLY_CONFIRMATION:
                 self.send_json({"ok":False,"exitCode":409,"output":"Bestätigung APPLY SCHEMA fehlt."},409); return
             self.send_json(execute(["pwsh","./Provisioning/Invoke-ProvisioningLocal.ps1","-Mode","Apply"])); return
+        if action=="reset-apply":
+            token=str(self.read_payload().get("confirmation") or "")
+            if not token.startswith("RESET|"):
+                self.send_json({"ok":False,"exitCode":409,"output":"Gültiges Reset-Token aus dem Dry Run fehlt."},409); return
+            self.send_json(execute(["pwsh","./Provisioning/Invoke-ResetLocal.ps1","-Mode","Apply","-ConfirmationToken",token])); return
+        if action=="seed-apply":
+            self.send_json(execute(["pwsh","./Provisioning/Invoke-SeedLocal.ps1","-Mode","Apply"])); return
         command=ACTIONS.get(action)
         if not command: self.send_json({"ok":False,"exitCode":404,"output":"Unbekannte Aktion."},404); return
         if action=="pull" and run(["git","status","--porcelain"],30).stdout.strip(): self.send_json({"ok":False,"exitCode":409,"output":"Pull abgebrochen: lokale Änderungen vorhanden."},409); return

@@ -1,0 +1,191 @@
+﻿List,Field,DisplayName,Type,Required,Indexed,Unique,LookupList,LookupField,Choices,Canvas,Flow,Provisioning,Action,Target,Reason
+BLC_EmployeeIdentityChanges,AppliedByFlow,Applied By Flow,Boolean,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,AppliedDate,Applied Date,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,ChangeReason,Change Reason,Choice,False,False,False,,,Marriage | Divorce | Correction | RoleChange | DepartmentChange | Other,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_EmployeeIdentityChanges,Comment,Comment,Note,False,False,False,,,None,True,False,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,EffectiveDate,Effective Date,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,Employee,Employee,Lookup,True,False,False,BLC_Employees,Title,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,LifecycleID,Lifecycle ID,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,LifecycleRequest,Lifecycle Request,Lookup,False,False,False,BLC_LifecycleRequests,Title,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,NewDisplayName,New Display Name,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,NewEmail,New Email,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,NewFirstName,New First Name,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_EmployeeIdentityChanges,NewLastName,New Last Name,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_EmployeeIdentityChanges,NewPhoneNumber,New Phone Number,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_EmployeeIdentityChanges,NewUPN,New UPN,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,OldDisplayName,Old Display Name,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,OldEmail,Old Email,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,OldFirstName,Old First Name,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_EmployeeIdentityChanges,OldLastName,Old Last Name,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_EmployeeIdentityChanges,OldPhoneNumber,Old Phone Number,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_EmployeeIdentityChanges,OldUPN,Old UPN,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeIdentityChanges,Title,Titel,Text,True,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,Active,Active,Boolean,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,AssignmentReason,Assignment Reason,Choice,False,False,False,,,Onboarding | Mover | Correction | Temporary | Manual | Offboarding | Other,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,Comment,Comment,Note,False,False,False,,,None,True,False,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,CreatedByFlow,Created By Flow,Boolean,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,Employee,Employee,Lookup,True,False,False,BLC_Employees,Title,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,EmployeeRoleID,Employee Role ID,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,IsPrimaryRole,Is Primary Role,Boolean,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,LifecycleID,Lifecycle ID,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,LifecycleRequest,Lifecycle Request,Lookup,False,False,False,BLC_LifecycleRequests,Title,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,PreviousEmployeeRole,Previous Employee Role,Lookup,False,False,False,BLC_EmployeeRoles,Title,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,RoleProfile,Role Profile,Lookup,True,False,False,BLC_RoleProfiles,Title,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,Title,Titel,Text,True,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,ValidFrom,Valid From,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_EmployeeRoles,ValidTo,Valid To,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,AccountStatus,Account Status,Choice,False,False,False,,,Planned | Active | Disabled | Blocked | Leaving | Left | Archived,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,Active,Active,Boolean,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,Department,Department,Text,False,False,False,,,None,True,True,True,MOVE,BLC_Employments.DepartmentLookup,Explizite Zielmodellregel
+BLC_Employees,DisplayName,Display Name,Text,True,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,Email,Email,Text,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,EmployeeID,Employee ID,Text,False,False,False,,,None,False,True,True,MOVE,BLC_Employments.EmployeeNumber,Explizite Zielmodellregel
+BLC_Employees,EmployeeLifecycleID,Employee Lifecycle ID,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,EmploymentType,Employment Type,Choice,False,False,False,,,Employee | Worker | Apprentice | External | Temporary | ServiceAccount | Other,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_Employees,EndDate,End Date,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,FirstName,First Name,Text,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,FormerDisplayName,Former Display Name,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_Employees,LastAccessReview,Last Access Review,DateTime,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_Employees,LastIdentityChange,Last Identity Change,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,LastName,Last Name,Text,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,LastRoleChange,Last Role Change,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,LifecycleID,LifecycleID,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,Location,Location,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,Manager,Manager,User,False,False,False,,,None,True,True,True,MOVE,BLC_Employments.Manager,Explizite Zielmodellregel
+BLC_Employees,MobileDevice,Mobile Device,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_Employees,NextAccessReview,Next Access Review,DateTime,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_Employees,Notes,Notes,Note,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_Employees,PhoneNumber,Phone Number,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,PrimaryDevice,Primary Device,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_Employees,RoleProfile,Role Profile,Lookup,False,False,False,BLC_RoleProfiles,Title,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,SourceLifecycleRequest,Source Lifecycle Request,Lookup,False,False,False,BLC_LifecycleRequests,Title,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,StartDate,Start Date,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,Title,Titel,Text,True,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Employees,UPN,UPN,Text,False,False,False,,,None,True,True,True,MOVE,BLC_Persons.UserPrincipalName,Explizite Zielmodellregel
+BLC_Entitlements,Active,Active,Boolean,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,AssignmentMode_Joiner,Assignment Mode Joiner,Choice,False,False,False,,,OwnerGroupOnly | FixedPerson | EmployeeManager | RequestCreator | HRResponsible | ITDefaultQueue,False,False,False,MOVE,BLC_AssignmentRules.AssignmentMode,Explizite Zielmodellregel
+BLC_Entitlements,AssignmentMode_Leaver,Assignment Mode Leaver,Choice,False,False,False,,,OwnerGroupOnly | FixedPerson | EmployeeManager | RequestCreator | HRResponsible | ITDefaultQueue,False,False,False,MOVE,BLC_AssignmentRules.AssignmentMode,Explizite Zielmodellregel
+BLC_Entitlements,AssignmentMode_Mover,Assignment Mode Mover,Choice,False,False,False,,,OwnerGroupOnly | FixedPerson | EmployeeManager | RequestCreator | HRResponsible | ITDefaultQueue,False,False,False,MOVE,BLC_AssignmentRules.AssignmentMode,Explizite Zielmodellregel
+BLC_Entitlements,Description,Description,Note,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,DueOffsetDays_Joiner,Due Offset Days Joiner,Number,False,False,False,,,None,False,True,False,MOVE,BLC_SLAProfiles.DueOffsetDays,Explizite Zielmodellregel
+BLC_Entitlements,DueOffsetDays_Leaver,Due Offset Days Leaver,Number,False,False,False,,,None,False,False,False,MOVE,BLC_SLAProfiles.DueOffsetDays,Explizite Zielmodellregel
+BLC_Entitlements,DueOffsetDays_Mover,Due Offset Days Mover,Number,False,False,False,,,None,False,False,False,MOVE,BLC_SLAProfiles.DueOffsetDays,Explizite Zielmodellregel
+BLC_Entitlements,EntitlementCategory,Entitlement Category,Choice,False,False,False,,,M365 | Identity | Security | Network | Hardware | Workplace | Telefonie | HR | Application | Compliance | Other,True,False,False,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,EntitlementID,Entitlement ID,Text,False,False,False,,,None,True,True,False,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,EntitlementType,Entitlement Type,Choice,False,False,False,,,License | Access | Hardware | Workplace | Application | HR | Compliance | Facility | Other,False,False,False,REVIEW,,Keine Code-Referenz gefunden; fachliche Prüfung erforderlich
+BLC_Entitlements,EvidenceDescription_Joiner,Evidence Description Joiner,Note,False,False,False,,,None,False,True,False,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,EvidenceDescription_Leaver,Evidence Description Leaver,Note,False,False,False,,,None,False,True,False,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,EvidenceDescription_Mover,Evidence Description Mover,Note,False,False,False,,,None,False,True,False,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,JoinerRequired,Joiner Required,Boolean,False,False,False,,,None,False,False,False,REVIEW,,Keine Code-Referenz gefunden; fachliche Prüfung erforderlich
+BLC_Entitlements,LeaverRelevant,Leaver Relevant,Boolean,False,False,False,,,None,False,False,False,REVIEW,,Keine Code-Referenz gefunden; fachliche Prüfung erforderlich
+BLC_Entitlements,MoverRelevant,Mover Relevant,Boolean,False,False,False,,,None,False,False,False,REVIEW,,Keine Code-Referenz gefunden; fachliche Prüfung erforderlich
+BLC_Entitlements,RequiresEvidence_Joiner,Requires Evidence Joiner,Boolean,False,False,False,,,None,False,True,False,MOVE,BLC_TaskTemplates.RequiresEvidence,Explizite Zielmodellregel
+BLC_Entitlements,RequiresEvidence_Leaver,Requires Evidence Leaver,Boolean,False,False,False,,,None,False,True,False,MOVE,BLC_TaskTemplates.RequiresEvidence,Explizite Zielmodellregel
+BLC_Entitlements,RequiresEvidence_Mover,Requires Evidence Mover,Boolean,False,False,False,,,None,False,True,False,MOVE,BLC_TaskTemplates.RequiresEvidence,Explizite Zielmodellregel
+BLC_Entitlements,SortOrder,Sort Order,Number,False,False,False,,,None,True,False,False,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,SystemReference,System Reference,Text,False,False,False,,,None,True,False,False,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,TaskDescription_Joiner,Task Description Joiner,Note,False,False,False,,,None,False,True,False,MOVE,BLC_TaskTemplates.Description,Explizite Zielmodellregel
+BLC_Entitlements,TaskDescription_Leaver,Task Description Leaver,Note,False,False,False,,,None,False,True,False,MOVE,BLC_TaskTemplates.Description,Explizite Zielmodellregel
+BLC_Entitlements,TaskDescription_Mover,Task Description Mover,Note,False,False,False,,,None,False,True,False,MOVE,BLC_TaskTemplates.Description,Explizite Zielmodellregel
+BLC_Entitlements,TaskOwnerGroup_Joiner,Task Owner Joiner,Choice,False,False,False,,,IT | HR | Fachabteilung | Compliance | Datenschutz | Facility | Einkauf | Vorgesetzter,False,True,False,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,TaskOwnerGroup_Leaver,Task Owner Leaver,Choice,False,False,False,,,IT | HR | Fachabteilung | Compliance | Datenschutz | Facility | Einkauf | Vorgesetzter,False,True,False,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,TaskOwnerGroup_Mover,Task Owner Mover,Choice,False,False,False,,,IT | HR | Fachabteilung | Compliance | Datenschutz | Facility | Einkauf | Vorgesetzter,False,True,False,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_Entitlements,TaskTitle_Joiner,Task Title Joiner,Text,False,False,False,,,None,False,True,False,MOVE,BLC_TaskTemplates.Title,Explizite Zielmodellregel
+BLC_Entitlements,TaskTitle_Leaver,Task Title Leaver,Text,False,False,False,,,None,False,True,False,MOVE,BLC_TaskTemplates.Title,Explizite Zielmodellregel
+BLC_Entitlements,TaskTitle_Mover,Task Title Mover,Text,False,False,False,,,None,False,False,False,MOVE,BLC_TaskTemplates.Title,Explizite Zielmodellregel
+BLC_Entitlements,Title,Titel,Text,True,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,ApprovalStatus,Approval Status,Choice,False,False,False,,,NotRequired | Pending | Approved | Rejected | Delegated | Expired,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleRequests,Comments,Comments,Note,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,CompletedDate,Completed Date,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,Department,Department,Text,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,EffectiveDate,Effective Date,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,EmployeeCreated,Employee Created,Boolean,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,EmployeeID,Employee ID,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,EndDate,End Date,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,FirstName,FirstName,Text,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,FlowRunUrl,Flow Run URL,URL,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleRequests,HRResponsible,HR Responsible,User,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleRequests,IdentityChangeReason,Identity Change Reason,Choice,False,False,False,,,Marriage | Divorce | Correction | RoleChange | DepartmentChange | Other,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleRequests,IdentityChangeRequired,Identity Change Required,Boolean,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,LastName,LastName,Text,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,LastReview,Last Review,DateTime,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleRequests,LifecycleID,Lifecycle ID,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,LifecycleStatus,Lifecycle Status,Choice,False,False,False,,,Draft | Submitted | InReview | Approved | Rejected | InProgress | WaitingForInput | Completed | Cancelled | Archived,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,Location,Location,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,Manager,Manager,User,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,NextReview,Next Review,DateTime,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleRequests,Priority,Priority,Choice,False,False,False,,,Low | Normal | High | Critical,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,RelatedEmployee,Related Employee,Lookup,False,False,False,BLC_Employees,Title,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,RequestType,Request Type,Choice,True,False,False,,,Onboarding | Mover | Offboarding | AccessRequest | LicenseChange | HardwareChange | RoleChange | Review | Other,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,RequestedBy,Requested By,User,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleRequests,RequestedDisplayName,Requested Display Name,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,RequestedEmail,Requested Email,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,RequestedFirstName,Requested First Name,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleRequests,RequestedLastName,Requested Last Name,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleRequests,RequestedPhoneNumber,Requested Phone Number,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,RequestedUPN,Requested UPN,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,ReviewCycleMonths,Review Cycle Months,Number,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleRequests,RoleChangeRequired,Role Change Required,Boolean,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,RoleProfile,Role Profile,Lookup,False,False,False,BLC_RoleProfiles,Title,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,StartDate,Start Date,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,TargetDisplayName,Target Display Name,Text,True,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,TargetUPN,Target UPN,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,TasksCreated,Tasks Created,Boolean,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleRequests,Title,Titel,Text,True,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,AssignedTo,Assigned To,User,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleTasks,AutomationError,Automation Error,Note,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,AutomationState,Automation State,Choice,False,False,False,,,Manual | Pending | Automated | Failed | Skipped,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleTasks,Comment,Comment,Note,False,False,False,,,None,True,False,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,CompletedBy,Completed By,User,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleTasks,CompletedDate,Completed Date,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,DueDate,Due Date,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,EvidenceDescription,Evidence Description,Note,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,EvidenceLink,Evidence Link,URL,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_LifecycleTasks,LifecycleID,LifecycleID,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,Priority,Priority,Choice,False,False,False,,,Low | Normal | High | Critical,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,RelatedEmployee,Related Employee,Lookup,False,False,False,BLC_Employees,Title,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,RelatedEntitlement,Related Entitlement,Lookup,False,False,False,BLC_Entitlements,Title,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,RelatedLifecycleRequest,Related Lifecycle Request,Lookup,True,False,False,BLC_LifecycleRequests,Title,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,RequiresEvidence,Requires Evidence,Boolean,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,TaskCategory,Task Category,Choice,False,False,False,,,IT | HR | Fachabteilung | Compliance | Datenschutz | Facility | Einkauf | Vorgesetzter | System | Other,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,TaskDescription,Task Description,Note,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,TaskID,Task ID,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,TaskOwnerGroup,Task Owner Group,Choice,False,False,False,,,IT | HR | Fachabteilung | Compliance | Datenschutz | Facility | Einkauf | Vorgesetzter,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,TaskStatus,Task Status,Choice,False,False,False,,,Open | InProgress | Blocked | Completed | Skipped | Failed | Cancelled,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,TaskTitle,Task Title,Text,True,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_LifecycleTasks,Title,Titel,Text,True,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,Active,Active,Boolean,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,AssignedToOverride,Assigned To Override,User,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_RoleEntitlements,CanBeDeselected,Can Be Deselected,Boolean,False,False,False,,,None,True,False,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,Comment,Comment,Note,False,False,False,,,None,True,False,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,DueOffsetDaysOverride,Due Offset Days Override,Number,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,Entitlement,Entitlement,Lookup,True,False,False,BLC_Entitlements,Title,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,IsMandatory,Mandatory,Boolean,False,False,False,,,None,True,False,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,RequiredForJoiner,Required For Joiner,Boolean,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,RequiredForLeaver,Required For Leaver,Boolean,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,RequiredForMover,Required For Mover,Boolean,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,RequiresApprovalOverride,Requires Approval Override,Boolean,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_RoleEntitlements,RoleProfile,Role Profile,Lookup,True,False,False,BLC_RoleProfiles,Title,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,TaskDescriptionOverride_Joiner,Task Description Override Joiner,Note,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,TaskDescriptionOverride_Leaver,Task Description Override Leaver,Note,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,TaskDescriptionOverride_Mover,Task Description Override Mover,Note,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,TaskOwnerGroupOverride,Task Owner Group Override,Choice,False,False,False,,,IT | HR | Fachabteilung | Compliance | Datenschutz | Facility | Einkauf | Vorgesetzter,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,TaskTitleOverride_Joiner,Task Title Override Joiner,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,TaskTitleOverride_Leaver,Task Title Override Leaver,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleEntitlements,TaskTitleOverride_Mover,Task Title Override Mover,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_RoleEntitlements,Title,Titel,Text,True,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleProfiles,Active,Active,Boolean,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleProfiles,BusinessOwner,Business Owner,User,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_RoleProfiles,Department,Department,Text,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleProfiles,Description,Description,Note,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleProfiles,EmploymentType,Employment Type,Choice,False,False,False,,,Employee | Worker | Apprentice | External | Temporary | ServiceAccount | Other,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_RoleProfiles,HRResponsible,HR Responsible,User,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_RoleProfiles,ITOwner,IT Owner,User,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_RoleProfiles,Location,Location,Text,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleProfiles,ReviewCycleMonths,Review Cycle Months,Number,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_RoleProfiles,RiskLevel,Risk Level,Choice,False,False,False,,,Low | Medium | High | Critical,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_RoleProfiles,RoleName,Role Name,Text,False,False,False,,,None,False,False,True,REVIEW,,"Im Provisioning vorhanden, aber nicht in Canvas/Flows gefunden"
+BLC_RoleProfiles,RoleProfileID,Role Profile ID,Text,False,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleProfiles,Title,Titel,Text,True,False,False,,,None,True,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleProfiles,ValidFrom,Valid From,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert
+BLC_RoleProfiles,ValidTo,Valid To,DateTime,False,False,False,,,None,False,True,True,KEEP,,Aktuell durch Canvas oder Flow referenziert

@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[2]
 WEB = Path(__file__).resolve().parent
 DEFAULT_HOST, DEFAULT_PORT, MAX_PORT_TRIES = "127.0.0.1", 8780, 20
 RELEASE_CONFIRMATION = "RELEASE NACH MAIN"
+APPLY_CONFIRMATION = "APPLY SCHEMA"
 ACTIONS = {
     "status": ["git", "status", "--short", "--branch"],
     "fetch": ["git", "fetch", "--prune", "origin"],
@@ -18,6 +19,8 @@ ACTIONS = {
     "build": ["pwsh", "./powerplatform/scripts/Build.ps1"],
     "schema-analyze": ["pwsh", "./Provisioning/Invoke-SchemaAnalyzer.ps1"],
     "schema-compile": ["pwsh", "./Provisioning/Compile-Schema.ps1"],
+    "provision-dryrun": ["pwsh", "./Provisioning/Invoke-ProvisioningLocal.ps1", "-Mode", "DryRun"],
+    "provision-validate": ["pwsh", "./Provisioning/Invoke-ProvisioningLocal.ps1", "-Mode", "Validate"],
 }
 
 def run(command, timeout=3600):
@@ -62,28 +65,37 @@ def release(payload):
     except (RuntimeError, subprocess.TimeoutExpired) as exc:
         log.append(f"\nABBRUCH: {exc}"); return {"ok":False,"exitCode":1,"command":"Full release","output":"\n".join(log)}
 
+def execute(command):
+    result=run(command)
+    return {"ok":result.returncode==0,"exitCode":result.returncode,"command":" ".join(command),"output":result.stdout}
+
 def info():
-    return {"branch":run(["git","branch","--show-current"],30).stdout.strip(),"version":(ROOT/"powerplatform/VERSION").read_text().strip(),"dirty":bool(run(["git","status","--porcelain"],30).stdout.strip()),"root":str(ROOT)}
+    return {"branch":run(["git","branch","--show-current"],30).stdout.strip(),"version":(ROOT/"powerplatform/VERSION").read_text().strip(),"dirty":bool(run(["git","status","--porcelain"],30).stdout.strip()),"root":str(ROOT),"provisioningConfigured":(ROOT/"Provisioning/settings.local.psd1").exists()}
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*a,**k): super().__init__(*a,directory=str(WEB),**k)
     def log_message(self,*a): return
     def send_json(self,p,status=200):
         data=json.dumps(p,ensure_ascii=False).encode(); self.send_response(status); self.send_header("Content-Type","application/json; charset=utf-8"); self.send_header("Content-Length",str(len(data))); self.send_header("Cache-Control","no-store"); self.end_headers(); self.wfile.write(data)
+    def read_payload(self):
+        length=int(self.headers.get("Content-Length","0")); body=self.rfile.read(length) if length else b"{}"
+        try: return json.loads(body)
+        except json.JSONDecodeError: return {}
     def do_GET(self):
         if urlparse(self.path).path=="/api/info": self.send_json(info()); return
         super().do_GET()
     def do_POST(self):
         action=urlparse(self.path).path.rsplit("/",1)[-1]
-        if action=="release":
-            length=int(self.headers.get("Content-Length","0")); body=self.rfile.read(length) if length else b"{}"
-            try: payload=json.loads(body)
-            except json.JSONDecodeError: payload={}
-            self.send_json(release(payload)); return
+        if action=="release": self.send_json(release(self.read_payload())); return
+        if action=="provision-apply":
+            payload=self.read_payload()
+            if payload.get("confirmation") != APPLY_CONFIRMATION:
+                self.send_json({"ok":False,"exitCode":409,"output":"Bestätigung APPLY SCHEMA fehlt."},409); return
+            self.send_json(execute(["pwsh","./Provisioning/Invoke-ProvisioningLocal.ps1","-Mode","Apply"])); return
         command=ACTIONS.get(action)
         if not command: self.send_json({"ok":False,"exitCode":404,"output":"Unbekannte Aktion."},404); return
         if action=="pull" and run(["git","status","--porcelain"],30).stdout.strip(): self.send_json({"ok":False,"exitCode":409,"output":"Pull abgebrochen: lokale Änderungen vorhanden."},409); return
-        result=run(command); self.send_json({"ok":result.returncode==0,"exitCode":result.returncode,"command":" ".join(command),"output":result.stdout})
+        self.send_json(execute(command))
 
 def available(host,port):
     with socket.socket() as s:

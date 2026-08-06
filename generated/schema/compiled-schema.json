@@ -106,6 +106,7 @@
           "type": "DateTime"
         }
       ],
+      "mode": "create",
       "module": "identity"
     },
     {
@@ -187,6 +188,7 @@
           ]
         }
       ],
+      "mode": "create",
       "module": "identity"
     },
     {
@@ -194,6 +196,8 @@
       "displayName": "Organisationen",
       "catalog": true,
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "identity"
     },
     {
@@ -201,6 +205,8 @@
       "displayName": "Abteilungen",
       "catalog": true,
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "identity"
     },
     {
@@ -208,6 +214,8 @@
       "displayName": "Standorte",
       "catalog": true,
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "identity"
     },
     {
@@ -215,6 +223,8 @@
       "displayName": "Positionen",
       "catalog": true,
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "identity"
     },
     {
@@ -259,6 +269,7 @@
           "type": "DateTime"
         }
       ],
+      "description": "",
       "module": "lifecycle"
     },
     {
@@ -302,36 +313,47 @@
           "type": "Number"
         }
       ],
+      "description": "",
       "module": "lifecycle"
     },
     {
       "internalName": "BLC_TaskTemplates",
       "displayName": "Aufgabenvorlagen",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "lifecycle"
     },
     {
       "internalName": "BLC_AssignmentRules",
       "displayName": "Zuweisungsregeln",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "lifecycle"
     },
     {
       "internalName": "BLC_SLAProfiles",
       "displayName": "SLA-Profile",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "lifecycle"
     },
     {
       "internalName": "BLC_Escalations",
       "displayName": "Eskalationen",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "lifecycle"
     },
     {
       "internalName": "BLC_AuditEvents",
       "displayName": "Audit-Ereignisse",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "lifecycle"
     },
     {
@@ -339,6 +361,7 @@
       "displayName": "Identitätsänderungen",
       "mode": "retain",
       "fields": [],
+      "description": "",
       "module": "lifecycle"
     },
     {
@@ -365,6 +388,7 @@
           "type": "Boolean"
         }
       ],
+      "description": "",
       "module": "access"
     },
     {
@@ -398,6 +422,7 @@
           ]
         }
       ],
+      "description": "",
       "module": "access"
     },
     {
@@ -421,54 +446,71 @@
           "type": "Number"
         }
       ],
+      "description": "",
       "module": "access"
     },
     {
       "internalName": "BLC_UserRoleAssignments",
       "displayName": "Benutzerrollen",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "access"
     },
     {
       "internalName": "BLC_UserEntitlementAssignments",
       "displayName": "Benutzerberechtigungen Soll",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "access"
     },
     {
       "internalName": "BLC_ObservedEntitlements",
       "displayName": "Beobachtete Berechtigungen",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "access"
     },
     {
       "internalName": "BLC_EntitlementExceptions",
       "displayName": "Berechtigungsausnahmen",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "access"
     },
     {
       "internalName": "BLC_ImportRuns",
       "displayName": "Importläufe",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "integration"
     },
     {
       "internalName": "BLC_ImportErrors",
       "displayName": "Importfehler",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "integration"
     },
     {
       "internalName": "BLC_SyncRuns",
       "displayName": "Synchronisationsläufe",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "integration"
     },
     {
       "internalName": "BLC_SyncErrors",
       "displayName": "Synchronisationsfehler",
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "integration"
     },
     {
@@ -476,6 +518,8 @@
       "displayName": "Externe Systeme",
       "snapshot": true,
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "integration"
     },
     {
@@ -483,6 +527,8 @@
       "displayName": "Externe Assets",
       "snapshot": true,
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "integration"
     },
     {
@@ -490,6 +536,8 @@
       "displayName": "Externe Geräte",
       "snapshot": true,
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "integration"
     },
     {
@@ -497,6 +545,8 @@
       "displayName": "Externe Lizenzen",
       "snapshot": true,
       "fields": [],
+      "description": "",
+      "mode": "create",
       "module": "integration"
     }
   ]

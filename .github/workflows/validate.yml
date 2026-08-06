@@ -16,6 +16,20 @@ jobs:
         run: python3 tools/companion/audit_repo.py
       - name: Compile declarative schema
         run: python3 tools/schema/generator.py
+      - name: Parse provisioning PowerShell
+        shell: pwsh
+        run: |
+          $errors = [System.Collections.Generic.List[object]]::new()
+          Get-ChildItem Provisioning -Filter *.ps1 | ForEach-Object {
+            $tokens = $null
+            $parseErrors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$parseErrors) | Out-Null
+            foreach ($parseError in @($parseErrors)) { $errors.Add($parseError) }
+          }
+          if ($errors.Count -gt 0) {
+            $errors | Format-List | Out-String | Write-Error
+            exit 1
+          }
       - name: Validate Power Platform source
         shell: pwsh
         run: ./powerplatform/scripts/Validate-Solution.ps1

@@ -1,6 +1,6 @@
 Set-StrictMode -Version Latest
 
-function ConvertTo-RestListResult {
+function ConvertTo-UlcRestListResult {
     param([Parameter(Mandatory = $true)]$Value)
 
     [pscustomobject]@{
@@ -11,7 +11,7 @@ function ConvertTo-RestListResult {
     }
 }
 
-function Get-PnPList {
+function Get-UlcRestList {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
@@ -24,10 +24,10 @@ function Get-PnPList {
     $escapedIdentity = $Identity.Replace("'", "''")
     $url = "/_api/web/lists/getbytitle('$escapedIdentity')?`$select=Id,Title,Description,EnableVersioning"
     $response = Invoke-PnPSPRestMethod -Url $url -Method Get -Connection $Connection
-    ConvertTo-RestListResult -Value $response
+    ConvertTo-UlcRestListResult -Value $response
 }
 
-function Get-PnPField {
+function Get-UlcRestFields {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
@@ -64,4 +64,4 @@ function Get-PnPField {
     }
 }
 
-Export-ModuleMember -Function Get-PnPList, Get-PnPField
+Export-ModuleMember -Function Get-UlcRestList, Get-UlcRestFields

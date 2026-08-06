@@ -1,7 +1,11 @@
 # Power Platform temporary exports and generated comparison trees
 powerplatform/generated/
+generated/
 export/
 *.zip
+
+# Local provisioning configuration
+Provisioning/settings.local.psd1
 
 # Local Refact/Buddy runtime data
 .refact/

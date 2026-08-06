@@ -1,0 +1,503 @@
+{
+  "schemaVersion": "2.0.0-draft",
+  "project": "UserLifeCycle",
+  "prefix": "BLC_",
+  "policies": {
+    "internalNamesImmutable": true,
+    "requireTechnicalKeyForCatalogs": true,
+    "requireStableIdForEntities": true,
+    "defaultVersioning": true,
+    "allowLegacyBLLists": false
+  },
+  "modules": [
+    "identity",
+    "lifecycle",
+    "access",
+    "integration"
+  ],
+  "summary": {
+    "moduleCount": 4,
+    "listCount": 29,
+    "fieldCount": 39
+  },
+  "lists": [
+    {
+      "internalName": "BLC_Persons",
+      "displayName": "Personen",
+      "description": "Personenstammdaten unabhängig vom Beschäftigungsverhältnis.",
+      "fields": [
+        {
+          "internalName": "PersonID",
+          "displayName": "Person ID",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true
+        },
+        {
+          "internalName": "EmployeeNumber",
+          "displayName": "Personalnummer",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "EntraObjectID",
+          "displayName": "Entra Object ID",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "UserPrincipalName",
+          "displayName": "UPN",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "Mail",
+          "displayName": "E-Mail",
+          "type": "Text"
+        },
+        {
+          "internalName": "DisplayName",
+          "displayName": "Anzeigename",
+          "type": "Text",
+          "required": true
+        },
+        {
+          "internalName": "GivenName",
+          "displayName": "Vorname",
+          "type": "Text"
+        },
+        {
+          "internalName": "Surname",
+          "displayName": "Nachname",
+          "type": "Text"
+        },
+        {
+          "internalName": "SourceSystem",
+          "displayName": "Quellsystem",
+          "type": "Choice",
+          "choices": [
+            "Manual",
+            "CSV",
+            "EntraID",
+            "HR"
+          ]
+        },
+        {
+          "internalName": "ExternalSourceID",
+          "displayName": "Externe Quell-ID",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "PersonStatus",
+          "displayName": "Personenstatus",
+          "type": "Choice",
+          "choices": [
+            "Active",
+            "Inactive",
+            "Archived"
+          ]
+        },
+        {
+          "internalName": "LastImportDate",
+          "displayName": "Letzter Import",
+          "type": "DateTime"
+        }
+      ],
+      "module": "identity"
+    },
+    {
+      "internalName": "BLC_Employments",
+      "displayName": "Beschäftigungen",
+      "description": "Zeitlich und organisatorisch abgegrenzte Beschäftigungsverhältnisse.",
+      "fields": [
+        {
+          "internalName": "EmploymentID",
+          "displayName": "Employment ID",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true
+        },
+        {
+          "internalName": "Person",
+          "displayName": "Person",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Persons",
+          "lookupField": "Title"
+        },
+        {
+          "internalName": "OrganizationKey",
+          "displayName": "Organisation",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "DepartmentKey",
+          "displayName": "Abteilung",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "LocationKey",
+          "displayName": "Standort",
+          "type": "Text"
+        },
+        {
+          "internalName": "PositionKey",
+          "displayName": "Position",
+          "type": "Text"
+        },
+        {
+          "internalName": "ManagerPersonID",
+          "displayName": "Vorgesetzter Person ID",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "StartDate",
+          "displayName": "Eintrittsdatum",
+          "type": "DateTime",
+          "indexed": true
+        },
+        {
+          "internalName": "EndDate",
+          "displayName": "Austrittsdatum",
+          "type": "DateTime",
+          "indexed": true
+        },
+        {
+          "internalName": "EmploymentStatus",
+          "displayName": "Beschäftigungsstatus",
+          "type": "Choice",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            "Planned",
+            "Active",
+            "Leave",
+            "Suspended",
+            "Terminating",
+            "Inactive",
+            "Archived"
+          ]
+        }
+      ],
+      "module": "identity"
+    },
+    {
+      "internalName": "BLC_Organizations",
+      "displayName": "Organisationen",
+      "catalog": true,
+      "fields": [],
+      "module": "identity"
+    },
+    {
+      "internalName": "BLC_Departments",
+      "displayName": "Abteilungen",
+      "catalog": true,
+      "fields": [],
+      "module": "identity"
+    },
+    {
+      "internalName": "BLC_Locations",
+      "displayName": "Standorte",
+      "catalog": true,
+      "fields": [],
+      "module": "identity"
+    },
+    {
+      "internalName": "BLC_Positions",
+      "displayName": "Positionen",
+      "catalog": true,
+      "fields": [],
+      "module": "identity"
+    },
+    {
+      "internalName": "BLC_LifecycleRequests",
+      "displayName": "Lifecycle-Vorgänge",
+      "mode": "extend",
+      "fields": [
+        {
+          "internalName": "Employment",
+          "displayName": "Beschäftigung",
+          "type": "Lookup",
+          "indexed": true,
+          "lookupList": "BLC_Employments",
+          "lookupField": "Title"
+        },
+        {
+          "internalName": "RequestStatusV2",
+          "displayName": "Vorgangsstatus 2.0",
+          "type": "Choice",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            "Draft",
+            "Submitted",
+            "Approved",
+            "Provisioning",
+            "Waiting",
+            "Blocked",
+            "Completed",
+            "Cancelled",
+            "Archived"
+          ]
+        },
+        {
+          "internalName": "ProgressPercent",
+          "displayName": "Fortschritt (%)",
+          "type": "Number"
+        },
+        {
+          "internalName": "LastCalculated",
+          "displayName": "Zuletzt berechnet",
+          "type": "DateTime"
+        }
+      ],
+      "module": "lifecycle"
+    },
+    {
+      "internalName": "BLC_LifecycleTasks",
+      "displayName": "Lifecycle-Aufgaben",
+      "mode": "extend",
+      "fields": [
+        {
+          "internalName": "TaskTemplate",
+          "displayName": "Aufgabenvorlage",
+          "type": "Lookup",
+          "indexed": true,
+          "lookupList": "BLC_TaskTemplates",
+          "lookupField": "Title"
+        },
+        {
+          "internalName": "TaskStatusV2",
+          "displayName": "Aufgabenstatus 2.0",
+          "type": "Choice",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            "Open",
+            "Assigned",
+            "InProgress",
+            "Waiting",
+            "Blocked",
+            "Skipped",
+            "Completed",
+            "Failed"
+          ]
+        },
+        {
+          "internalName": "Blocking",
+          "displayName": "Blockierend",
+          "type": "Boolean"
+        },
+        {
+          "internalName": "EscalationLevel",
+          "displayName": "Eskalationsstufe",
+          "type": "Number"
+        }
+      ],
+      "module": "lifecycle"
+    },
+    {
+      "internalName": "BLC_TaskTemplates",
+      "displayName": "Aufgabenvorlagen",
+      "fields": [],
+      "module": "lifecycle"
+    },
+    {
+      "internalName": "BLC_AssignmentRules",
+      "displayName": "Zuweisungsregeln",
+      "fields": [],
+      "module": "lifecycle"
+    },
+    {
+      "internalName": "BLC_SLAProfiles",
+      "displayName": "SLA-Profile",
+      "fields": [],
+      "module": "lifecycle"
+    },
+    {
+      "internalName": "BLC_Escalations",
+      "displayName": "Eskalationen",
+      "fields": [],
+      "module": "lifecycle"
+    },
+    {
+      "internalName": "BLC_AuditEvents",
+      "displayName": "Audit-Ereignisse",
+      "fields": [],
+      "module": "lifecycle"
+    },
+    {
+      "internalName": "BLC_EmployeeIdentityChanges",
+      "displayName": "Identitätsänderungen",
+      "mode": "retain",
+      "fields": [],
+      "module": "lifecycle"
+    },
+    {
+      "internalName": "BLC_RoleProfiles",
+      "displayName": "Rollenprofile",
+      "mode": "extend",
+      "fields": [
+        {
+          "internalName": "TechnicalKey",
+          "displayName": "Technischer Schlüssel",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true
+        },
+        {
+          "internalName": "Version",
+          "displayName": "Version",
+          "type": "Number"
+        },
+        {
+          "internalName": "ApprovalRequired",
+          "displayName": "Genehmigung erforderlich",
+          "type": "Boolean"
+        }
+      ],
+      "module": "access"
+    },
+    {
+      "internalName": "BLC_Entitlements",
+      "displayName": "Berechtigungen",
+      "mode": "change",
+      "fields": [
+        {
+          "internalName": "TechnicalKey",
+          "displayName": "Technischer Schlüssel",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true
+        },
+        {
+          "internalName": "TargetSystemKey",
+          "displayName": "Zielsystem",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "RiskLevel",
+          "displayName": "Risikostufe",
+          "type": "Choice",
+          "choices": [
+            "Low",
+            "Medium",
+            "High",
+            "Critical"
+          ]
+        }
+      ],
+      "module": "access"
+    },
+    {
+      "internalName": "BLC_RoleEntitlements",
+      "displayName": "Rollen-Berechtigungen",
+      "mode": "extend",
+      "fields": [
+        {
+          "internalName": "Mandatory",
+          "displayName": "Verpflichtend",
+          "type": "Boolean"
+        },
+        {
+          "internalName": "ApprovalRequired",
+          "displayName": "Genehmigung erforderlich",
+          "type": "Boolean"
+        },
+        {
+          "internalName": "SortOrder",
+          "displayName": "Sortierung",
+          "type": "Number"
+        }
+      ],
+      "module": "access"
+    },
+    {
+      "internalName": "BLC_UserRoleAssignments",
+      "displayName": "Benutzerrollen",
+      "fields": [],
+      "module": "access"
+    },
+    {
+      "internalName": "BLC_UserEntitlementAssignments",
+      "displayName": "Benutzerberechtigungen Soll",
+      "fields": [],
+      "module": "access"
+    },
+    {
+      "internalName": "BLC_ObservedEntitlements",
+      "displayName": "Beobachtete Berechtigungen",
+      "fields": [],
+      "module": "access"
+    },
+    {
+      "internalName": "BLC_EntitlementExceptions",
+      "displayName": "Berechtigungsausnahmen",
+      "fields": [],
+      "module": "access"
+    },
+    {
+      "internalName": "BLC_ImportRuns",
+      "displayName": "Importläufe",
+      "fields": [],
+      "module": "integration"
+    },
+    {
+      "internalName": "BLC_ImportErrors",
+      "displayName": "Importfehler",
+      "fields": [],
+      "module": "integration"
+    },
+    {
+      "internalName": "BLC_SyncRuns",
+      "displayName": "Synchronisationsläufe",
+      "fields": [],
+      "module": "integration"
+    },
+    {
+      "internalName": "BLC_SyncErrors",
+      "displayName": "Synchronisationsfehler",
+      "fields": [],
+      "module": "integration"
+    },
+    {
+      "internalName": "BLC_ExternalSystems",
+      "displayName": "Externe Systeme",
+      "snapshot": true,
+      "fields": [],
+      "module": "integration"
+    },
+    {
+      "internalName": "BLC_ExternalAssets",
+      "displayName": "Externe Assets",
+      "snapshot": true,
+      "fields": [],
+      "module": "integration"
+    },
+    {
+      "internalName": "BLC_ExternalDevices",
+      "displayName": "Externe Geräte",
+      "snapshot": true,
+      "fields": [],
+      "module": "integration"
+    },
+    {
+      "internalName": "BLC_ExternalLicenses",
+      "displayName": "Externe Lizenzen",
+      "snapshot": true,
+      "fields": [],
+      "module": "integration"
+    }
+  ]
+}

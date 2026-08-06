@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0",
+  "allowedSitePath": "/sites/benutzerlifecycle",
+  "deletePrefixes": ["BL_"],
+  "deleteExplicit": ["BLC_Employees"],
+  "protectedPrefixes": ["BLC_"],
+  "protectedExplicit": [
+    "BLC_LifecycleRequests",
+    "BLC_LifecycleTasks",
+    "BLC_RoleProfiles",
+    "BLC_Entitlements",
+    "BLC_RoleEntitlements",
+    "BLC_EmployeeIdentityChanges"
+  ],
+  "notes": "BL_* ist vollständig veraltet. BLC_Employees wird durch BLC_Persons und BLC_Employments ersetzt. Alle anderen BLC-Listen sind standardmäßig geschützt."
+}

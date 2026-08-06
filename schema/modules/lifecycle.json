@@ -1,0 +1,12 @@
+{
+  "module":"lifecycle","order":20,"lists":[
+    {"internalName":"BLC_LifecycleRequests","displayName":"Lifecycle-Vorgänge","mode":"extend","fields":[{"internalName":"Employment","displayName":"Beschäftigung","type":"Lookup","indexed":true,"lookupList":"BLC_Employments","lookupField":"Title"},{"internalName":"RequestStatusV2","displayName":"Vorgangsstatus 2.0","type":"Choice","required":true,"indexed":true,"choices":["Draft","Submitted","Approved","Provisioning","Waiting","Blocked","Completed","Cancelled","Archived"]},{"internalName":"ProgressPercent","displayName":"Fortschritt (%)","type":"Number"},{"internalName":"LastCalculated","displayName":"Zuletzt berechnet","type":"DateTime"}]},
+    {"internalName":"BLC_LifecycleTasks","displayName":"Lifecycle-Aufgaben","mode":"extend","fields":[{"internalName":"TaskTemplate","displayName":"Aufgabenvorlage","type":"Lookup","indexed":true,"lookupList":"BLC_TaskTemplates","lookupField":"Title"},{"internalName":"TaskStatusV2","displayName":"Aufgabenstatus 2.0","type":"Choice","required":true,"indexed":true,"choices":["Open","Assigned","InProgress","Waiting","Blocked","Skipped","Completed","Failed"]},{"internalName":"Blocking","displayName":"Blockierend","type":"Boolean"},{"internalName":"EscalationLevel","displayName":"Eskalationsstufe","type":"Number"}]},
+    {"internalName":"BLC_TaskTemplates","displayName":"Aufgabenvorlagen","fields":[]},
+    {"internalName":"BLC_AssignmentRules","displayName":"Zuweisungsregeln","fields":[]},
+    {"internalName":"BLC_SLAProfiles","displayName":"SLA-Profile","fields":[]},
+    {"internalName":"BLC_Escalations","displayName":"Eskalationen","fields":[]},
+    {"internalName":"BLC_AuditEvents","displayName":"Audit-Ereignisse","fields":[]},
+    {"internalName":"BLC_EmployeeIdentityChanges","displayName":"Identitätsänderungen","mode":"retain","fields":[]}
+  ]
+}

@@ -16,6 +16,8 @@ ACTIONS = {
     "audit": ["python3", "./tools/companion/audit_repo.py"],
     "validate": ["pwsh", "./powerplatform/scripts/Validate-Solution.ps1"],
     "build": ["pwsh", "./powerplatform/scripts/Build.ps1"],
+    "schema-analyze": ["pwsh", "./Provisioning/Invoke-SchemaAnalyzer.ps1"],
+    "schema-compile": ["pwsh", "./Provisioning/Compile-Schema.ps1"],
 }
 
 def run(command, timeout=3600):
@@ -35,6 +37,7 @@ def release(payload):
         branch=run(["git","branch","--show-current"],30).stdout.strip()
         if not branch or branch == "main": raise RuntimeError("Release nur aus Feature-/Fix-Branch zulässig.")
         checked(["python3","./tools/companion/audit_repo.py"],log)
+        checked(["pwsh","./Provisioning/Compile-Schema.ps1"],log)
         checked(["pwsh","./powerplatform/scripts/Validate-Solution.ps1"],log)
         checked(["pwsh","./powerplatform/scripts/Build.ps1"],log)
         if run(["git","status","--porcelain"],30).stdout.strip():
@@ -43,6 +46,7 @@ def release(payload):
         checked(["git","fetch","--prune","origin"],log)
         checked(["git","rebase","origin/main"],log)
         checked(["python3","./tools/companion/audit_repo.py"],log)
+        checked(["pwsh","./Provisioning/Compile-Schema.ps1"],log)
         checked(["pwsh","./powerplatform/scripts/Build.ps1"],log)
         checked(["git","push","--force-with-lease","-u","origin",branch],log)
         pr=run(["gh","pr","view","--json","number","--jq",".number"],60)

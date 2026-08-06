@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "2.0.0-draft",
+  "project": "UserLifeCycle",
+  "prefix": "BLC_",
+  "sourceOfTruth": true,
+  "modules": [
+    "modules/identity.json",
+    "modules/lifecycle.json",
+    "modules/access.json",
+    "modules/integration.json"
+  ],
+  "generated": {
+    "compiledSchema": "generated/schema/compiled-schema.json",
+    "documentation": "generated/schema/schema-report.html"
+  },
+  "policies": {
+    "internalNamesImmutable": true,
+    "requireTechnicalKeyForCatalogs": true,
+    "requireStableIdForEntities": true,
+    "defaultVersioning": true,
+    "allowLegacyBLLists": false
+  }
+}

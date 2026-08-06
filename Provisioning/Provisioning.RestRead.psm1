@@ -88,13 +88,33 @@ function Test-UlcNotFoundError {
     )
 }
 
+function Get-UlcOptionalPropertyValue {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        $InputObject,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Name,
+
+        $DefaultValue = $null
+    )
+
+    $property = $InputObject.PSObject.Properties[$Name]
+    if ($null -eq $property) {
+        return $DefaultValue
+    }
+
+    return $property.Value
+}
+
 function ConvertTo-UlcRestListResult {
     param([Parameter(Mandatory = $true)]$Value)
 
     [pscustomobject]@{
         Id               = [guid]$Value.Id
         Title            = [string]$Value.Title
-        Description      = [string]$Value.Description
+        Description      = [string](Get-UlcOptionalPropertyValue -InputObject $Value -Name 'Description' -DefaultValue '')
         EnableVersioning = [bool]$Value.EnableVersioning
     }
 }
@@ -140,12 +160,15 @@ function Get-UlcRestFields {
 
     foreach ($field in @($response.value)) {
         $choices = @()
-        if ($null -ne $field.Choices) {
-            if ($null -ne $field.Choices.results) {
-                $choices = @($field.Choices.results)
+        $choiceValue = Get-UlcOptionalPropertyValue -InputObject $field -Name 'Choices'
+
+        if ($null -ne $choiceValue) {
+            $resultsProperty = $choiceValue.PSObject.Properties['results']
+            if ($null -ne $resultsProperty) {
+                $choices = @($resultsProperty.Value)
             }
             else {
-                $choices = @($field.Choices)
+                $choices = @($choiceValue)
             }
         }
 

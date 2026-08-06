@@ -16,7 +16,6 @@ function Get-UlcRestList {
     param(
         [Parameter(Mandatory = $true)]
         [string]$Identity,
-
         [Parameter(Mandatory = $true)]
         $Connection
     )
@@ -32,7 +31,6 @@ function Get-UlcRestFields {
     param(
         [Parameter(Mandatory = $true)]
         [string]$List,
-
         [Parameter(Mandatory = $true)]
         $Connection
     )
@@ -64,4 +62,31 @@ function Get-UlcRestFields {
     }
 }
 
-Export-ModuleMember -Function Get-UlcRestList, Get-UlcRestFields
+# Compatibility wrappers used by the existing provisioning runner.
+function Get-PnPList {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Identity,
+        [Parameter(Mandatory = $true)]
+        $Connection,
+        [Parameter(ValueFromRemainingArguments = $true)]
+        $RemainingArguments
+    )
+    Get-UlcRestList -Identity $Identity -Connection $Connection
+}
+
+function Get-PnPField {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$List,
+        [Parameter(Mandatory = $true)]
+        $Connection,
+        [Parameter(ValueFromRemainingArguments = $true)]
+        $RemainingArguments
+    )
+    Get-UlcRestFields -List $List -Connection $Connection
+}
+
+Export-ModuleMember -Function Get-UlcRestList, Get-UlcRestFields, Get-PnPList, Get-PnPField

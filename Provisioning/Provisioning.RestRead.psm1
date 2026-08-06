@@ -65,6 +65,29 @@ function Invoke-UlcSharePointRest {
         -ErrorAction Stop
 }
 
+function Test-UlcNotFoundError {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        $ErrorRecord
+    )
+
+    $statusCode = $null
+    try {
+        if ($null -ne $ErrorRecord.Exception.Response.StatusCode) {
+            $statusCode = [int]$ErrorRecord.Exception.Response.StatusCode
+        }
+    }
+    catch {
+        $statusCode = $null
+    }
+
+    return (
+        $statusCode -eq 404 -or
+        [string]$ErrorRecord.Exception.Message -match '(?i)404|not found'
+    )
+}
+
 function ConvertTo-UlcRestListResult {
     param([Parameter(Mandatory = $true)]$Value)
 
@@ -88,8 +111,17 @@ function Get-UlcRestList {
 
     $escapedIdentity = $Identity.Replace("'", "''")
     $url = "/_api/web/lists/getbytitle('$escapedIdentity')?`$select=Id,Title,Description,EnableVersioning"
-    $response = Invoke-UlcSharePointRest -RelativeUrl $url -Connection $Connection
-    ConvertTo-UlcRestListResult -Value $response
+
+    try {
+        $response = Invoke-UlcSharePointRest -RelativeUrl $url -Connection $Connection
+        return ConvertTo-UlcRestListResult -Value $response
+    }
+    catch {
+        if (Test-UlcNotFoundError -ErrorRecord $_) {
+            return $null
+        }
+        throw
+    }
 }
 
 function Get-UlcRestFields {
@@ -118,13 +150,13 @@ function Get-UlcRestFields {
         }
 
         [pscustomobject]@{
-            InternalName       = [string]$field.InternalName
-            Title              = [string]$field.Title
-            TypeAsString       = [string]$field.TypeAsString
-            Required           = [bool]$field.Required
-            Indexed            = [bool]$field.Indexed
+            InternalName        = [string]$field.InternalName
+            Title               = [string]$field.Title
+            TypeAsString        = [string]$field.TypeAsString
+            Required            = [bool]$field.Required
+            Indexed             = [bool]$field.Indexed
             EnforceUniqueValues = [bool]$field.EnforceUniqueValues
-            Choices            = $choices
+            Choices             = $choices
         }
     }
 }

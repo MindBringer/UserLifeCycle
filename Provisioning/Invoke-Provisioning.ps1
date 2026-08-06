@@ -28,9 +28,12 @@ $Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $CompileScript = Join-Path $PSScriptRoot 'Compile-Schema.ps1'
 $CompiledSchemaPath = Join-Path $Root 'generated/schema/compiled-schema.json'
 $OutputPath = [System.IO.Path]::GetFullPath((Join-Path $Root $OutputDirectory))
+$RestReadModule = Join-Path $PSScriptRoot 'Provisioning.RestRead.psm1'
+
+Import-Module PnP.PowerShell -ErrorAction Stop
+Import-Module $RestReadModule -Force -DisableNameChecking -ErrorAction Stop
 
 function Connect-TargetSite {
-    Import-Module PnP.PowerShell -ErrorAction Stop
     if ($AuthenticationMode -eq 'DeviceLogin') {
         return Connect-PnPOnline -Url $SiteUrl -ClientId $ClientId -DeviceLogin -ReturnConnection
     }
@@ -67,7 +70,7 @@ function Get-TargetList {
 
     try {
         return Invoke-PnPWithRetry -Description "Liste $Identity laden" -Operation {
-            Get-PnPList -Identity $Identity -Connection $Connection -ErrorAction Stop
+            Get-UlcRestList -Identity $Identity -Connection $Connection -ErrorAction Stop
         }
     }
     catch {
@@ -190,7 +193,6 @@ $aborted = $false
 try {
     $existingLists = @{}
 
-    # Phase 1: Nur die im Zielschema benötigten Listen gezielt laden.
     foreach ($listDefinition in $Schema.lists) {
         $internalName = [string]$listDefinition.internalName
         $displayName = [string]$listDefinition.displayName
@@ -218,7 +220,6 @@ try {
         }
     }
 
-    # Phase 2: Felder; Lookups erst nach Anlage aller Listen.
     foreach ($listDefinition in $Schema.lists) {
         $listName = [string]$listDefinition.internalName
         if (-not $existingLists[$listName] -and $Mode -ne 'Apply') {
@@ -231,7 +232,7 @@ try {
         $existingFields = @{}
         if ($existingLists[$listName]) {
             $fields = Invoke-PnPWithRetry -Description "Felder von $listName laden" -Operation {
-                @(Get-PnPField -List $listName -Connection $Connection -ErrorAction Stop)
+                @(Get-UlcRestFields -List $listName -Connection $Connection -ErrorAction Stop)
             }
             foreach ($existingFieldItem in @($fields)) { $existingFields[$existingFieldItem.InternalName] = $existingFieldItem }
         }

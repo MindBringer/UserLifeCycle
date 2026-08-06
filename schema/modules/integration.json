@@ -1,0 +1,12 @@
+{
+  "module":"integration","order":40,"lists":[
+    {"internalName":"BLC_ImportRuns","displayName":"Importläufe","fields":[]},
+    {"internalName":"BLC_ImportErrors","displayName":"Importfehler","fields":[]},
+    {"internalName":"BLC_SyncRuns","displayName":"Synchronisationsläufe","fields":[]},
+    {"internalName":"BLC_SyncErrors","displayName":"Synchronisationsfehler","fields":[]},
+    {"internalName":"BLC_ExternalSystems","displayName":"Externe Systeme","snapshot":true,"fields":[]},
+    {"internalName":"BLC_ExternalAssets","displayName":"Externe Assets","snapshot":true,"fields":[]},
+    {"internalName":"BLC_ExternalDevices","displayName":"Externe Geräte","snapshot":true,"fields":[]},
+    {"internalName":"BLC_ExternalLicenses","displayName":"Externe Lizenzen","snapshot":true,"fields":[]}
+  ]
+}

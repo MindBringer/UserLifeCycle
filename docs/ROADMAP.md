@@ -8,7 +8,8 @@ Stand: 2026-08-06
 - [x] Epic 1.1 – Schema Analyzer und Referenzmatrix
 - [ ] Epic 1.2 – Deklaratives Provisioning 2.0
   - [x] Schema Foundation: modulare Schemadateien, Compiler, Report
-  - [ ] Provisioning Generator: Apply, Dry Run, Validate
+  - [x] Provisioning Generator: additiver Apply, Dry Run, Validate und Laufberichte
+  - [ ] Vollständige Felddefinitionen und kontrollierte Schemaänderungen
   - [ ] Reset und Seed mit Confirmation Token
   - [ ] Migration Assessment und Impact Analyzer
 

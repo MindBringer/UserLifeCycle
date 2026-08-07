@@ -1,11 +1,107 @@
 {
-  "module":"access","order":30,"lists":[
-    {"internalName":"BLC_RoleProfiles","displayName":"Rollenprofile","mode":"extend","fields":[{"internalName":"TechnicalKey","displayName":"Technischer Schlüssel","type":"Text","required":true,"indexed":true,"unique":true},{"internalName":"Version","displayName":"Version","type":"Number"},{"internalName":"ApprovalRequired","displayName":"Genehmigung erforderlich","type":"Boolean"}]},
-    {"internalName":"BLC_Entitlements","displayName":"Berechtigungen","mode":"change","fields":[{"internalName":"TechnicalKey","displayName":"Technischer Schlüssel","type":"Text","required":true,"indexed":true,"unique":true},{"internalName":"TargetSystemKey","displayName":"Zielsystem","type":"Text","indexed":true},{"internalName":"RiskLevel","displayName":"Risikostufe","type":"Choice","choices":["Low","Medium","High","Critical"]}]},
-    {"internalName":"BLC_RoleEntitlements","displayName":"Rollen-Berechtigungen","mode":"extend","fields":[{"internalName":"Mandatory","displayName":"Verpflichtend","type":"Boolean"},{"internalName":"ApprovalRequired","displayName":"Genehmigung erforderlich","type":"Boolean"},{"internalName":"SortOrder","displayName":"Sortierung","type":"Number"}]},
-    {"internalName":"BLC_UserRoleAssignments","displayName":"Benutzerrollen","fields":[]},
-    {"internalName":"BLC_UserEntitlementAssignments","displayName":"Benutzerberechtigungen Soll","fields":[]},
-    {"internalName":"BLC_ObservedEntitlements","displayName":"Beobachtete Berechtigungen","fields":[]},
-    {"internalName":"BLC_EntitlementExceptions","displayName":"Berechtigungsausnahmen","fields":[]}
+  "module": "access",
+  "order": 30,
+  "lists": [
+    {
+      "internalName": "BLC_RoleProfiles",
+      "displayName": "Rollenprofile",
+      "mode": "extend",
+      "catalog": true,
+      "description": "Fachliche Rollenprofile als Sollvorgabe für Beschäftigungen.",
+      "fields": [
+        {"internalName":"TechnicalKey","displayName":"Technischer Schlüssel","type":"Text","required":true,"indexed":true,"unique":true},
+        {"internalName":"Description","displayName":"Beschreibung","type":"Note"},
+        {"internalName":"Version","displayName":"Version","type":"Number"},
+        {"internalName":"Active","displayName":"Aktiv","type":"Boolean"},
+        {"internalName":"ApprovalRequired","displayName":"Genehmigung erforderlich","type":"Boolean"},
+        {"internalName":"RiskLevel","displayName":"Risikostufe","type":"Choice","choices":["Low","Medium","High","Critical"]},
+        {"internalName":"ValidFrom","displayName":"Gültig ab","type":"DateTime"},
+        {"internalName":"ValidTo","displayName":"Gültig bis","type":"DateTime"}
+      ]
+    },
+    {
+      "internalName": "BLC_Entitlements",
+      "displayName": "Berechtigungen",
+      "mode": "change",
+      "catalog": true,
+      "description": "Technischer und fachlicher Berechtigungskatalog.",
+      "fields": [
+        {"internalName":"TechnicalKey","displayName":"Technischer Schlüssel","type":"Text","required":true,"indexed":true,"unique":true},
+        {"internalName":"Description","displayName":"Beschreibung","type":"Note"},
+        {"internalName":"Category","displayName":"Kategorie","type":"Choice","indexed":true,"choices":["Group","License","ApplicationRole","Mailbox","VPN","Telephony","SharePoint","Other"]},
+        {"internalName":"TargetSystemKey","displayName":"Zielsystem","type":"Text","indexed":true},
+        {"internalName":"ProvisioningMode","displayName":"Provisionierungsmodus","type":"Choice","choices":["Manual","Automatic","External"]},
+        {"internalName":"ApprovalRequired","displayName":"Genehmigung erforderlich","type":"Boolean"},
+        {"internalName":"RiskLevel","displayName":"Risikostufe","type":"Choice","choices":["Low","Medium","High","Critical"]},
+        {"internalName":"Active","displayName":"Aktiv","type":"Boolean"}
+      ]
+    },
+    {
+      "internalName": "BLC_RoleEntitlements",
+      "displayName": "Rollen-Berechtigungen",
+      "mode": "extend",
+      "description": "Zuordnung von Berechtigungen zu Rollenprofilen.",
+      "fields": [
+        {"internalName":"RoleProfile","displayName":"Rollenprofil","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_RoleProfiles","lookupField":"Title"},
+        {"internalName":"Entitlement","displayName":"Berechtigung","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Entitlements","lookupField":"Title"},
+        {"internalName":"Mandatory","displayName":"Verpflichtend","type":"Boolean"},
+        {"internalName":"ApprovalRequired","displayName":"Genehmigung erforderlich","type":"Boolean"},
+        {"internalName":"SortOrder","displayName":"Sortierung","type":"Number"},
+        {"internalName":"ValidFrom","displayName":"Gültig ab","type":"DateTime"},
+        {"internalName":"ValidTo","displayName":"Gültig bis","type":"DateTime"}
+      ]
+    },
+    {
+      "internalName":"BLC_UserRoleAssignments",
+      "displayName":"Benutzerrollen",
+      "description":"Rollen-Sollzuweisungen je Beschäftigungsverhältnis.",
+      "fields":[
+        {"internalName":"Employment","displayName":"Beschäftigung","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Employments","lookupField":"Title"},
+        {"internalName":"RoleProfile","displayName":"Rollenprofil","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_RoleProfiles","lookupField":"Title"},
+        {"internalName":"AssignmentSource","displayName":"Quelle","type":"Choice","choices":["Manual","Import","Rule","Lifecycle"]},
+        {"internalName":"ValidFrom","displayName":"Gültig ab","type":"DateTime"},
+        {"internalName":"ValidTo","displayName":"Gültig bis","type":"DateTime"},
+        {"internalName":"Active","displayName":"Aktiv","type":"Boolean"}
+      ]
+    },
+    {
+      "internalName":"BLC_UserEntitlementAssignments",
+      "displayName":"Benutzerberechtigungen Soll",
+      "description":"Berechnetes Berechtigungssoll je Beschäftigungsverhältnis.",
+      "fields":[
+        {"internalName":"Employment","displayName":"Beschäftigung","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Employments","lookupField":"Title"},
+        {"internalName":"Entitlement","displayName":"Berechtigung","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Entitlements","lookupField":"Title"},
+        {"internalName":"SourceRoleProfile","displayName":"Quell-Rollenprofil","type":"Lookup","indexed":true,"lookupList":"BLC_RoleProfiles","lookupField":"Title"},
+        {"internalName":"DesiredState","displayName":"Sollzustand","type":"Choice","choices":["Present","Absent"]},
+        {"internalName":"CalculatedAt","displayName":"Berechnet am","type":"DateTime"}
+      ]
+    },
+    {
+      "internalName":"BLC_ObservedEntitlements",
+      "displayName":"Beobachtete Berechtigungen",
+      "description":"Technisch festgestellter Istzustand von Berechtigungen.",
+      "fields":[
+        {"internalName":"Employment","displayName":"Beschäftigung","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Employments","lookupField":"Title"},
+        {"internalName":"Entitlement","displayName":"Berechtigung","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Entitlements","lookupField":"Title"},
+        {"internalName":"ObservedState","displayName":"Istzustand","type":"Choice","choices":["Present","Absent","Unknown"]},
+        {"internalName":"Provider","displayName":"Provider","type":"Text","indexed":true},
+        {"internalName":"ObservedAt","displayName":"Festgestellt am","type":"DateTime"},
+        {"internalName":"ExternalObjectID","displayName":"Externe Objekt-ID","type":"Text","indexed":true}
+      ]
+    },
+    {
+      "internalName":"BLC_EntitlementExceptions",
+      "displayName":"Berechtigungsausnahmen",
+      "description":"Genehmigte Abweichungen vom berechneten Berechtigungssoll.",
+      "fields":[
+        {"internalName":"Employment","displayName":"Beschäftigung","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Employments","lookupField":"Title"},
+        {"internalName":"Entitlement","displayName":"Berechtigung","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Entitlements","lookupField":"Title"},
+        {"internalName":"Reason","displayName":"Begründung","type":"Note","required":true},
+        {"internalName":"ApprovedBy","displayName":"Genehmigt von","type":"User"},
+        {"internalName":"ValidFrom","displayName":"Gültig ab","type":"DateTime"},
+        {"internalName":"ValidTo","displayName":"Gültig bis","type":"DateTime"},
+        {"internalName":"Status","displayName":"Status","type":"Choice","choices":["Requested","Approved","Rejected","Expired","Revoked"]}
+      ]
+    }
   ]
 }

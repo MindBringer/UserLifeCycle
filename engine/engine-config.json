@@ -1,0 +1,20 @@
+{
+  "engineVersion": "1.0",
+  "requestTypes": ["Onboarding", "Mover", "Offboarding"],
+  "defaultLifecycleStatus": "Submitted",
+  "defaultTaskStatus": "Open",
+  "defaultSla": {
+    "dueDays": 3,
+    "reminderDaysBefore": 1,
+    "escalationDaysAfter": 1,
+    "calendarMode": "BusinessDays"
+  },
+  "policies": {
+    "idempotentTaskKeys": true,
+    "moverCreatesDeltaOnly": true,
+    "offboardingRevokesAllDesiredEntitlements": true,
+    "manualExceptionsSurviveMover": true,
+    "completedTasksAreImmutable": true,
+    "auditEveryPlan": true
+  }
+}

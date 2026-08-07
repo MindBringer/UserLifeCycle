@@ -22,11 +22,16 @@ def field_map(item: dict) -> dict[str, dict]:
 def normalize_field(field: dict) -> dict:
     normalized = dict(field)
     normalized.setdefault("required", False)
-    normalized.setdefault("indexed", False)
     normalized.setdefault("unique", False)
     normalized.setdefault("choices", [])
     if normalized.get("type") in {"Lookup", "LookupMulti"}:
+        # SharePoint requires an indexed lookup field when relationship delete
+        # behavior is enforced by provisioning (RelationshipDeleteBehavior=Restrict).
+        # Lookups are also primary filter/join columns in the domain model.
+        normalized["indexed"] = True
         normalized.setdefault("lookupField", "Title")
+    else:
+        normalized.setdefault("indexed", False)
     return normalized
 
 

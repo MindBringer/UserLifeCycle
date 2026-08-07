@@ -18,21 +18,15 @@ Stand: 2026-08-07
 
 - [ ] Epic 1.3 – Domain Model Foundation
   - [x] PR1 – Domain Schema
-    - vollständige `BLC_Persons`-Definition
-    - vollständige `BLC_Employments`-Definition
-    - Organisationskataloge `Organizations`, `Departments`, `Locations`, `CostCenters`, `Positions`
-    - stabile IDs, technische Schlüssel, Indizes und Lookups
-    - Compiler-Prüfung für Entitäten, Kataloge und Lookup-Ziele
-  - [ ] **PR2 – Role Engine**
-    - vollständige Rollenprofile und Entitlement-Kataloge
-    - Role-to-Entitlement-Zuordnung
-    - Soll- und Ist-Zuordnungen je Beschäftigung
-    - Ausnahmen und Risikoklassifizierung
-    - Task Templates, Assignment Rules und SLA-Basis
-  - [ ] PR3 – Lifecycle Engine
-    - Erzeugungslogik für Aufgaben
-    - Eskalationen, Audit und Statusübergänge
-    - Mover-Differenzberechnung und Offboarding-Entzug
+  - [x] PR2 – Role Engine
+  - [ ] **PR3 – Lifecycle Engine**
+    - deterministische EngineRun-/EngineTask-Keys
+    - Joiner-/Mover-/Leaver-Planung
+    - Mover-Differenzberechnung und Ausnahmebehandlung
+    - Offboarding-Entzug aller Sollberechtigungen
+    - Task Templates, Assignment Rules und SLA-Fälligkeiten
+    - Eskalations- und Auditfelder
+    - lokale Engine-Simulation und Selftests
   - [ ] PR4 – Canvas Foundation
     - Datenzugriff auf Persons/Employments
     - Entfernung der `BLC_Employees`-Abhängigkeiten
@@ -64,5 +58,6 @@ Stand: 2026-08-07
 5. Personen und Beschäftigungen sind getrennt modelliert.
 6. Organisationsstammdaten besitzen stabile technische Schlüssel.
 7. Rollenprofile und Berechtigungen sind katalog- und regelbasiert modelliert.
-8. Canvas und Flows referenzieren ausschließlich das 2.0-Schema.
-9. Erst danach erfolgt der initiale Benutzerimport.
+8. Lifecycle-Pläne sind deterministisch und wiederholbar.
+9. Canvas und Flows referenzieren ausschließlich das 2.0-Schema.
+10. Erst danach erfolgt der initiale Benutzerimport.

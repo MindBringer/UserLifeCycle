@@ -17,15 +17,25 @@ Stand: 2026-08-07
 ## Phase B – Datenmodell 2.0
 
 - [ ] Epic 1.3 – Domain Model Foundation
-  - [ ] **PR1 – Domain Schema**
+  - [x] PR1 – Domain Schema
     - vollständige `BLC_Persons`-Definition
     - vollständige `BLC_Employments`-Definition
     - Organisationskataloge `Organizations`, `Departments`, `Locations`, `CostCenters`, `Positions`
     - stabile IDs, technische Schlüssel, Indizes und Lookups
     - Compiler-Prüfung für Entitäten, Kataloge und Lookup-Ziele
-  - [ ] PR2 – Role Engine: Rollenprofile, Entitlements und regelbasierte Soll-Zuordnung
-  - [ ] PR3 – Lifecycle Engine: Task Templates, Assignment Rules, SLA, Eskalation und Audit
-  - [ ] PR4 – Canvas Foundation: Datenzugriff auf Persons/Employments, Entfernung `BLC_Employees`
+  - [ ] **PR2 – Role Engine**
+    - vollständige Rollenprofile und Entitlement-Kataloge
+    - Role-to-Entitlement-Zuordnung
+    - Soll- und Ist-Zuordnungen je Beschäftigung
+    - Ausnahmen und Risikoklassifizierung
+    - Task Templates, Assignment Rules und SLA-Basis
+  - [ ] PR3 – Lifecycle Engine
+    - Erzeugungslogik für Aufgaben
+    - Eskalationen, Audit und Statusübergänge
+    - Mover-Differenzberechnung und Offboarding-Entzug
+  - [ ] PR4 – Canvas Foundation
+    - Datenzugriff auf Persons/Employments
+    - Entfernung der `BLC_Employees`-Abhängigkeiten
 - [ ] Epic 1.4 – Prozess- und Rollenmodell vervollständigen
 - [ ] Epic 1.5 – Canvas-/Flow-Refactoring und Impact Analyzer
 
@@ -53,5 +63,6 @@ Stand: 2026-08-07
 4. Provisioning ist idempotent und besitzt Dry Run, Apply, Validate, Reset und Seed.
 5. Personen und Beschäftigungen sind getrennt modelliert.
 6. Organisationsstammdaten besitzen stabile technische Schlüssel.
-7. Canvas und Flows referenzieren ausschließlich das 2.0-Schema.
-8. Erst danach erfolgt der initiale Benutzerimport.
+7. Rollenprofile und Berechtigungen sind katalog- und regelbasiert modelliert.
+8. Canvas und Flows referenzieren ausschließlich das 2.0-Schema.
+9. Erst danach erfolgt der initiale Benutzerimport.

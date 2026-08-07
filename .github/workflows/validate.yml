@@ -16,11 +16,14 @@ jobs:
         run: python3 tools/companion/audit_repo.py
       - name: Compile declarative schema
         run: python3 tools/schema/generator.py
+      - name: Lifecycle engine self test
+        run: python3 tools/lifecycle/selftest.py
       - name: Validate provisioning JSON
         shell: pwsh
         run: |
           Get-Content Provisioning/reset-policy.json -Raw | ConvertFrom-Json | Out-Null
           Get-Content schema/seed/manifest.json -Raw | ConvertFrom-Json | Out-Null
+          Get-Content engine/engine-config.json -Raw | ConvertFrom-Json | Out-Null
       - name: Parse provisioning PowerShell
         shell: pwsh
         run: |

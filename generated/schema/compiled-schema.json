@@ -21,10 +21,10 @@
   "summary": {
     "moduleCount": 6,
     "listCount": 30,
-    "fieldCount": 174,
+    "fieldCount": 190,
     "entityCount": 2,
     "catalogCount": 10,
-    "lookupCount": 33
+    "lookupCount": 35
   },
   "lists": [
     {
@@ -932,6 +932,46 @@
           "unique": false
         },
         {
+          "internalName": "EngineRunKey",
+          "displayName": "Engine Run Key",
+          "type": "Text",
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "TargetRoleProfile",
+          "displayName": "Ziel-Rollenprofil",
+          "type": "Lookup",
+          "lookupList": "BLC_RoleProfiles",
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": true
+        },
+        {
+          "internalName": "PreviousRoleProfile",
+          "displayName": "Vorheriges Rollenprofil",
+          "type": "Lookup",
+          "lookupList": "BLC_RoleProfiles",
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": true
+        },
+        {
+          "internalName": "EffectiveDateV2",
+          "displayName": "Wirksamkeitsdatum 2.0",
+          "type": "DateTime",
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
+        },
+        {
           "internalName": "ProgressPercent",
           "displayName": "Fortschritt (%)",
           "type": "Number",
@@ -988,8 +1028,85 @@
           "unique": false
         },
         {
+          "internalName": "EngineTaskKey",
+          "displayName": "Engine Task Key",
+          "type": "Text",
+          "indexed": true,
+          "unique": true,
+          "required": false,
+          "choices": []
+        },
+        {
+          "internalName": "ActionType",
+          "displayName": "Aktionstyp",
+          "type": "Choice",
+          "indexed": true,
+          "choices": [
+            "Grant",
+            "Revoke",
+            "Change",
+            "Verify",
+            "Notify",
+            "Manual"
+          ],
+          "required": false,
+          "unique": false
+        },
+        {
+          "internalName": "OwnerType",
+          "displayName": "Zuständigkeitstyp",
+          "type": "Choice",
+          "choices": [
+            "Manager",
+            "HR",
+            "IT",
+            "Group",
+            "User",
+            "Rule"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        },
+        {
+          "internalName": "OwnerValue",
+          "displayName": "Zuständigkeitswert",
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "DueAt",
+          "displayName": "Fällig am",
+          "type": "DateTime",
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "ReminderAt",
+          "displayName": "Erinnerung am",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
           "internalName": "Blocking",
           "displayName": "Blockierend",
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "EvidenceRequired",
+          "displayName": "Nachweis erforderlich",
           "type": "Boolean",
           "required": false,
           "unique": false,
@@ -1000,6 +1117,15 @@
           "internalName": "EscalationLevel",
           "displayName": "Eskalationsstufe",
           "type": "Number",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "CalculatedAt",
+          "displayName": "Berechnet am",
+          "type": "DateTime",
           "required": false,
           "unique": false,
           "choices": [],
@@ -1037,6 +1163,22 @@
             "Any"
           ],
           "unique": false
+        },
+        {
+          "internalName": "ActionType",
+          "displayName": "Aktionstyp",
+          "type": "Choice",
+          "choices": [
+            "Grant",
+            "Revoke",
+            "Change",
+            "Verify",
+            "Notify",
+            "Manual"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
         },
         {
           "internalName": "Description",
@@ -1240,6 +1382,15 @@
           "indexed": false
         },
         {
+          "internalName": "StopProcessing",
+          "displayName": "Weitere Regeln stoppen",
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
           "internalName": "Active",
           "displayName": "Aktiv",
           "type": "Boolean",
@@ -1344,6 +1495,15 @@
           "choices": []
         },
         {
+          "internalName": "EscalationKey",
+          "displayName": "Eskalationsschlüssel",
+          "type": "Text",
+          "indexed": true,
+          "unique": true,
+          "required": false,
+          "choices": []
+        },
+        {
           "internalName": "EscalationLevel",
           "displayName": "Eskalationsstufe",
           "type": "Number",
@@ -1407,6 +1567,15 @@
           "type": "Text",
           "required": true,
           "indexed": true,
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "CorrelationID",
+          "displayName": "Korrelations-ID",
+          "type": "Text",
+          "indexed": true,
+          "required": false,
           "unique": false,
           "choices": []
         },

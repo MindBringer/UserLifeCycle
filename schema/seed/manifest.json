@@ -1,10 +1,10 @@
 {
-  "seedVersion": "2.0.0-draft",
+  "seedVersion": "2.2.0-dev",
   "sets": [],
   "policies": {
     "idempotentUpsert": true,
     "deleteMissingItems": false,
     "requireExistingLists": true
   },
-  "notes": "Fachliche Seed-Sets werden in Epic 1.3 und 1.4 ergänzt. Epic 1.2 stellt die generische, validierbare Seed-Infrastruktur bereit."
+  "notes": "Keine erfundenen Organisations-Stammdaten. Echte Organisationen, Standorte, Abteilungen, Kostenstellen und Positionen werden später aus Ist-Daten bzw. Import-Providern befüllt."
 }

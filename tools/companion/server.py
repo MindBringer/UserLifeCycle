@@ -20,6 +20,7 @@ ACTIONS = {
     "schema-analyze": ["pwsh", "./Provisioning/Invoke-SchemaAnalyzer.ps1"],
     "schema-compile": ["pwsh", "./Provisioning/Compile-Schema.ps1"],
     "lifecycle-selftest": ["python3", "./tools/lifecycle/selftest.py"],
+    "canvas-impact": ["python3", "./tools/canvas/impact.py"],
     "provision-dryrun": ["pwsh", "./Provisioning/Invoke-ProvisioningLocal.ps1", "-Mode", "DryRun"],
     "provision-validate": ["pwsh", "./Provisioning/Invoke-ProvisioningLocal.ps1", "-Mode", "Validate"],
     "reset-dryrun": ["pwsh", "./Provisioning/Invoke-ResetLocal.ps1", "-Mode", "DryRun"],
@@ -46,6 +47,7 @@ def release(payload):
         checked(["python3","./tools/companion/audit_repo.py"],log)
         checked(["pwsh","./Provisioning/Compile-Schema.ps1"],log)
         checked(["python3","./tools/lifecycle/selftest.py"],log)
+        checked(["python3","./tools/canvas/impact.py"],log)
         checked(["pwsh","./powerplatform/scripts/Validate-Solution.ps1"],log)
         checked(["pwsh","./powerplatform/scripts/Build.ps1"],log)
         if run(["git","status","--porcelain"],30).stdout.strip():
@@ -56,6 +58,7 @@ def release(payload):
         checked(["python3","./tools/companion/audit_repo.py"],log)
         checked(["pwsh","./Provisioning/Compile-Schema.ps1"],log)
         checked(["python3","./tools/lifecycle/selftest.py"],log)
+        checked(["python3","./tools/canvas/impact.py"],log)
         checked(["pwsh","./powerplatform/scripts/Build.ps1"],log)
         checked(["git","push","--force-with-lease","-u","origin",branch],log)
         pr=run(["gh","pr","view","--json","number","--jq",".number"],60)

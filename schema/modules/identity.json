@@ -2,11 +2,32 @@
   "module": "identity",
   "order": 10,
   "lists": [
-    {"internalName":"BLC_Persons","displayName":"Personen","description":"Personenstammdaten unabhängig vom Beschäftigungsverhältnis.","fields":[{"internalName":"PersonID","displayName":"Person ID","type":"Text","required":true,"indexed":true,"unique":true},{"internalName":"EmployeeNumber","displayName":"Personalnummer","type":"Text","indexed":true},{"internalName":"EntraObjectID","displayName":"Entra Object ID","type":"Text","indexed":true},{"internalName":"UserPrincipalName","displayName":"UPN","type":"Text","indexed":true},{"internalName":"Mail","displayName":"E-Mail","type":"Text"},{"internalName":"DisplayName","displayName":"Anzeigename","type":"Text","required":true},{"internalName":"GivenName","displayName":"Vorname","type":"Text"},{"internalName":"Surname","displayName":"Nachname","type":"Text"},{"internalName":"SourceSystem","displayName":"Quellsystem","type":"Choice","choices":["Manual","CSV","EntraID","HR"]},{"internalName":"ExternalSourceID","displayName":"Externe Quell-ID","type":"Text","indexed":true},{"internalName":"PersonStatus","displayName":"Personenstatus","type":"Choice","choices":["Active","Inactive","Archived"]},{"internalName":"LastImportDate","displayName":"Letzter Import","type":"DateTime"}]},
-    {"internalName":"BLC_Employments","displayName":"Beschäftigungen","description":"Zeitlich und organisatorisch abgegrenzte Beschäftigungsverhältnisse.","fields":[{"internalName":"EmploymentID","displayName":"Employment ID","type":"Text","required":true,"indexed":true,"unique":true},{"internalName":"Person","displayName":"Person","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Persons","lookupField":"Title"},{"internalName":"OrganizationKey","displayName":"Organisation","type":"Text","indexed":true},{"internalName":"DepartmentKey","displayName":"Abteilung","type":"Text","indexed":true},{"internalName":"LocationKey","displayName":"Standort","type":"Text"},{"internalName":"PositionKey","displayName":"Position","type":"Text"},{"internalName":"ManagerPersonID","displayName":"Vorgesetzter Person ID","type":"Text","indexed":true},{"internalName":"StartDate","displayName":"Eintrittsdatum","type":"DateTime","indexed":true},{"internalName":"EndDate","displayName":"Austrittsdatum","type":"DateTime","indexed":true},{"internalName":"EmploymentStatus","displayName":"Beschäftigungsstatus","type":"Choice","required":true,"indexed":true,"choices":["Planned","Active","Leave","Suspended","Terminating","Inactive","Archived"]}]},
-    {"internalName":"BLC_Organizations","displayName":"Organisationen","catalog":true,"fields":[]},
-    {"internalName":"BLC_Departments","displayName":"Abteilungen","catalog":true,"fields":[]},
-    {"internalName":"BLC_Locations","displayName":"Standorte","catalog":true,"fields":[]},
-    {"internalName":"BLC_Positions","displayName":"Positionen","catalog":true,"fields":[]}
+    {
+      "internalName": "BLC_Persons",
+      "displayName": "Personen",
+      "description": "Dauerhafte Personenidentität unabhängig von einzelnen Beschäftigungsverhältnissen.",
+      "entity": true,
+      "stableIdField": "PersonID",
+      "fields": [
+        {"internalName":"PersonID","displayName":"Person ID","type":"Text","required":true,"indexed":true,"unique":true},
+        {"internalName":"EmployeeNumber","displayName":"Personalnummer","type":"Text","indexed":true},
+        {"internalName":"EntraObjectID","displayName":"Entra Object ID","type":"Text","indexed":true},
+        {"internalName":"UserPrincipalName","displayName":"UPN","type":"Text","indexed":true},
+        {"internalName":"Mail","displayName":"E-Mail","type":"Text","indexed":true},
+        {"internalName":"DisplayName","displayName":"Anzeigename","type":"Text","required":true,"indexed":true},
+        {"internalName":"GivenName","displayName":"Vorname","type":"Text"},
+        {"internalName":"Surname","displayName":"Nachname","type":"Text"},
+        {"internalName":"PreferredName","displayName":"Bevorzugter Name","type":"Text"},
+        {"internalName":"MobilePhone","displayName":"Mobiltelefon","type":"Text"},
+        {"internalName":"BusinessPhone","displayName":"Telefon geschäftlich","type":"Text"},
+        {"internalName":"PersonType","displayName":"Personentyp","type":"Choice","required":true,"indexed":true,"choices":["Employee","External","ServiceProvider","Other"]},
+        {"internalName":"PersonStatus","displayName":"Personenstatus","type":"Choice","required":true,"indexed":true,"choices":["Active","Inactive","Archived"]},
+        {"internalName":"SourceSystem","displayName":"Quellsystem","type":"Choice","required":true,"indexed":true,"choices":["Manual","CSV","EntraID","HR"]},
+        {"internalName":"ExternalSourceID","displayName":"Externe Quell-ID","type":"Text","indexed":true},
+        {"internalName":"SourceModifiedAt","displayName":"Quellsystem geändert am","type":"DateTime"},
+        {"internalName":"LastImportDate","displayName":"Letzter Import","type":"DateTime","indexed":true},
+        {"internalName":"DataQualityStatus","displayName":"Datenqualitätsstatus","type":"Choice","indexed":true,"choices":["Complete","Incomplete","Conflict","Review"]}
+      ]
+    }
   ]
 }

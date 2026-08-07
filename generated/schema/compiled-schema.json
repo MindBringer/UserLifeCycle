@@ -1,30 +1,38 @@
 {
-  "schemaVersion": "2.0.0-draft",
+  "schemaVersion": "2.2.0-dev",
   "project": "UserLifeCycle",
   "prefix": "BLC_",
   "policies": {
     "internalNamesImmutable": true,
     "requireTechnicalKeyForCatalogs": true,
     "requireStableIdForEntities": true,
+    "validateLookupTargets": true,
     "defaultVersioning": true,
     "allowLegacyBLLists": false
   },
   "modules": [
     "identity",
+    "organization",
+    "employment",
     "lifecycle",
     "access",
     "integration"
   ],
   "summary": {
-    "moduleCount": 4,
-    "listCount": 29,
-    "fieldCount": 39
+    "moduleCount": 6,
+    "listCount": 30,
+    "fieldCount": 95,
+    "entityCount": 2,
+    "catalogCount": 5,
+    "lookupCount": 14
   },
   "lists": [
     {
       "internalName": "BLC_Persons",
       "displayName": "Personen",
-      "description": "Personenstammdaten unabhängig vom Beschäftigungsverhältnis.",
+      "description": "Dauerhafte Personenidentität unabhängig von einzelnen Beschäftigungsverhältnissen.",
+      "entity": true,
+      "stableIdField": "PersonID",
       "fields": [
         {
           "internalName": "PersonID",
@@ -55,13 +63,15 @@
         {
           "internalName": "Mail",
           "displayName": "E-Mail",
-          "type": "Text"
+          "type": "Text",
+          "indexed": true
         },
         {
           "internalName": "DisplayName",
           "displayName": "Anzeigename",
           "type": "Text",
-          "required": true
+          "required": true,
+          "indexed": true
         },
         {
           "internalName": "GivenName",
@@ -74,9 +84,51 @@
           "type": "Text"
         },
         {
+          "internalName": "PreferredName",
+          "displayName": "Bevorzugter Name",
+          "type": "Text"
+        },
+        {
+          "internalName": "MobilePhone",
+          "displayName": "Mobiltelefon",
+          "type": "Text"
+        },
+        {
+          "internalName": "BusinessPhone",
+          "displayName": "Telefon geschäftlich",
+          "type": "Text"
+        },
+        {
+          "internalName": "PersonType",
+          "displayName": "Personentyp",
+          "type": "Choice",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            "Employee",
+            "External",
+            "ServiceProvider",
+            "Other"
+          ]
+        },
+        {
+          "internalName": "PersonStatus",
+          "displayName": "Personenstatus",
+          "type": "Choice",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            "Active",
+            "Inactive",
+            "Archived"
+          ]
+        },
+        {
           "internalName": "SourceSystem",
           "displayName": "Quellsystem",
           "type": "Choice",
+          "required": true,
+          "indexed": true,
           "choices": [
             "Manual",
             "CSV",
@@ -91,28 +143,372 @@
           "indexed": true
         },
         {
-          "internalName": "PersonStatus",
-          "displayName": "Personenstatus",
-          "type": "Choice",
-          "choices": [
-            "Active",
-            "Inactive",
-            "Archived"
-          ]
+          "internalName": "SourceModifiedAt",
+          "displayName": "Quellsystem geändert am",
+          "type": "DateTime"
         },
         {
           "internalName": "LastImportDate",
           "displayName": "Letzter Import",
-          "type": "DateTime"
+          "type": "DateTime",
+          "indexed": true
+        },
+        {
+          "internalName": "DataQualityStatus",
+          "displayName": "Datenqualitätsstatus",
+          "type": "Choice",
+          "indexed": true,
+          "choices": [
+            "Complete",
+            "Incomplete",
+            "Conflict",
+            "Review"
+          ]
         }
       ],
       "mode": "create",
       "module": "identity"
     },
     {
+      "internalName": "BLC_Organizations",
+      "displayName": "Organisationen",
+      "description": "Arbeitgeber, Gesellschaften und organisatorische Rechtsträger.",
+      "catalog": true,
+      "fields": [
+        {
+          "internalName": "TechnicalKey",
+          "displayName": "Technischer Schlüssel",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true
+        },
+        {
+          "internalName": "DisplayName",
+          "displayName": "Anzeigename",
+          "type": "Text",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "internalName": "LegalName",
+          "displayName": "Rechtlicher Name",
+          "type": "Text"
+        },
+        {
+          "internalName": "OrganizationType",
+          "displayName": "Organisationstyp",
+          "type": "Choice",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            "Company",
+            "Subsidiary",
+            "External",
+            "Other"
+          ]
+        },
+        {
+          "internalName": "Active",
+          "displayName": "Aktiv",
+          "type": "Boolean",
+          "indexed": true
+        },
+        {
+          "internalName": "CountryCode",
+          "displayName": "Ländercode",
+          "type": "Text"
+        },
+        {
+          "internalName": "SourceSystem",
+          "displayName": "Quellsystem",
+          "type": "Choice",
+          "choices": [
+            "Manual",
+            "CSV",
+            "HR",
+            "GovernancePortal"
+          ]
+        },
+        {
+          "internalName": "ExternalSourceID",
+          "displayName": "Externe Quell-ID",
+          "type": "Text",
+          "indexed": true
+        }
+      ],
+      "mode": "create",
+      "module": "organization"
+    },
+    {
+      "internalName": "BLC_Departments",
+      "displayName": "Abteilungen",
+      "description": "Fachliche Organisationseinheiten innerhalb einer Organisation.",
+      "catalog": true,
+      "fields": [
+        {
+          "internalName": "TechnicalKey",
+          "displayName": "Technischer Schlüssel",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true
+        },
+        {
+          "internalName": "DisplayName",
+          "displayName": "Anzeigename",
+          "type": "Text",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "internalName": "Organization",
+          "displayName": "Organisation",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Organizations",
+          "lookupField": "Title"
+        },
+        {
+          "internalName": "ParentDepartment",
+          "displayName": "Übergeordnete Abteilung",
+          "type": "Lookup",
+          "lookupList": "BLC_Departments",
+          "lookupField": "Title"
+        },
+        {
+          "internalName": "ManagerPersonID",
+          "displayName": "Verantwortliche Person ID",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "Active",
+          "displayName": "Aktiv",
+          "type": "Boolean",
+          "indexed": true
+        },
+        {
+          "internalName": "SourceSystem",
+          "displayName": "Quellsystem",
+          "type": "Choice",
+          "choices": [
+            "Manual",
+            "CSV",
+            "HR"
+          ]
+        },
+        {
+          "internalName": "ExternalSourceID",
+          "displayName": "Externe Quell-ID",
+          "type": "Text",
+          "indexed": true
+        }
+      ],
+      "mode": "create",
+      "module": "organization"
+    },
+    {
+      "internalName": "BLC_Locations",
+      "displayName": "Standorte",
+      "description": "Physische oder organisatorische Arbeitsstandorte.",
+      "catalog": true,
+      "fields": [
+        {
+          "internalName": "TechnicalKey",
+          "displayName": "Technischer Schlüssel",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true
+        },
+        {
+          "internalName": "DisplayName",
+          "displayName": "Anzeigename",
+          "type": "Text",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "internalName": "Organization",
+          "displayName": "Organisation",
+          "type": "Lookup",
+          "indexed": true,
+          "lookupList": "BLC_Organizations",
+          "lookupField": "Title"
+        },
+        {
+          "internalName": "Street",
+          "displayName": "Straße",
+          "type": "Text"
+        },
+        {
+          "internalName": "PostalCode",
+          "displayName": "PLZ",
+          "type": "Text"
+        },
+        {
+          "internalName": "City",
+          "displayName": "Ort",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "CountryCode",
+          "displayName": "Ländercode",
+          "type": "Text"
+        },
+        {
+          "internalName": "TimeZoneId",
+          "displayName": "Zeitzone",
+          "type": "Text"
+        },
+        {
+          "internalName": "Active",
+          "displayName": "Aktiv",
+          "type": "Boolean",
+          "indexed": true
+        }
+      ],
+      "mode": "create",
+      "module": "organization"
+    },
+    {
+      "internalName": "BLC_CostCenters",
+      "displayName": "Kostenstellen",
+      "description": "Kostenstellen für Beschäftigungs- und Organisationszuordnungen.",
+      "catalog": true,
+      "fields": [
+        {
+          "internalName": "TechnicalKey",
+          "displayName": "Technischer Schlüssel",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true
+        },
+        {
+          "internalName": "DisplayName",
+          "displayName": "Anzeigename",
+          "type": "Text",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "internalName": "Organization",
+          "displayName": "Organisation",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Organizations",
+          "lookupField": "Title"
+        },
+        {
+          "internalName": "CostCenterCode",
+          "displayName": "Kostenstellencode",
+          "type": "Text",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "internalName": "Active",
+          "displayName": "Aktiv",
+          "type": "Boolean",
+          "indexed": true
+        },
+        {
+          "internalName": "SourceSystem",
+          "displayName": "Quellsystem",
+          "type": "Choice",
+          "choices": [
+            "Manual",
+            "CSV",
+            "HR"
+          ]
+        },
+        {
+          "internalName": "ExternalSourceID",
+          "displayName": "Externe Quell-ID",
+          "type": "Text",
+          "indexed": true
+        }
+      ],
+      "mode": "create",
+      "module": "organization"
+    },
+    {
+      "internalName": "BLC_Positions",
+      "displayName": "Positionen",
+      "description": "Fachliche Stellen- und Funktionsbezeichnungen; unabhängig von Rollenprofilen.",
+      "catalog": true,
+      "fields": [
+        {
+          "internalName": "TechnicalKey",
+          "displayName": "Technischer Schlüssel",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true
+        },
+        {
+          "internalName": "DisplayName",
+          "displayName": "Anzeigename",
+          "type": "Text",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "internalName": "Organization",
+          "displayName": "Organisation",
+          "type": "Lookup",
+          "indexed": true,
+          "lookupList": "BLC_Organizations",
+          "lookupField": "Title"
+        },
+        {
+          "internalName": "JobCode",
+          "displayName": "Job Code",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "Description",
+          "displayName": "Beschreibung",
+          "type": "Note"
+        },
+        {
+          "internalName": "Active",
+          "displayName": "Aktiv",
+          "type": "Boolean",
+          "indexed": true
+        },
+        {
+          "internalName": "SourceSystem",
+          "displayName": "Quellsystem",
+          "type": "Choice",
+          "choices": [
+            "Manual",
+            "CSV",
+            "HR"
+          ]
+        },
+        {
+          "internalName": "ExternalSourceID",
+          "displayName": "Externe Quell-ID",
+          "type": "Text",
+          "indexed": true
+        }
+      ],
+      "mode": "create",
+      "module": "organization"
+    },
+    {
       "internalName": "BLC_Employments",
       "displayName": "Beschäftigungen",
-      "description": "Zeitlich und organisatorisch abgegrenzte Beschäftigungsverhältnisse.",
+      "description": "Zeitlich abgegrenzte Beschäftigungsverhältnisse einer Person mit organisatorischer Zuordnung.",
+      "entity": true,
+      "stableIdField": "EmploymentID",
       "fields": [
         {
           "internalName": "EmploymentID",
@@ -132,26 +528,53 @@
           "lookupField": "Title"
         },
         {
-          "internalName": "OrganizationKey",
+          "internalName": "Organization",
           "displayName": "Organisation",
-          "type": "Text",
-          "indexed": true
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Organizations",
+          "lookupField": "Title"
         },
         {
-          "internalName": "DepartmentKey",
+          "internalName": "Department",
           "displayName": "Abteilung",
-          "type": "Text",
-          "indexed": true
+          "type": "Lookup",
+          "indexed": true,
+          "lookupList": "BLC_Departments",
+          "lookupField": "Title"
         },
         {
-          "internalName": "LocationKey",
+          "internalName": "Location",
           "displayName": "Standort",
-          "type": "Text"
+          "type": "Lookup",
+          "indexed": true,
+          "lookupList": "BLC_Locations",
+          "lookupField": "Title"
         },
         {
-          "internalName": "PositionKey",
+          "internalName": "CostCenter",
+          "displayName": "Kostenstelle",
+          "type": "Lookup",
+          "indexed": true,
+          "lookupList": "BLC_CostCenters",
+          "lookupField": "Title"
+        },
+        {
+          "internalName": "Position",
           "displayName": "Position",
-          "type": "Text"
+          "type": "Lookup",
+          "indexed": true,
+          "lookupList": "BLC_Positions",
+          "lookupField": "Title"
+        },
+        {
+          "internalName": "RoleProfile",
+          "displayName": "Rollenprofil",
+          "type": "Lookup",
+          "indexed": true,
+          "lookupList": "BLC_RoleProfiles",
+          "lookupField": "Title"
         },
         {
           "internalName": "ManagerPersonID",
@@ -160,9 +583,37 @@
           "indexed": true
         },
         {
+          "internalName": "EmploymentType",
+          "displayName": "Beschäftigungsart",
+          "type": "Choice",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            "Permanent",
+            "FixedTerm",
+            "Temporary",
+            "External",
+            "Intern",
+            "Apprentice",
+            "Other"
+          ]
+        },
+        {
+          "internalName": "WorkPattern",
+          "displayName": "Arbeitsmodell",
+          "type": "Choice",
+          "choices": [
+            "FullTime",
+            "PartTime",
+            "Variable",
+            "Unknown"
+          ]
+        },
+        {
           "internalName": "StartDate",
           "displayName": "Eintrittsdatum",
           "type": "DateTime",
+          "required": true,
           "indexed": true
         },
         {
@@ -186,46 +637,57 @@
             "Inactive",
             "Archived"
           ]
+        },
+        {
+          "internalName": "PrimaryEmployment",
+          "displayName": "Primäre Beschäftigung",
+          "type": "Boolean",
+          "indexed": true
+        },
+        {
+          "internalName": "SourceSystem",
+          "displayName": "Quellsystem",
+          "type": "Choice",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            "Manual",
+            "CSV",
+            "HR"
+          ]
+        },
+        {
+          "internalName": "ExternalSourceID",
+          "displayName": "Externe Quell-ID",
+          "type": "Text",
+          "indexed": true
+        },
+        {
+          "internalName": "SourceModifiedAt",
+          "displayName": "Quellsystem geändert am",
+          "type": "DateTime"
+        },
+        {
+          "internalName": "LastImportDate",
+          "displayName": "Letzter Import",
+          "type": "DateTime",
+          "indexed": true
+        },
+        {
+          "internalName": "DataQualityStatus",
+          "displayName": "Datenqualitätsstatus",
+          "type": "Choice",
+          "indexed": true,
+          "choices": [
+            "Complete",
+            "Incomplete",
+            "Conflict",
+            "Review"
+          ]
         }
       ],
       "mode": "create",
-      "module": "identity"
-    },
-    {
-      "internalName": "BLC_Organizations",
-      "displayName": "Organisationen",
-      "catalog": true,
-      "fields": [],
-      "description": "",
-      "mode": "create",
-      "module": "identity"
-    },
-    {
-      "internalName": "BLC_Departments",
-      "displayName": "Abteilungen",
-      "catalog": true,
-      "fields": [],
-      "description": "",
-      "mode": "create",
-      "module": "identity"
-    },
-    {
-      "internalName": "BLC_Locations",
-      "displayName": "Standorte",
-      "catalog": true,
-      "fields": [],
-      "description": "",
-      "mode": "create",
-      "module": "identity"
-    },
-    {
-      "internalName": "BLC_Positions",
-      "displayName": "Positionen",
-      "catalog": true,
-      "fields": [],
-      "description": "",
-      "mode": "create",
-      "module": "identity"
+      "module": "employment"
     },
     {
       "internalName": "BLC_LifecycleRequests",

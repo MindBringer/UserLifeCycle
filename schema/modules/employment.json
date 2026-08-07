@@ -1,0 +1,35 @@
+{
+  "module": "employment",
+  "order": 20,
+  "lists": [
+    {
+      "internalName": "BLC_Employments",
+      "displayName": "Beschäftigungen",
+      "description": "Zeitlich abgegrenzte Beschäftigungsverhältnisse einer Person mit organisatorischer Zuordnung.",
+      "entity": true,
+      "stableIdField": "EmploymentID",
+      "fields": [
+        {"internalName":"EmploymentID","displayName":"Employment ID","type":"Text","required":true,"indexed":true,"unique":true},
+        {"internalName":"Person","displayName":"Person","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Persons","lookupField":"Title"},
+        {"internalName":"Organization","displayName":"Organisation","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Organizations","lookupField":"Title"},
+        {"internalName":"Department","displayName":"Abteilung","type":"Lookup","indexed":true,"lookupList":"BLC_Departments","lookupField":"Title"},
+        {"internalName":"Location","displayName":"Standort","type":"Lookup","indexed":true,"lookupList":"BLC_Locations","lookupField":"Title"},
+        {"internalName":"CostCenter","displayName":"Kostenstelle","type":"Lookup","indexed":true,"lookupList":"BLC_CostCenters","lookupField":"Title"},
+        {"internalName":"Position","displayName":"Position","type":"Lookup","indexed":true,"lookupList":"BLC_Positions","lookupField":"Title"},
+        {"internalName":"RoleProfile","displayName":"Rollenprofil","type":"Lookup","indexed":true,"lookupList":"BLC_RoleProfiles","lookupField":"Title"},
+        {"internalName":"ManagerPersonID","displayName":"Vorgesetzter Person ID","type":"Text","indexed":true},
+        {"internalName":"EmploymentType","displayName":"Beschäftigungsart","type":"Choice","required":true,"indexed":true,"choices":["Permanent","FixedTerm","Temporary","External","Intern","Apprentice","Other"]},
+        {"internalName":"WorkPattern","displayName":"Arbeitsmodell","type":"Choice","choices":["FullTime","PartTime","Variable","Unknown"]},
+        {"internalName":"StartDate","displayName":"Eintrittsdatum","type":"DateTime","required":true,"indexed":true},
+        {"internalName":"EndDate","displayName":"Austrittsdatum","type":"DateTime","indexed":true},
+        {"internalName":"EmploymentStatus","displayName":"Beschäftigungsstatus","type":"Choice","required":true,"indexed":true,"choices":["Planned","Active","Leave","Suspended","Terminating","Inactive","Archived"]},
+        {"internalName":"PrimaryEmployment","displayName":"Primäre Beschäftigung","type":"Boolean","indexed":true},
+        {"internalName":"SourceSystem","displayName":"Quellsystem","type":"Choice","required":true,"indexed":true,"choices":["Manual","CSV","HR"]},
+        {"internalName":"ExternalSourceID","displayName":"Externe Quell-ID","type":"Text","indexed":true},
+        {"internalName":"SourceModifiedAt","displayName":"Quellsystem geändert am","type":"DateTime"},
+        {"internalName":"LastImportDate","displayName":"Letzter Import","type":"DateTime","indexed":true},
+        {"internalName":"DataQualityStatus","displayName":"Datenqualitätsstatus","type":"Choice","indexed":true,"choices":["Complete","Incomplete","Conflict","Review"]}
+      ]
+    }
+  ]
+}

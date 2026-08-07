@@ -1,0 +1,86 @@
+{
+  "module": "organization",
+  "order": 15,
+  "lists": [
+    {
+      "internalName": "BLC_Organizations",
+      "displayName": "Organisationen",
+      "description": "Arbeitgeber, Gesellschaften und organisatorische Rechtsträger.",
+      "catalog": true,
+      "fields": [
+        {"internalName":"TechnicalKey","displayName":"Technischer Schlüssel","type":"Text","required":true,"indexed":true,"unique":true},
+        {"internalName":"DisplayName","displayName":"Anzeigename","type":"Text","required":true,"indexed":true},
+        {"internalName":"LegalName","displayName":"Rechtlicher Name","type":"Text"},
+        {"internalName":"OrganizationType","displayName":"Organisationstyp","type":"Choice","required":true,"indexed":true,"choices":["Company","Subsidiary","External","Other"]},
+        {"internalName":"Active","displayName":"Aktiv","type":"Boolean","indexed":true},
+        {"internalName":"CountryCode","displayName":"Ländercode","type":"Text"},
+        {"internalName":"SourceSystem","displayName":"Quellsystem","type":"Choice","choices":["Manual","CSV","HR","GovernancePortal"]},
+        {"internalName":"ExternalSourceID","displayName":"Externe Quell-ID","type":"Text","indexed":true}
+      ]
+    },
+    {
+      "internalName": "BLC_Departments",
+      "displayName": "Abteilungen",
+      "description": "Fachliche Organisationseinheiten innerhalb einer Organisation.",
+      "catalog": true,
+      "fields": [
+        {"internalName":"TechnicalKey","displayName":"Technischer Schlüssel","type":"Text","required":true,"indexed":true,"unique":true},
+        {"internalName":"DisplayName","displayName":"Anzeigename","type":"Text","required":true,"indexed":true},
+        {"internalName":"Organization","displayName":"Organisation","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Organizations","lookupField":"Title"},
+        {"internalName":"ParentDepartment","displayName":"Übergeordnete Abteilung","type":"Lookup","lookupList":"BLC_Departments","lookupField":"Title"},
+        {"internalName":"ManagerPersonID","displayName":"Verantwortliche Person ID","type":"Text","indexed":true},
+        {"internalName":"Active","displayName":"Aktiv","type":"Boolean","indexed":true},
+        {"internalName":"SourceSystem","displayName":"Quellsystem","type":"Choice","choices":["Manual","CSV","HR"]},
+        {"internalName":"ExternalSourceID","displayName":"Externe Quell-ID","type":"Text","indexed":true}
+      ]
+    },
+    {
+      "internalName": "BLC_Locations",
+      "displayName": "Standorte",
+      "description": "Physische oder organisatorische Arbeitsstandorte.",
+      "catalog": true,
+      "fields": [
+        {"internalName":"TechnicalKey","displayName":"Technischer Schlüssel","type":"Text","required":true,"indexed":true,"unique":true},
+        {"internalName":"DisplayName","displayName":"Anzeigename","type":"Text","required":true,"indexed":true},
+        {"internalName":"Organization","displayName":"Organisation","type":"Lookup","indexed":true,"lookupList":"BLC_Organizations","lookupField":"Title"},
+        {"internalName":"Street","displayName":"Straße","type":"Text"},
+        {"internalName":"PostalCode","displayName":"PLZ","type":"Text"},
+        {"internalName":"City","displayName":"Ort","type":"Text","indexed":true},
+        {"internalName":"CountryCode","displayName":"Ländercode","type":"Text"},
+        {"internalName":"TimeZoneId","displayName":"Zeitzone","type":"Text"},
+        {"internalName":"Active","displayName":"Aktiv","type":"Boolean","indexed":true}
+      ]
+    },
+    {
+      "internalName": "BLC_CostCenters",
+      "displayName": "Kostenstellen",
+      "description": "Kostenstellen für Beschäftigungs- und Organisationszuordnungen.",
+      "catalog": true,
+      "fields": [
+        {"internalName":"TechnicalKey","displayName":"Technischer Schlüssel","type":"Text","required":true,"indexed":true,"unique":true},
+        {"internalName":"DisplayName","displayName":"Anzeigename","type":"Text","required":true,"indexed":true},
+        {"internalName":"Organization","displayName":"Organisation","type":"Lookup","required":true,"indexed":true,"lookupList":"BLC_Organizations","lookupField":"Title"},
+        {"internalName":"CostCenterCode","displayName":"Kostenstellencode","type":"Text","required":true,"indexed":true},
+        {"internalName":"Active","displayName":"Aktiv","type":"Boolean","indexed":true},
+        {"internalName":"SourceSystem","displayName":"Quellsystem","type":"Choice","choices":["Manual","CSV","HR"]},
+        {"internalName":"ExternalSourceID","displayName":"Externe Quell-ID","type":"Text","indexed":true}
+      ]
+    },
+    {
+      "internalName": "BLC_Positions",
+      "displayName": "Positionen",
+      "description": "Fachliche Stellen- und Funktionsbezeichnungen; unabhängig von Rollenprofilen.",
+      "catalog": true,
+      "fields": [
+        {"internalName":"TechnicalKey","displayName":"Technischer Schlüssel","type":"Text","required":true,"indexed":true,"unique":true},
+        {"internalName":"DisplayName","displayName":"Anzeigename","type":"Text","required":true,"indexed":true},
+        {"internalName":"Organization","displayName":"Organisation","type":"Lookup","indexed":true,"lookupList":"BLC_Organizations","lookupField":"Title"},
+        {"internalName":"JobCode","displayName":"Job Code","type":"Text","indexed":true},
+        {"internalName":"Description","displayName":"Beschreibung","type":"Note"},
+        {"internalName":"Active","displayName":"Aktiv","type":"Boolean","indexed":true},
+        {"internalName":"SourceSystem","displayName":"Quellsystem","type":"Choice","choices":["Manual","CSV","HR"]},
+        {"internalName":"ExternalSourceID","displayName":"Externe Quell-ID","type":"Text","indexed":true}
+      ]
+    }
+  ]
+}

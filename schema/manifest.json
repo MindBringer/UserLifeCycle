@@ -1,10 +1,12 @@
 {
-  "schemaVersion": "2.0.0-draft",
+  "schemaVersion": "2.2.0-dev",
   "project": "UserLifeCycle",
   "prefix": "BLC_",
   "sourceOfTruth": true,
   "modules": [
     "modules/identity.json",
+    "modules/organization.json",
+    "modules/employment.json",
     "modules/lifecycle.json",
     "modules/access.json",
     "modules/integration.json"
@@ -17,6 +19,7 @@
     "internalNamesImmutable": true,
     "requireTechnicalKeyForCatalogs": true,
     "requireStableIdForEntities": true,
+    "validateLookupTargets": true,
     "defaultVersioning": true,
     "allowLegacyBLLists": false
   }

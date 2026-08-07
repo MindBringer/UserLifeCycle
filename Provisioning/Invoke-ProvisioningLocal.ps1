@@ -26,4 +26,23 @@ $authenticationMode = if ($Settings.AuthenticationMode) { [string]$Settings.Auth
     -SiteUrl ([string]$Settings.SiteUrl) `
     -ClientId ([string]$Settings.ClientId) `
     -AuthenticationMode $authenticationMode
-exit $LASTEXITCODE
+
+$provisioningExitCode = $LASTEXITCODE
+if ($provisioningExitCode -ne 0) {
+    exit $provisioningExitCode
+}
+
+# Apply darf bestehende Felder nur über explizit freigegebene, nicht-destruktive
+# Änderungen angleichen. Aktuell: fehlende Indizes auf bestehenden Feldern.
+if ($Mode -eq 'Apply') {
+    & (Join-Path $PSScriptRoot 'Invoke-SafeFieldUpdates.ps1') `
+        -SiteUrl ([string]$Settings.SiteUrl) `
+        -ClientId ([string]$Settings.ClientId) `
+        -AuthenticationMode $authenticationMode
+
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+}
+
+exit 0

@@ -21,10 +21,10 @@
   "summary": {
     "moduleCount": 6,
     "listCount": 30,
-    "fieldCount": 95,
+    "fieldCount": 174,
     "entityCount": 2,
-    "catalogCount": 5,
-    "lookupCount": 14
+    "catalogCount": 10,
+    "lookupCount": 33
   },
   "lists": [
     {
@@ -40,63 +40,98 @@
           "type": "Text",
           "required": true,
           "indexed": true,
-          "unique": true
+          "unique": true,
+          "choices": []
         },
         {
           "internalName": "EmployeeNumber",
           "displayName": "Personalnummer",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "EntraObjectID",
           "displayName": "Entra Object ID",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "UserPrincipalName",
           "displayName": "UPN",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Mail",
           "displayName": "E-Mail",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "DisplayName",
           "displayName": "Anzeigename",
           "type": "Text",
           "required": true,
-          "indexed": true
+          "indexed": true,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "GivenName",
           "displayName": "Vorname",
-          "type": "Text"
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "Surname",
           "displayName": "Nachname",
-          "type": "Text"
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "PreferredName",
           "displayName": "Bevorzugter Name",
-          "type": "Text"
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "MobilePhone",
           "displayName": "Mobiltelefon",
-          "type": "Text"
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "BusinessPhone",
           "displayName": "Telefon geschäftlich",
-          "type": "Text"
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "PersonType",
@@ -109,7 +144,8 @@
             "External",
             "ServiceProvider",
             "Other"
-          ]
+          ],
+          "unique": false
         },
         {
           "internalName": "PersonStatus",
@@ -121,7 +157,8 @@
             "Active",
             "Inactive",
             "Archived"
-          ]
+          ],
+          "unique": false
         },
         {
           "internalName": "SourceSystem",
@@ -134,24 +171,35 @@
             "CSV",
             "EntraID",
             "HR"
-          ]
+          ],
+          "unique": false
         },
         {
           "internalName": "ExternalSourceID",
           "displayName": "Externe Quell-ID",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "SourceModifiedAt",
           "displayName": "Quellsystem geändert am",
-          "type": "DateTime"
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "LastImportDate",
           "displayName": "Letzter Import",
           "type": "DateTime",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "DataQualityStatus",
@@ -163,7 +211,9 @@
             "Incomplete",
             "Conflict",
             "Review"
-          ]
+          ],
+          "required": false,
+          "unique": false
         }
       ],
       "mode": "create",
@@ -181,19 +231,26 @@
           "type": "Text",
           "required": true,
           "indexed": true,
-          "unique": true
+          "unique": true,
+          "choices": []
         },
         {
           "internalName": "DisplayName",
           "displayName": "Anzeigename",
           "type": "Text",
           "required": true,
-          "indexed": true
+          "indexed": true,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "LegalName",
           "displayName": "Rechtlicher Name",
-          "type": "Text"
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "OrganizationType",
@@ -206,18 +263,26 @@
             "Subsidiary",
             "External",
             "Other"
-          ]
+          ],
+          "unique": false
         },
         {
           "internalName": "Active",
           "displayName": "Aktiv",
           "type": "Boolean",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "CountryCode",
           "displayName": "Ländercode",
-          "type": "Text"
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "SourceSystem",
@@ -228,13 +293,19 @@
             "CSV",
             "HR",
             "GovernancePortal"
-          ]
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
         },
         {
           "internalName": "ExternalSourceID",
           "displayName": "Externe Quell-ID",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         }
       ],
       "mode": "create",
@@ -252,14 +323,17 @@
           "type": "Text",
           "required": true,
           "indexed": true,
-          "unique": true
+          "unique": true,
+          "choices": []
         },
         {
           "internalName": "DisplayName",
           "displayName": "Anzeigename",
           "type": "Text",
           "required": true,
-          "indexed": true
+          "indexed": true,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Organization",
@@ -268,26 +342,38 @@
           "required": true,
           "indexed": true,
           "lookupList": "BLC_Organizations",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "ParentDepartment",
           "displayName": "Übergeordnete Abteilung",
           "type": "Lookup",
           "lookupList": "BLC_Departments",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": true
         },
         {
           "internalName": "ManagerPersonID",
           "displayName": "Verantwortliche Person ID",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Active",
           "displayName": "Aktiv",
           "type": "Boolean",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "SourceSystem",
@@ -297,13 +383,19 @@
             "Manual",
             "CSV",
             "HR"
-          ]
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
         },
         {
           "internalName": "ExternalSourceID",
           "displayName": "Externe Quell-ID",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         }
       ],
       "mode": "create",
@@ -321,14 +413,17 @@
           "type": "Text",
           "required": true,
           "indexed": true,
-          "unique": true
+          "unique": true,
+          "choices": []
         },
         {
           "internalName": "DisplayName",
           "displayName": "Anzeigename",
           "type": "Text",
           "required": true,
-          "indexed": true
+          "indexed": true,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Organization",
@@ -336,39 +431,64 @@
           "type": "Lookup",
           "indexed": true,
           "lookupList": "BLC_Organizations",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Street",
           "displayName": "Straße",
-          "type": "Text"
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "PostalCode",
           "displayName": "PLZ",
-          "type": "Text"
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "City",
           "displayName": "Ort",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "CountryCode",
           "displayName": "Ländercode",
-          "type": "Text"
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "TimeZoneId",
           "displayName": "Zeitzone",
-          "type": "Text"
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "Active",
           "displayName": "Aktiv",
           "type": "Boolean",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         }
       ],
       "mode": "create",
@@ -386,14 +506,17 @@
           "type": "Text",
           "required": true,
           "indexed": true,
-          "unique": true
+          "unique": true,
+          "choices": []
         },
         {
           "internalName": "DisplayName",
           "displayName": "Anzeigename",
           "type": "Text",
           "required": true,
-          "indexed": true
+          "indexed": true,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Organization",
@@ -402,20 +525,27 @@
           "required": true,
           "indexed": true,
           "lookupList": "BLC_Organizations",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "CostCenterCode",
           "displayName": "Kostenstellencode",
           "type": "Text",
           "required": true,
-          "indexed": true
+          "indexed": true,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Active",
           "displayName": "Aktiv",
           "type": "Boolean",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "SourceSystem",
@@ -425,13 +555,19 @@
             "Manual",
             "CSV",
             "HR"
-          ]
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
         },
         {
           "internalName": "ExternalSourceID",
           "displayName": "Externe Quell-ID",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         }
       ],
       "mode": "create",
@@ -449,14 +585,17 @@
           "type": "Text",
           "required": true,
           "indexed": true,
-          "unique": true
+          "unique": true,
+          "choices": []
         },
         {
           "internalName": "DisplayName",
           "displayName": "Anzeigename",
           "type": "Text",
           "required": true,
-          "indexed": true
+          "indexed": true,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Organization",
@@ -464,24 +603,37 @@
           "type": "Lookup",
           "indexed": true,
           "lookupList": "BLC_Organizations",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "JobCode",
           "displayName": "Job Code",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Description",
           "displayName": "Beschreibung",
-          "type": "Note"
+          "type": "Note",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "Active",
           "displayName": "Aktiv",
           "type": "Boolean",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "SourceSystem",
@@ -491,13 +643,19 @@
             "Manual",
             "CSV",
             "HR"
-          ]
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
         },
         {
           "internalName": "ExternalSourceID",
           "displayName": "Externe Quell-ID",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         }
       ],
       "mode": "create",
@@ -516,7 +674,8 @@
           "type": "Text",
           "required": true,
           "indexed": true,
-          "unique": true
+          "unique": true,
+          "choices": []
         },
         {
           "internalName": "Person",
@@ -525,7 +684,9 @@
           "required": true,
           "indexed": true,
           "lookupList": "BLC_Persons",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Organization",
@@ -534,7 +695,9 @@
           "required": true,
           "indexed": true,
           "lookupList": "BLC_Organizations",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Department",
@@ -542,7 +705,10 @@
           "type": "Lookup",
           "indexed": true,
           "lookupList": "BLC_Departments",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Location",
@@ -550,7 +716,10 @@
           "type": "Lookup",
           "indexed": true,
           "lookupList": "BLC_Locations",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "CostCenter",
@@ -558,7 +727,10 @@
           "type": "Lookup",
           "indexed": true,
           "lookupList": "BLC_CostCenters",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "Position",
@@ -566,7 +738,10 @@
           "type": "Lookup",
           "indexed": true,
           "lookupList": "BLC_Positions",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "RoleProfile",
@@ -574,13 +749,19 @@
           "type": "Lookup",
           "indexed": true,
           "lookupList": "BLC_RoleProfiles",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "ManagerPersonID",
           "displayName": "Vorgesetzter Person ID",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "EmploymentType",
@@ -596,7 +777,8 @@
             "Intern",
             "Apprentice",
             "Other"
-          ]
+          ],
+          "unique": false
         },
         {
           "internalName": "WorkPattern",
@@ -607,20 +789,28 @@
             "PartTime",
             "Variable",
             "Unknown"
-          ]
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
         },
         {
           "internalName": "StartDate",
           "displayName": "Eintrittsdatum",
           "type": "DateTime",
           "required": true,
-          "indexed": true
+          "indexed": true,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "EndDate",
           "displayName": "Austrittsdatum",
           "type": "DateTime",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "EmploymentStatus",
@@ -636,13 +826,17 @@
             "Terminating",
             "Inactive",
             "Archived"
-          ]
+          ],
+          "unique": false
         },
         {
           "internalName": "PrimaryEmployment",
           "displayName": "Primäre Beschäftigung",
           "type": "Boolean",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "SourceSystem",
@@ -654,24 +848,35 @@
             "Manual",
             "CSV",
             "HR"
-          ]
+          ],
+          "unique": false
         },
         {
           "internalName": "ExternalSourceID",
           "displayName": "Externe Quell-ID",
           "type": "Text",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "SourceModifiedAt",
           "displayName": "Quellsystem geändert am",
-          "type": "DateTime"
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "LastImportDate",
           "displayName": "Letzter Import",
           "type": "DateTime",
-          "indexed": true
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "DataQualityStatus",
@@ -683,7 +888,9 @@
             "Incomplete",
             "Conflict",
             "Review"
-          ]
+          ],
+          "required": false,
+          "unique": false
         }
       ],
       "mode": "create",
@@ -700,7 +907,10 @@
           "type": "Lookup",
           "indexed": true,
           "lookupList": "BLC_Employments",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "RequestStatusV2",
@@ -718,17 +928,26 @@
             "Completed",
             "Cancelled",
             "Archived"
-          ]
+          ],
+          "unique": false
         },
         {
           "internalName": "ProgressPercent",
           "displayName": "Fortschritt (%)",
-          "type": "Number"
+          "type": "Number",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "LastCalculated",
           "displayName": "Zuletzt berechnet",
-          "type": "DateTime"
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         }
       ],
       "description": "",
@@ -745,7 +964,10 @@
           "type": "Lookup",
           "indexed": true,
           "lookupList": "BLC_TaskTemplates",
-          "lookupField": "Title"
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": []
         },
         {
           "internalName": "TaskStatusV2",
@@ -762,17 +984,26 @@
             "Skipped",
             "Completed",
             "Failed"
-          ]
+          ],
+          "unique": false
         },
         {
           "internalName": "Blocking",
           "displayName": "Blockierend",
-          "type": "Boolean"
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "EscalationLevel",
           "displayName": "Eskalationsstufe",
-          "type": "Number"
+          "type": "Number",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         }
       ],
       "description": "",
@@ -781,31 +1012,378 @@
     {
       "internalName": "BLC_TaskTemplates",
       "displayName": "Aufgabenvorlagen",
-      "fields": [],
-      "description": "",
+      "catalog": true,
+      "description": "Wiederverwendbare Aufgaben für Joiner-, Mover- und Leaver-Prozesse.",
+      "fields": [
+        {
+          "internalName": "TechnicalKey",
+          "displayName": "Technischer Schlüssel",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true,
+          "choices": []
+        },
+        {
+          "internalName": "LifecycleType",
+          "displayName": "Vorgangsart",
+          "type": "Choice",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            "Onboarding",
+            "Mover",
+            "Offboarding",
+            "Any"
+          ],
+          "unique": false
+        },
+        {
+          "internalName": "Description",
+          "displayName": "Beschreibung",
+          "type": "Note",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "DefaultOwnerType",
+          "displayName": "Standard-Zuständigkeit",
+          "type": "Choice",
+          "choices": [
+            "Manager",
+            "HR",
+            "IT",
+            "Group",
+            "User",
+            "Rule"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        },
+        {
+          "internalName": "DefaultOwnerValue",
+          "displayName": "Standard-Zuständigkeitswert",
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "SLAProfile",
+          "displayName": "SLA-Profil",
+          "type": "Lookup",
+          "lookupList": "BLC_SLAProfiles",
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": true
+        },
+        {
+          "internalName": "Blocking",
+          "displayName": "Blockierend",
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "EvidenceRequired",
+          "displayName": "Nachweis erforderlich",
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "Active",
+          "displayName": "Aktiv",
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "SortOrder",
+          "displayName": "Sortierung",
+          "type": "Number",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        }
+      ],
       "mode": "create",
       "module": "lifecycle"
     },
     {
       "internalName": "BLC_AssignmentRules",
       "displayName": "Zuweisungsregeln",
-      "fields": [],
-      "description": "",
+      "catalog": true,
+      "description": "Regeln zur Auswahl von Rollenprofilen und Aufgaben anhand von Beschäftigungsmerkmalen.",
+      "fields": [
+        {
+          "internalName": "TechnicalKey",
+          "displayName": "Technischer Schlüssel",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true,
+          "choices": []
+        },
+        {
+          "internalName": "RuleType",
+          "displayName": "Regeltyp",
+          "type": "Choice",
+          "required": true,
+          "choices": [
+            "RoleProfile",
+            "TaskTemplate"
+          ],
+          "unique": false,
+          "indexed": false
+        },
+        {
+          "internalName": "LifecycleType",
+          "displayName": "Vorgangsart",
+          "type": "Choice",
+          "choices": [
+            "Onboarding",
+            "Mover",
+            "Offboarding",
+            "Any"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        },
+        {
+          "internalName": "Organization",
+          "displayName": "Organisation",
+          "type": "Lookup",
+          "lookupList": "BLC_Organizations",
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": true
+        },
+        {
+          "internalName": "Department",
+          "displayName": "Abteilung",
+          "type": "Lookup",
+          "lookupList": "BLC_Departments",
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": true
+        },
+        {
+          "internalName": "Location",
+          "displayName": "Standort",
+          "type": "Lookup",
+          "lookupList": "BLC_Locations",
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": true
+        },
+        {
+          "internalName": "Position",
+          "displayName": "Position",
+          "type": "Lookup",
+          "lookupList": "BLC_Positions",
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": true
+        },
+        {
+          "internalName": "RoleProfile",
+          "displayName": "Rollenprofil",
+          "type": "Lookup",
+          "lookupList": "BLC_RoleProfiles",
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": true
+        },
+        {
+          "internalName": "TaskTemplate",
+          "displayName": "Aufgabenvorlage",
+          "type": "Lookup",
+          "lookupList": "BLC_TaskTemplates",
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": true
+        },
+        {
+          "internalName": "Priority",
+          "displayName": "Priorität",
+          "type": "Number",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "Active",
+          "displayName": "Aktiv",
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        }
+      ],
       "mode": "create",
       "module": "lifecycle"
     },
     {
       "internalName": "BLC_SLAProfiles",
       "displayName": "SLA-Profile",
-      "fields": [],
-      "description": "",
+      "catalog": true,
+      "description": "Frist-, Erinnerungs- und Eskalationsparameter für Lifecycle-Aufgaben.",
+      "fields": [
+        {
+          "internalName": "TechnicalKey",
+          "displayName": "Technischer Schlüssel",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true,
+          "choices": []
+        },
+        {
+          "internalName": "Description",
+          "displayName": "Beschreibung",
+          "type": "Note",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "DueDays",
+          "displayName": "Fälligkeit in Tagen",
+          "type": "Number",
+          "required": true,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "ReminderDaysBefore",
+          "displayName": "Erinnerung Tage vorher",
+          "type": "Number",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "EscalationDaysAfter",
+          "displayName": "Eskalation Tage nach Fälligkeit",
+          "type": "Number",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "CalendarMode",
+          "displayName": "Kalendermodus",
+          "type": "Choice",
+          "choices": [
+            "CalendarDays",
+            "BusinessDays"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        },
+        {
+          "internalName": "Active",
+          "displayName": "Aktiv",
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        }
+      ],
       "mode": "create",
       "module": "lifecycle"
     },
     {
       "internalName": "BLC_Escalations",
       "displayName": "Eskalationen",
-      "fields": [],
+      "fields": [
+        {
+          "internalName": "LifecycleTask",
+          "displayName": "Lifecycle-Aufgabe",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_LifecycleTasks",
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "EscalationLevel",
+          "displayName": "Eskalationsstufe",
+          "type": "Number",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "EscalatedAt",
+          "displayName": "Eskaliert am",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "EscalatedTo",
+          "displayName": "Eskaliert an",
+          "type": "User",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "Status",
+          "displayName": "Status",
+          "type": "Choice",
+          "choices": [
+            "Open",
+            "Acknowledged",
+            "Resolved"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        }
+      ],
       "description": "",
       "mode": "create",
       "module": "lifecycle"
@@ -813,7 +1391,80 @@
     {
       "internalName": "BLC_AuditEvents",
       "displayName": "Audit-Ereignisse",
-      "fields": [],
+      "fields": [
+        {
+          "internalName": "EntityType",
+          "displayName": "Entitätstyp",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "EntityID",
+          "displayName": "Entitäts-ID",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "Action",
+          "displayName": "Aktion",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "OldValue",
+          "displayName": "Alter Wert",
+          "type": "Note",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "NewValue",
+          "displayName": "Neuer Wert",
+          "type": "Note",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "Actor",
+          "displayName": "Akteur",
+          "type": "User",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "Source",
+          "displayName": "Quelle",
+          "type": "Text",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "OccurredAt",
+          "displayName": "Zeitpunkt",
+          "type": "DateTime",
+          "required": true,
+          "indexed": true,
+          "unique": false,
+          "choices": []
+        }
+      ],
       "description": "",
       "mode": "create",
       "module": "lifecycle"
@@ -830,6 +1481,8 @@
       "internalName": "BLC_RoleProfiles",
       "displayName": "Rollenprofile",
       "mode": "extend",
+      "catalog": true,
+      "description": "Fachliche Rollenprofile als Sollvorgabe für Beschäftigungen.",
       "fields": [
         {
           "internalName": "TechnicalKey",
@@ -837,40 +1490,44 @@
           "type": "Text",
           "required": true,
           "indexed": true,
-          "unique": true
+          "unique": true,
+          "choices": []
+        },
+        {
+          "internalName": "Description",
+          "displayName": "Beschreibung",
+          "type": "Note",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "Version",
           "displayName": "Version",
-          "type": "Number"
+          "type": "Number",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "Active",
+          "displayName": "Aktiv",
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "ApprovalRequired",
           "displayName": "Genehmigung erforderlich",
-          "type": "Boolean"
-        }
-      ],
-      "description": "",
-      "module": "access"
-    },
-    {
-      "internalName": "BLC_Entitlements",
-      "displayName": "Berechtigungen",
-      "mode": "change",
-      "fields": [
-        {
-          "internalName": "TechnicalKey",
-          "displayName": "Technischer Schlüssel",
-          "type": "Text",
-          "required": true,
-          "indexed": true,
-          "unique": true
-        },
-        {
-          "internalName": "TargetSystemKey",
-          "displayName": "Zielsystem",
-          "type": "Text",
-          "indexed": true
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "RiskLevel",
@@ -881,65 +1538,493 @@
             "Medium",
             "High",
             "Critical"
-          ]
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        },
+        {
+          "internalName": "ValidFrom",
+          "displayName": "Gültig ab",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "ValidTo",
+          "displayName": "Gültig bis",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         }
       ],
-      "description": "",
+      "module": "access"
+    },
+    {
+      "internalName": "BLC_Entitlements",
+      "displayName": "Berechtigungen",
+      "mode": "change",
+      "catalog": true,
+      "description": "Technischer und fachlicher Berechtigungskatalog.",
+      "fields": [
+        {
+          "internalName": "TechnicalKey",
+          "displayName": "Technischer Schlüssel",
+          "type": "Text",
+          "required": true,
+          "indexed": true,
+          "unique": true,
+          "choices": []
+        },
+        {
+          "internalName": "Description",
+          "displayName": "Beschreibung",
+          "type": "Note",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "Category",
+          "displayName": "Kategorie",
+          "type": "Choice",
+          "indexed": true,
+          "choices": [
+            "Group",
+            "License",
+            "ApplicationRole",
+            "Mailbox",
+            "VPN",
+            "Telephony",
+            "SharePoint",
+            "Other"
+          ],
+          "required": false,
+          "unique": false
+        },
+        {
+          "internalName": "TargetSystemKey",
+          "displayName": "Zielsystem",
+          "type": "Text",
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "ProvisioningMode",
+          "displayName": "Provisionierungsmodus",
+          "type": "Choice",
+          "choices": [
+            "Manual",
+            "Automatic",
+            "External"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        },
+        {
+          "internalName": "ApprovalRequired",
+          "displayName": "Genehmigung erforderlich",
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "RiskLevel",
+          "displayName": "Risikostufe",
+          "type": "Choice",
+          "choices": [
+            "Low",
+            "Medium",
+            "High",
+            "Critical"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        },
+        {
+          "internalName": "Active",
+          "displayName": "Aktiv",
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        }
+      ],
       "module": "access"
     },
     {
       "internalName": "BLC_RoleEntitlements",
       "displayName": "Rollen-Berechtigungen",
       "mode": "extend",
+      "description": "Zuordnung von Berechtigungen zu Rollenprofilen.",
       "fields": [
+        {
+          "internalName": "RoleProfile",
+          "displayName": "Rollenprofil",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_RoleProfiles",
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "Entitlement",
+          "displayName": "Berechtigung",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Entitlements",
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
+        },
         {
           "internalName": "Mandatory",
           "displayName": "Verpflichtend",
-          "type": "Boolean"
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "ApprovalRequired",
           "displayName": "Genehmigung erforderlich",
-          "type": "Boolean"
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         },
         {
           "internalName": "SortOrder",
           "displayName": "Sortierung",
-          "type": "Number"
+          "type": "Number",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "ValidFrom",
+          "displayName": "Gültig ab",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "ValidTo",
+          "displayName": "Gültig bis",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
         }
       ],
-      "description": "",
       "module": "access"
     },
     {
       "internalName": "BLC_UserRoleAssignments",
       "displayName": "Benutzerrollen",
-      "fields": [],
-      "description": "",
+      "description": "Rollen-Sollzuweisungen je Beschäftigungsverhältnis.",
+      "fields": [
+        {
+          "internalName": "Employment",
+          "displayName": "Beschäftigung",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Employments",
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "RoleProfile",
+          "displayName": "Rollenprofil",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_RoleProfiles",
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "AssignmentSource",
+          "displayName": "Quelle",
+          "type": "Choice",
+          "choices": [
+            "Manual",
+            "Import",
+            "Rule",
+            "Lifecycle"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        },
+        {
+          "internalName": "ValidFrom",
+          "displayName": "Gültig ab",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "ValidTo",
+          "displayName": "Gültig bis",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "Active",
+          "displayName": "Aktiv",
+          "type": "Boolean",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        }
+      ],
       "mode": "create",
       "module": "access"
     },
     {
       "internalName": "BLC_UserEntitlementAssignments",
       "displayName": "Benutzerberechtigungen Soll",
-      "fields": [],
-      "description": "",
+      "description": "Berechnetes Berechtigungssoll je Beschäftigungsverhältnis.",
+      "fields": [
+        {
+          "internalName": "Employment",
+          "displayName": "Beschäftigung",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Employments",
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "Entitlement",
+          "displayName": "Berechtigung",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Entitlements",
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "SourceRoleProfile",
+          "displayName": "Quell-Rollenprofil",
+          "type": "Lookup",
+          "indexed": true,
+          "lookupList": "BLC_RoleProfiles",
+          "lookupField": "Title",
+          "required": false,
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "DesiredState",
+          "displayName": "Sollzustand",
+          "type": "Choice",
+          "choices": [
+            "Present",
+            "Absent"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        },
+        {
+          "internalName": "CalculatedAt",
+          "displayName": "Berechnet am",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        }
+      ],
       "mode": "create",
       "module": "access"
     },
     {
       "internalName": "BLC_ObservedEntitlements",
       "displayName": "Beobachtete Berechtigungen",
-      "fields": [],
-      "description": "",
+      "description": "Technisch festgestellter Istzustand von Berechtigungen.",
+      "fields": [
+        {
+          "internalName": "Employment",
+          "displayName": "Beschäftigung",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Employments",
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "Entitlement",
+          "displayName": "Berechtigung",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Entitlements",
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "ObservedState",
+          "displayName": "Istzustand",
+          "type": "Choice",
+          "choices": [
+            "Present",
+            "Absent",
+            "Unknown"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        },
+        {
+          "internalName": "Provider",
+          "displayName": "Provider",
+          "type": "Text",
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "ObservedAt",
+          "displayName": "Festgestellt am",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "ExternalObjectID",
+          "displayName": "Externe Objekt-ID",
+          "type": "Text",
+          "indexed": true,
+          "required": false,
+          "unique": false,
+          "choices": []
+        }
+      ],
       "mode": "create",
       "module": "access"
     },
     {
       "internalName": "BLC_EntitlementExceptions",
       "displayName": "Berechtigungsausnahmen",
-      "fields": [],
-      "description": "",
+      "description": "Genehmigte Abweichungen vom berechneten Berechtigungssoll.",
+      "fields": [
+        {
+          "internalName": "Employment",
+          "displayName": "Beschäftigung",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Employments",
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "Entitlement",
+          "displayName": "Berechtigung",
+          "type": "Lookup",
+          "required": true,
+          "indexed": true,
+          "lookupList": "BLC_Entitlements",
+          "lookupField": "Title",
+          "unique": false,
+          "choices": []
+        },
+        {
+          "internalName": "Reason",
+          "displayName": "Begründung",
+          "type": "Note",
+          "required": true,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "ApprovedBy",
+          "displayName": "Genehmigt von",
+          "type": "User",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "ValidFrom",
+          "displayName": "Gültig ab",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "ValidTo",
+          "displayName": "Gültig bis",
+          "type": "DateTime",
+          "required": false,
+          "unique": false,
+          "choices": [],
+          "indexed": false
+        },
+        {
+          "internalName": "Status",
+          "displayName": "Status",
+          "type": "Choice",
+          "choices": [
+            "Requested",
+            "Approved",
+            "Rejected",
+            "Expired",
+            "Revoked"
+          ],
+          "required": false,
+          "unique": false,
+          "indexed": false
+        }
+      ],
       "mode": "create",
       "module": "access"
     },

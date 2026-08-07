@@ -19,6 +19,17 @@ def field_map(item: dict) -> dict[str, dict]:
     return {field["internalName"]: field for field in item.get("fields", [])}
 
 
+def normalize_field(field: dict) -> dict:
+    normalized = dict(field)
+    normalized.setdefault("required", False)
+    normalized.setdefault("indexed", False)
+    normalized.setdefault("unique", False)
+    normalized.setdefault("choices", [])
+    if normalized.get("type") in {"Lookup", "LookupMulti"}:
+        normalized.setdefault("lookupField", "Title")
+    return normalized
+
+
 def validate_list(item: dict, source: str, policies: dict) -> None:
     for key in ("internalName", "displayName"):
         if not item.get(key):
@@ -27,7 +38,8 @@ def validate_list(item: dict, source: str, policies: dict) -> None:
         raise ValueError(f"{source}: Ungültiges Präfix: {item['internalName']}")
 
     fields: dict[str, dict] = {}
-    for field in item.get("fields", []):
+    for raw_field in item.get("fields", []):
+        field = normalize_field(raw_field)
         name = field.get("internalName")
         if not name or not field.get("displayName") or not field.get("type"):
             raise ValueError(f"{source}/{item['internalName']}: unvollständiges Feld")
@@ -102,6 +114,7 @@ def compile_schema(schema_dir: Path) -> dict:
             enriched = dict(item)
             enriched.setdefault("description", "")
             enriched.setdefault("fields", [])
+            enriched["fields"] = [normalize_field(field) for field in enriched["fields"]]
             enriched.setdefault("mode", "create")
             enriched["module"] = module["module"]
             lists.append(enriched)
